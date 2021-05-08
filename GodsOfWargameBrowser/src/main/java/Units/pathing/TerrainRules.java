@@ -10,8 +10,10 @@ package Units.pathing;
  *
  * @author brenn
  */
-public class TerrainRules {
-    public TerrainRules(){
-        
-    }
+public interface TerrainRules {
+    //Used with TerrainRules implementations to define Terrain That isn't valid for movement
+    public void Builder(String[] invalid);
+    //implentations use isValid() to decide on weather or not a square is Valid
+    //For pathing based on builder results. No builder call will mean everything is good
+    public boolean isValid();
 }
