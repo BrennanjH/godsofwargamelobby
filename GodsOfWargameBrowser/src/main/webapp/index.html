@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Gods Of Wargame</title>
+        <link rel = "stylesheet" type = "text/css" href = "CanvasStyles.css" />
+        <link rel = "stylesheet" type = "text/css" href = "SliderCSS.css" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    
+    <body>
+        <p id="money"></p>
+        <table>
+            <tr>
+                <td>
+                    <div id="CanvasBorder">
+                    <canvas id="myCanvas" width="1000" height="750"></canvas>
+                    </div>
+                    </td>
+                <td>
+                    <table>
+                        <tr>
+                            <td>
+                                <a onMouseOver="return changeImageTank()" onMouseOut="return changeImageBackTank()" 
+                                onMouseDown="return handleMDownTank()" onMouseUp="return handleMUpTank()"   >
+                                <img name="jsbutton" src="UnitTank.png" width="110" height="60" border="0" alt="javascript button"></a>
+                            </td>
+                            <td>
+                                <a onMouseOver="return changeImageAA()" onMouseOut="return changeImageBackAA()" 
+                                onMouseDown="return handleMDownAA()" onMouseUp="return handleMUpAA()"   >
+                                <img name="jsbutton" src="UnitAntiAir.png" width="110" height="60" border="0" alt="javascript button"></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a onMouseOver="return changeImagePlane()" onMouseOut="return changeImageBackPlane()" 
+                                onMouseDown="return handleMDownPlane()" onMouseUp="return handleMUpPlane()"   >
+                                <img name="jsbutton" src="UnitPlane.png" width="110" height="60" border="0" alt="javascript button"></a>
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+                    <div class="slidecontainer">
+                       <input type="range" min="1" max="100" value="50" class="slider" id="HealthSlider">
+                       <p>Health Val: <span id="healthVal"></span></p>
+                       <input type="range" min="1" max="100" value="50" class="slider" id="DamageSlider">
+                       <p>Damage Val: <span id="damageVal"></span></p>
+                       <input type="range" min="1" max="100" value="50" class="slider" id="SpeedSlider">
+                       <p>Speed Val: <span id="speedVal"></span></p>
+                       <input type="range" min="0" max="5" value="1" class="slider" id="RangeSlider">
+                       <p>Range Val: <span id="rangeVal"></span></p>
+                       <button type="button" onClick="return setNextUnit()">Create Unit</button>
+                       <script src="Sliders.js"></script>
+                    </div>
+                    
+                </td>
+            </tr>
+        </table>
+        <script src="playerData.js"></script>
+        <script src="ButtonHandlers.js"></script>
+        <script src="moveUnitCommand.js"></script>
+        <script src="JSONdecoder.js"></script>
+        <script src="UnitObject.js"></script>
+        <script src="playerInputs.js"></script>
+        <script src="ruleChecking.js"></script>
+        
+        <script src="createUnitCommand.js"></script>
+        <script src="settingsVar.js"></script>
+        <script src="websocket.js"></script>
+        <script src="settingsCommand.js"></script>
+        <script src="renderEngine.js"></script>
+        
+    
+    </body>
+</html>
