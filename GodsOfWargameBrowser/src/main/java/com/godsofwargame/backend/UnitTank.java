@@ -10,15 +10,24 @@ import Units.UnitTankAttack;
 import Units.UnitTankCreate;
 import Units.pathing.UnitTankMovement;
 import Units.UnitTankRemoval;
+import Units.pathing.UnitTankTerrainRules;
 
 /**
  *
  * @author brenn
  */
 public class UnitTank extends UnitTypes {
+    
     @Override
     public void move(GodsofWargame gameState,int newX,int newY, String ID){ //final parameter not needed
-        moveHandler = new UnitTankMovement(this);//See package Units for code
+        if(this.terrainRules == null){
+            terrainRules = new UnitTankTerrainRules();
+            moveHandler = new UnitTankMovement(this);//See package Units for code
+            
+        }
+        else{
+            moveHandler = new UnitTankMovement(this);
+        }
         moveHandler.move(gameState,newX,newY,ID);
     }
     @Override

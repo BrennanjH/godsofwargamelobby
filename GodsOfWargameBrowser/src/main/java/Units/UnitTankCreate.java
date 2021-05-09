@@ -45,15 +45,7 @@ public class UnitTankCreate extends AbstractUnitCreate{
         return gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size();
     }
     private boolean isTerrainValid(Map gameState){
-        if( gameState.getTerrain(mover.getUxPos(),mover.getUyPos()).getType() >= 1 ){//WARNING originally was y,x but I'm trying to fix code to all be x,y so I've changed this
-
-            System.out.println("isTerrainvalid returning false, create command failed");
-            
-            return false;
-
-        }
-        else
-        return true;
+        return mover.getTerrainRules().isValid(gameState.getTerrain(mover.getUxPos(),mover.getUyPos()));
     }
     private int getCost(){
         return (mover.getUdamage()*damagePrice)

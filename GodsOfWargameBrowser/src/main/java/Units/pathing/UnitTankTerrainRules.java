@@ -5,20 +5,24 @@
  */
 package Units.pathing;
 
-/**Acts as a template object that when constructed automatically defines terrain valid for tanks.
+import com.godsofwargame.backend.Terrain;
+
+/**Acts as a template object that when constructed automatically defines terrain valid for tanks
+ * If a Unit moves like a tank it is forcibly moved like this.
  *
  * @author brenn
  */
 public class UnitTankTerrainRules implements TerrainRules{
 
+    String[] badSpots = {"MOUNTAIN"};
+    
     @Override
-    public void Builder(String[] invalid) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isValid() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean isValid(Terrain terrain) {
+        for(String s : badSpots){
+            if(terrain.getType().equals(s))
+                return false;
+        }
+        return true;
     }
     
     

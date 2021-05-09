@@ -50,7 +50,7 @@ public class createUnitCommand implements commandInterface {
     }
     */
     private boolean isTerrainValid(Map gameState){
-        if( gameState.getTerrain(newUnit.getUxPos(),newUnit.getUyPos()).getType() >= 1 ){//WARNING originally was y,x but I'm trying to fix code to all be x,y so I've changed this
+        if( gameState.getTerrain(newUnit.getUxPos(),newUnit.getUyPos()).getType().equals("MOUNTAIN") ){//WARNING originally was y,x but I'm trying to fix code to all be x,y so I've changed this
 
             System.out.println("isTerrainvalid returning false, create command failed");
             

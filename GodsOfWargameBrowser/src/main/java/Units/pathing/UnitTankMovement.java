@@ -20,17 +20,17 @@ public class UnitTankMovement extends AbstractUnitMovement{
     TerrainRules terrainRules;
     int lx,ly;
     Routing path;
-    public UnitTankMovement(UnitTypes unit){
+    //constructor to be used by new units that have tank pathing but not tank terrain interactions
+    public UnitTankMovement(UnitTypes unit) {
         mover = unit;
-        terrainRules.
-        //TODO define the terrain rules class so that it can be used by tanks
+        terrainRules = unit.getTerrainRules();
     }
     @Override
     public void beginMovement(){
         if(mover.getUxPos() == lx && mover.getUyPos() == ly)
             moving= false;
         else{
-            PathLogic pather = new Pather();
+            PathLogic pather = new Pather(terrainRules);
             pather.calcPath(mover.getUxPos(), mover.getUyPos(), lx, ly);
         }
     }
@@ -42,7 +42,7 @@ public class UnitTankMovement extends AbstractUnitMovement{
         UnitTypes serverProof = gameState.getMapState().getUnitTypeinDeployedForces(mover.getUxPos(), mover.getUyPos(), mover.getUzPos());
         System.out.println("is check Owner: " + checkOwner(serverProof, ID));
         
-        if(gameState.getMapState().getTerrain(mover.getUxPos(), mover.getUyPos()).getType() == 0 && checkOwner(serverProof, ID) ){//WARNING may have an y,x bug here
+        //if(gameState.getMapState().getTerrain(mover.getUxPos(), mover.getUyPos()).getType() == 0 && checkOwner(serverProof, ID) ){//WARNING may have an y,x bug here
             System.out.println("Move called and succeeded");
             moving = true;
             path = new Routing();
@@ -60,7 +60,7 @@ public class UnitTankMovement extends AbstractUnitMovement{
             //moveData.addUnitForDeletion(serverProof);//unit passed in JSON for frontend use
             //moveData.addUnit(temp);//unit passed in JSON for frontend use
             mapUpdater.updateUnitState(gameState.getMapState(),mover,temp);//caling STATIC method to update backend lists
-        }
+        
         
         //return moveData;
     }

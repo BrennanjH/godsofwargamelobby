@@ -12,8 +12,9 @@ import com.google.gson.annotations.Expose;
 public class Terrain{
    //1 is mountains, 0 is plains
    //Change to String so it's more obvious what is what
+   private String[] temp = {"PLAIN","MOUNTAIN"};
    @Expose(serialize= true)
-   private int type=-1; 
+   private String type="NOT_SET"; 
    @Expose(serialize= true)
    private int xVal;
    @Expose(serialize= true)
@@ -23,7 +24,7 @@ public class Terrain{
         generate(x,y);
     }
     private Terrain generate(int x, int y){
-      type = (int) (Math.random()*2);
+      type = temp[((int) (Math.random()*2))];
       xVal = x;
       yVal = y;//the render engine will invert these value later due to the grid being based on a screen and not a concept
       //System.out.println(type);
@@ -46,14 +47,14 @@ public class Terrain{
         this.yVal = yVal;
     }
 
-    
-   
-    public void terrainAlteration(int newType){
-        type = newType;
-    }
-
-    public int getType() {
+    public String getType() {
         return type;
     }
+
+    public void terrainAlteration(String type) {
+        this.type = type;
+    }
+
+    
    
 }

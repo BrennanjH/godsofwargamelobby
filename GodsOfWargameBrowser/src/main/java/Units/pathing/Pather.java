@@ -13,6 +13,10 @@ import com.godsofwargame.backend.UnitTypes;
  */
 public class Pather implements PathLogic{
     int difX ,difY;
+    TerrainRules trailBlazer;
+    public Pather(TerrainRules terrainRules){
+        trailBlazer = terrainRules;
+    }
     @Override
     public Routing calcPath(int startX,int startY, int endX, int endY){
         Routing chosenPath = new Routing();
@@ -22,7 +26,7 @@ public class Pather implements PathLogic{
         cardinalScanner();
         return chosenPath;
     }
-    //This is public but it should probably be 
+    
     @Override
     public void cardinalScanner(){
         
