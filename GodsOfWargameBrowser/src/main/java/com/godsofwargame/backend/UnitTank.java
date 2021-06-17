@@ -22,11 +22,11 @@ public class UnitTank extends UnitTypes {
     public void move(GodsofWargame gameState,int newX,int newY, String ID){ //final parameter not needed
         if(this.terrainRules == null){
             terrainRules = new UnitTankTerrainRules();
-            moveHandler = new UnitTankMovement(this);//See package Units for code
+            moveHandler = new UnitTankMovement(this, gameState);//See package Units for code
             
         }
         else{
-            moveHandler = new UnitTankMovement(this);
+            moveHandler = new UnitTankMovement(this, gameState);
         }
         moveHandler.move(gameState,newX,newY,ID);
     }

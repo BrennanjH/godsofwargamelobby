@@ -14,7 +14,7 @@ import com.godsofwargame.backend.Terrain;
  */
 public class UnitTankTerrainRules implements TerrainRules{
 
-    String[] badSpots = {"MOUNTAIN"};
+    final String[] badSpots = {"MOUNTAIN"};
     
     @Override
     public boolean isValid(Terrain terrain) {

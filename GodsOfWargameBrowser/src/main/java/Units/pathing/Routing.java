@@ -5,7 +5,7 @@
  */
 package Units.pathing;
 
-import com.godsofwargame.backend.Terrain;
+import Location.Coordinate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,6 @@ import java.util.List;
  * @author brenn
  */
 public class Routing {
-    public List<Terrain> pathingRoute = new ArrayList<>();
-    
+    public List<Coordinate> pathingRoute = new ArrayList<>();
     
 }

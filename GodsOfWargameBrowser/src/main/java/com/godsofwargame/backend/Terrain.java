@@ -10,8 +10,7 @@ import com.google.gson.annotations.Expose;
 
 
 public class Terrain{
-   //1 is mountains, 0 is plains
-   //Change to String so it's more obvious what is what
+   
    private String[] temp = {"PLAIN","MOUNTAIN"};
    @Expose(serialize= true)
    private String type="NOT_SET"; 
@@ -52,6 +51,10 @@ public class Terrain{
     }
 
     public void terrainAlteration(String type) {
+        this.type = type;
+    }
+
+    public void setType(String type) {
         this.type = type;
     }
 
