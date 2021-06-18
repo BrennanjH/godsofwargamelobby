@@ -5,26 +5,23 @@
  */
 package com.godsofwargame.backend;
 
+import Units.pathing.Routing;
 import java.util.HashMap;
-import java.util.Set;
 /**
  *
  * @author brenn
  */
 public class moveUnitCommand implements commandInterface{//a small class that handles movement related commands
     HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
-    int newX;
-    int newY;
-    int newZ;
+    Routing movePath;
     UnitTypes movingUnit;
-    //jsonsendHolder listHolder;
     
     @Override
     public void execute(GodsofWargame gameState, String ID){
         try {
         System.out.println("MoveUnitCommand executed");
-        //listHolder = movingUnit.move(gameState,newX,newY,newZ);
-        movingUnit.move(gameState,newX,newY, ID);
+        
+        movingUnit.move(gameState, movePath, ID);
         } catch (ArrayIndexOutOfBoundsException E){
             System.out.println("Index error at MoveUnit");
         }

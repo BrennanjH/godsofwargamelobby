@@ -13,6 +13,7 @@ import Units.UnitPlaneAttack;
 import Units.UnitPlaneCreate;
 import Units.pathing.UnitPlaneMovement;
 import Units.UnitTankRemoval;
+import Units.pathing.Routing;
 
 /**
  *
@@ -20,9 +21,9 @@ import Units.UnitTankRemoval;
  */
 public class UnitPlane extends UnitTypes{
     @Override
-    public void move(GodsofWargame gameState,int newX,int newY, String ID){//TODO finish this, also int newZ is probably useless
+    public void move(GodsofWargame gameState,Routing movePath, String ID){//TODO finish this, also int newZ is probably useless
         moveHandler = new UnitPlaneMovement(this);
-        moveHandler.move(gameState,newX,newY,ID);
+        moveHandler.move(gameState,movePath,ID);
     }
     @Override
     public void attack(GodsofWargame gameState){

@@ -33,7 +33,7 @@ public class UnitTankMovement extends AbstractUnitMovement{
     }
     //Generates Routing object
     @Override
-    public void move(GodsofWargame gameState,int newX,int newY, String ID){
+    public void move(GodsofWargame gameState,Routing movePath, String ID){
         
     }
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y

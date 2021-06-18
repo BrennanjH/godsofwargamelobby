@@ -10,6 +10,7 @@ import Units.UnitTankAttack;
 import Units.UnitTankCreate;
 import Units.pathing.UnitTankMovement;
 import Units.UnitTankRemoval;
+import Units.pathing.Routing;
 import Units.pathing.UnitTankTerrainRules;
 
 /**
@@ -19,7 +20,7 @@ import Units.pathing.UnitTankTerrainRules;
 public class UnitTank extends UnitTypes {
     
     @Override
-    public void move(GodsofWargame gameState,int newX,int newY, String ID){ //final parameter not needed
+    public void move(GodsofWargame gameState, Routing movePath, String ID){ //final parameter not needed
         if(this.terrainRules == null){
             terrainRules = new UnitTankTerrainRules();
             moveHandler = new UnitTankMovement(this, gameState);//See package Units for code
@@ -28,7 +29,7 @@ public class UnitTank extends UnitTypes {
         else{
             moveHandler = new UnitTankMovement(this, gameState);
         }
-        moveHandler.move(gameState,newX,newY,ID);
+        moveHandler.move(gameState,movePath,ID);
     }
     @Override
     public void attack(GodsofWargame gameState){

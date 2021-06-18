@@ -11,6 +11,7 @@ import Units.pathing.AbstractUnitMovement;
 import Units.AbstractUnitRemoval;
 import Units.UnitCommandStructureCreate;
 import Units.UnitCommandStructureRemoval;
+import Units.pathing.Routing;
 
 
 /**
@@ -27,8 +28,8 @@ public class UnitCommandStructure extends UnitTypes{
     //InterfaceUnitRemoval removalHandler;
     
     @Override
-    public void move(GodsofWargame gameState,int newX,int newY, String ID){
-        moveHandler.move(gameState,newX,newY,ID);
+    public void move(GodsofWargame gameState,Routing movePath, String ID){
+        moveHandler.move(gameState,movePath,ID);
     }
     @Override
     public void attack(GodsofWargame gameState){

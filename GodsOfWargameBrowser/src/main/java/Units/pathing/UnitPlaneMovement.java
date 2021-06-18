@@ -26,29 +26,8 @@ public class UnitPlaneMovement extends AbstractUnitMovement{
         
     }
     @Override
-    public void move(GodsofWargame gameState,int newX,int newY, String ID){
-        //jsonsendHolder moveData = new jsonsendHolder();
-        UnitTypes serverProof = gameState.getMapState().getUnitTypeinDeployedForces(mover.getUxPos(), mover.getUyPos(), mover.getUzPos());
-        System.out.println("is check Owner: " + checkOwner(serverProof, ID));
+    public void move(GodsofWargame gameState,Routing movePath, String ID){
         
-        if(checkOwner(serverProof, ID) ){//WARNING may have an y,x bug here
-            System.out.println("Move called and succeeded");
-            moving = true;
-            
-            UnitTypes temp = serverProof;//creating a new unit to take on changed properties without altering original reference.
-            
-            temp.setUxPos(newX);
-            temp.setUyPos(newY);
-            temp.setUzPos(bottomStacker(gameState.getMapState()));
-            
-            
-        ////Following code is for updating frontend/backend systems///////////////////////////////////////////////////////////
-            //moveData.addUnitForDeletion(serverProof);//unit passed in JSON for frontend use
-            //moveData.addUnit(temp);//unit passed in JSON for frontend use
-            mapUpdater.updateUnitState(gameState.getMapState(),mover,temp);//caling STATIC method to update backend lists
-        }
-        
-        //return moveData;
     }
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
         System.out.println(gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size());

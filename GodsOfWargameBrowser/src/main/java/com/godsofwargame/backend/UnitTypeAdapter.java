@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonPrimitive;
 import java.lang.reflect.Type;
-/**
+/** This class is used to deserialize units sent from json, It is expected to be used by the json Handler
  *
  * @author brenn
  */
