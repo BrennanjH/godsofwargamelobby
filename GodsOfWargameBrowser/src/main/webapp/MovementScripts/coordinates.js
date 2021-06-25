@@ -8,4 +8,7 @@
  * Usually the path defined here will be created by pather
  * No checking is done by Coordinates Code if a path must be verified ruleChecking.js should be referenced
  */
-
+function Coordinate(x,y){
+    this.xPos = x,
+    this.yPos = y;
+}

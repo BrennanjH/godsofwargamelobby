@@ -5,10 +5,14 @@
  */
 package Location;
 
-/**
+/** An interface that defines the existence of an x and y Position
  *
  * @author brenn
  */
 public interface Coordinate {
     
+    public int getxPos();
+    public void setxPos(int xPos);
+    public int getyPos();
+    public void setyPos(int yPos);
 }

@@ -17,6 +17,5 @@ abstract public class AbstractGenericTerrainRules implements TerrainRules{
     public void builder(String[] badSpots){
         this.badSpots = badSpots;
     }
-    //Note that it doesn't override TerrainRules isValid(); 
-    //That's because 
+    
 }
