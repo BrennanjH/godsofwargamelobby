@@ -12,7 +12,10 @@ import java.util.HashMap;
  * @author brenn
  */
 public class moveUnitCommand implements commandInterface{//a small class that handles movement related commands
-    HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
+////RETURN TO SENDER//////////////////////////////////////////////////////////////////////////
+    //HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
+////COMMAND REQUIREMENTS//////////////////////////////////////////////////////////////////////////    
+    
     Routing movePath;
     UnitTypes movingUnit;
     

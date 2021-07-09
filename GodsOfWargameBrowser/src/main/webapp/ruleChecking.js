@@ -20,7 +20,8 @@ function movePossibleClient(){//runs first then sends a check to server
     else{
         console.log(zpos);
         console.log(unitList[x1][y1][0]);
-        var movingunit = new moveUnitCommand(unitList[x1][y1][0]  ,  x2  , y2, zpos);//moves the top unit only
+        
+        var movingunit = new moveUnitCommand(unitList[x1][y1][0]  , );//moves the top unit only
         
         movePossibleServer(movingunit);
         

@@ -4,19 +4,16 @@
  * and open the template in the editor.
  */
 
-
-function moveUnitCommand(unitObj ,x ,y, z){
-    this.className = "moveUnitCommand";
-    this.unitType = "UnitTank";
-    this.units =  {
-        unitObject : unitObj
-    };
+//All objects exist in command object backend uses.
+function moveUnitCommand(unitObj , path){
+    
+    this.unitObject = unitObj;
+    this.movePath = path; 
+    
+////Adaptor support objects//////////////////////////////////////////////////////////////////////////
     this.data = {
-        info : {
-            newX : x,
-            newY : y,
-            newZ : z
-        }
+        className : "moveUnitCommand",
+        unitType : "UnitTank"
     };
     
 }
