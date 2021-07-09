@@ -10,20 +10,21 @@ import com.google.gson.annotations.Expose;
 
 
 public class Terrain{
+   //@Expose(serialize=false)
+   //private String[] temp = {"PLAIN","MOUNTAIN"};
    
-   private String[] temp = {"PLAIN","MOUNTAIN"};
-   @Expose(serialize= true)
+   //@Expose(serialize= true)
    private String type="NOT_SET"; 
-   @Expose(serialize= true)
+   //@Expose(serialize= true)
    private int xVal;
-   @Expose(serialize= true)
+   //@Expose(serialize= true)
    private int yVal;
     
     public Terrain(int x,int y){
         generate(x,y);
     }
     private Terrain generate(int x, int y){
-      type = temp[((int) (Math.random()*2))];
+      type = TerrainTypes.getTemp()[((int) (Math.random()*2))];
       xVal = x;
       yVal = y;//the render engine will invert these value later due to the grid being based on a screen and not a concept
       //System.out.println(type);
