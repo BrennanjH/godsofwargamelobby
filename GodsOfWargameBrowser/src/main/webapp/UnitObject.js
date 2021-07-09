@@ -10,6 +10,7 @@
  var health;
  var range;
  var damage;
+ var TerrainRules;
  //following three get assigned when the unit is actually placed onto the grid
  var xPos;
  var yPos;
@@ -19,6 +20,7 @@
  
 function Unit() {
     this.UnitType = "UnitTank";//will be set by methods later
+    this.terrainRules = TerrainRules;
     this.OWNER = playerID;
         this.uhealth = health;
         this.uspeed = speed;
@@ -29,18 +31,7 @@ function Unit() {
         this.uzPos = zPos;//this will also determine which unit is rendered. by default the first unit is chosen. //Currently obsolete
 
 }
- function setNextUnit(){
 
-     setClass("tank");//Currently unused as since input is impossible
-     setSpeed(getslideSpeed());
-     setHealth(getslideHealth());
-     setRange(getslideRange());
-     setDamage(getslideDamage());
-     removeMoveListener();
-     
-     addUnitEventListener();
-     console.log("setNextUnitCalled");
- }
  function setNextUnitPos(mouseX,mouseY){
      xPos = mouseX;
      yPos = mouseY;

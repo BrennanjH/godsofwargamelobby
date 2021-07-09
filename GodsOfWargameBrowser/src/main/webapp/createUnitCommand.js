@@ -7,9 +7,7 @@
 function createUnitCommand(){
     this.className = "createUnitCommand";
     this.unitType = "UnitTank";
-    this.units = {
-        unitObject : new Unit()//WARNING This severely limits command variation.
-    };
+    this.unitObject = new Unit();
     this.data = {
         info : {
             notReal : 0
