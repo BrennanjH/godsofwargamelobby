@@ -6,11 +6,7 @@
 
 function createUnitCommand(){
     this.className = "createUnitCommand";
-    this.unitType = "UnitTank";
     this.unitObject = new Unit();
-    this.data = {
-        info : {
-            notReal : 0
-        }
-    };
+    
 }
+

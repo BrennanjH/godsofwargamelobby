@@ -15,11 +15,11 @@
  var xPos;
  var yPos;
  var zPos;
-
+ var type;
 
  
 function Unit() {
-    this.UnitType = "UnitTank";//will be set by methods later
+    this.UnitType = type;//will be set by methods later
     this.terrainRules = TerrainRules;
     this.OWNER = playerID;
         this.uhealth = health;
