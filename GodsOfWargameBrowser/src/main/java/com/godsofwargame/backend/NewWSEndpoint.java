@@ -6,6 +6,8 @@
 package com.godsofwargame.backend;
 
 
+import JSONOrienter.JSONHandler;
+import JSONOrienter.JSONInternalHandler;
 import com.google.gson.Gson;
 import java.io.IOException;
 import javax.websocket.EncodeException;
@@ -14,7 +16,6 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
-import java.util.HashMap;
 
 /**
  *
@@ -28,17 +29,20 @@ public class NewWSEndpoint {
     //private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private playerData player;
     Gson serial = new Gson();
-    JSONhandler passer = new JSONhandler();
+    //JSONhandler passer = new JSONhandler(); //DEPRECATED
+    
+    JSONHandler passer = new JSONInternalHandler(gameState);
     //TODO figure out how player ID's are going to be secure.
     @OnMessage
     public void messageRecieved(String incoming, Session session) throws IOException, EncodeException {
         System.out.println("incomingJSON: " + incoming);
         System.out.println("incomingID: " + session.getId());
-        passer.passMessage(incoming, gameState, session.getId());
         
-        HashMap<String, String> serializedData = new HashMap<>();
-        serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData); //Note that all players get their gameState refreshed
-        DataDistributer.distributeToPeers(gameState.getClients(), serializedData);
+        passer.deserialize(incoming);
+        
+        //HashMap<String, String> serializedData = new HashMap<>();
+        //serializedData = passer.serialize(); //Note that all players get their gameState refreshed
+        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
     }
     @OnOpen 
     public void onOpen (Session peer) { 
@@ -53,9 +57,9 @@ public class NewWSEndpoint {
             gameState.load();
             System.out.println("Gamestate load Complete");
         }
-        HashMap<String, String> serializedData = new HashMap<>();
-        serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData); //Note that all players get their gameState refreshed
-        DataDistributer.distributeToPeers(gameState.getClients(), serializedData);
+        //HashMap<String, String> serializedData = new HashMap<>();
+        //serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), passer.serialize()); //Note that all players get their gameState refreshed
+        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         
     }
     //TODO there is a bug when player leave and join that seems to fail to shutdown or start certain threads (namely Timer0)
@@ -67,9 +71,9 @@ public class NewWSEndpoint {
             gameState.setIsInstantiated(false);
             gameState.cancelTimer();//Shut down timer at last peer leaving
         }else{
-        HashMap<String, String> serializedData = new HashMap<>();
-        serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData); //Note that all players get their gameState refreshed
-        DataDistributer.distributeToPeers(gameState.getClients(), serializedData);
+        //HashMap<String, String> serializedData = new HashMap<>();
+        //serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData); //Note that all players get their gameState refreshed
+        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         }
         //peers.remove(peer);
         System.out.println("peer left");

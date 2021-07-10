@@ -7,14 +7,13 @@ package com.godsofwargame.backend;
 
 
 import java.util.HashMap;
-import java.util.Set;
 
 /**
  *
  * @author brenn
  */
 public class createUnitCommand implements commandInterface {
-    HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
+    //HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
     private UnitTypes newUnit;//this only works if I set it to be a spec unit type
     
     
@@ -22,6 +21,10 @@ public class createUnitCommand implements commandInterface {
     @Override
     public String testValue(){
         return "I'm currently a create Unit command";
+    }
+    @Override
+    public void setUnit(UnitTypes unit){
+        newUnit = unit;
     }
 //********KICKSTART*********************************************************************************************************************
 
@@ -40,22 +43,13 @@ public class createUnitCommand implements commandInterface {
         
     }
 //********HELPER METHODS*********************************************************************************************************************
-    /*
-    private void distributionRuleSet(Map gameState, jsonsendHolder serverSet){//Heres where fog of war rules get made
-        Set<String> keys = gameState.getPlayers().keySet();
-        for( String s : keys){ //Since there are no special rules on creation yet this for loop is fine
-            
-            dataForSending.put(s, serverSet);
-        }
-    }
-    */
+    
     private boolean isTerrainValid(Map gameState){
         if( gameState.getTerrain(newUnit.getUxPos(),newUnit.getUyPos()).getType().equals("MOUNTAIN") ){//WARNING originally was y,x but I'm trying to fix code to all be x,y so I've changed this
 
             System.out.println("isTerrainvalid returning false, create command failed");
             
             return false;
-
         }
         else
         return true;
@@ -69,8 +63,5 @@ public class createUnitCommand implements commandInterface {
         return dataForSending;
     }
     */
-    @Override
-    public void setUnit(UnitTypes unit){
-        newUnit = unit;
-    }
+    
 }
