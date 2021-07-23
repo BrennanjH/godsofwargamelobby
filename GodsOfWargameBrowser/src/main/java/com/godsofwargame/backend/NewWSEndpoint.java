@@ -7,8 +7,7 @@ package com.godsofwargame.backend;
 
 
 import JSONOrienter.JSONHandler;
-import JSONOrienter.JSONInternalHandler;
-import com.google.gson.Gson;
+import JSONOrienter.JSONCommandHandler;
 import java.io.IOException;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -28,20 +27,22 @@ public class NewWSEndpoint {
     private static GodsofWargame gameState = new GodsofWargame();//STATIC
     //private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private playerData player;
-    Gson serial = new Gson();
+    //Gson serial = new Gson();
     //JSONhandler passer = new JSONhandler(); //DEPRECATED
     
-    JSONHandler passer = new JSONInternalHandler(gameState);
-    //TODO figure out how player ID's are going to be secure.
+    JSONHandler passer = new JSONCommandHandler(gameState);
+    
     @OnMessage
     public void messageRecieved(String incoming, Session session) throws IOException, EncodeException {
         System.out.println("incomingJSON: " + incoming);
         System.out.println("incomingID: " + session.getId());
         
-        passer.deserialize(incoming);
-        
-        //HashMap<String, String> serializedData = new HashMap<>();
-        //serializedData = passer.serialize(); //Note that all players get their gameState refreshed
+        //Note if system starts to recieve to many commands during runtime a buffer for commands or messages may needed
+        //Since we can use multicore processing for commands and execution seperatly we should have the buffer store
+        //Commands that have been deserialized since no thread contamination can occur at that stage
+        CommandProcessor commandSorter = new CommandProcessor();
+        commandInterface temp = passer.deserialize(incoming);
+        commandSorter.processor(temp, gameState, session.getId());
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
     }
     @OnOpen 

@@ -38,11 +38,11 @@ function unitHandling(list){
 }
 function terrainHandling(list){
     if(typeof list[0] !== "undefined"){
-        if(typeof arrayHeight === "undefined"){//checks if initializing has happened, only runs once
-        settingsCommand();
-        initGrid();
+        setTerrainMap(list);//TODO change this to only change the terrain objects that conflict with new Terrain (may not be reasonable design choice)
+        for(i =0; i< list.length; i++){
+            drawTerrain(list[i]);
         }
-        setTerrainMap(list);//TODO change this to only change the terrain objects that conflict with new Terrain
+        
     }
 }
 //TODO see if there is a way to cut these methods out after first use

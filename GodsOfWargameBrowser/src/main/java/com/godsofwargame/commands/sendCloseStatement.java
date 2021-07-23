@@ -21,13 +21,7 @@ class sendCloseStatement {
     sendCloseStatement(GodsofWargame gameState){
         this.gameState = gameState;
     }
-    //Sends default endMessage, Doesn't identify who won or what happened and is intended for Emergency shutdown.
-    HashMap<String, jsonsendHolder> sendCloseMessage(){
-        jsonsendHolder messageHolder = new jsonsendHolder();
-        messageHolder.addServerMessage("GAME HAS ENDED");
-        return peerSpecificIdentifier.simpleData(gameState, messageHolder);
-        
-    }
+    
     //Broadcasts a custom message to everybody, Intended for use cases where custom Error is desired
     HashMap<String, jsonsendHolder> sendCustomCloseMessage(String messageEnd){
         jsonsendHolder messageHolder = new jsonsendHolder();
@@ -36,6 +30,7 @@ class sendCloseStatement {
         
     }
     //Sends just one session a close message, for use when somebody is Forcibly being disconnected but other users aren't
+    //TODO finish this method
     void sendSessionCloseMessage(String message, Session listener){
         jsonsendHolder messageHolder = new jsonsendHolder();
         

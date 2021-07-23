@@ -4,10 +4,10 @@
  * and open the template in the editor.
  */
 package TimerSystems;
+import JSONOrienter.JSONHandler;
+import JSONOrienter.JSONCommandHandler;
 import com.godsofwargame.backend.DataDistributer;
 import com.godsofwargame.backend.GodsofWargame;
-import com.godsofwargame.backend.JSONhandler;
-import com.godsofwargame.backend.UnitTypes;
 import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.peerSpecificIdentifier;
 import java.util.HashMap;
@@ -39,10 +39,11 @@ public class TimerScheduler extends TimerTask{
     }
     private void updatePlayers(){
         
-        JSONhandler passer = new JSONhandler();
-        HashMap<String, String> serializedData = new HashMap<>();
-        serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData);
-        DataDistributer.distributeToPeers(gameState.getClients(), serializedData);
+        //JSONhandler passer = new JSONhandler();
+        JSONHandler passer = new JSONCommandHandler(gameState);
+        //HashMap<String, String> serializedData = new HashMap<>();
+        //serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData);
+        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         
     }
     

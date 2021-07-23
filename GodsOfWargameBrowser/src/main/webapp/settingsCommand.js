@@ -5,7 +5,7 @@
  */
 
 
-
+//Deprecated, remove after confirmation
 function settingsCommand() {
     let s = new setting();
     sendText(JSON.stringify(s));

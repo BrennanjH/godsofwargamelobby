@@ -7,12 +7,13 @@ package JSONOrienter;
 
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.commandInterface;
-import com.godsofwargame.backend.interfaceAdapter;
 import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.peerSpecificIdentifier;
+import com.godsofwargame.commands.DeserializationErrorCommand;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /** When JSON is sent to server something needs to read it and get into a form
@@ -21,13 +22,14 @@ import java.util.HashMap;
  *
  * @author brenn
  */
-public class JSONInternalHandler implements JSONHandler{
+public class JSONCommandHandler implements JSONHandler{
     private GodsofWargame gameState;
     //private String id;
-    public JSONInternalHandler(GodsofWargame gameState){
+    public JSONCommandHandler(GodsofWargame gameState){
         this.gameState = gameState;
         
     }
+    //Essentially serializes gameState, a conveniance method that ideally shouldn't be used but it's too hard to always presort data before trying to serialize
     @Override
     public HashMap<String, String> serialize(){
         HashMap<String, String> serializedData = new HashMap<>();
@@ -35,9 +37,22 @@ public class JSONInternalHandler implements JSONHandler{
         return serializedData;
     }
     @Override
-    public void deserialize(String incoming ){
-        CommandOrientation head = new CommandOrientation(incoming);
-        head.commandSoftStart();
+    public HashMap<String, String> serialize(HashMap<String, jsonsendHolder> objectData){
+        HashMap<String, String> serializedData = new HashMap<>();
+        convertToString(objectData, serializedData);
+        return serializedData;
+    }
+    @Override
+    public commandInterface deserialize(String incoming ){
+        CommandOrientation head = new CommandOrientation(incoming);//TODO get the header of the command and serialize it
+        System.out.println("Got to deserialize");
+        
+        try {
+            return head.commandGetStart();
+        } catch (InvalidJSONException ex) {
+            Logger.getLogger(JSONCommandHandler.class.getName()).log(Level.SEVERE, null, ex);
+            return new DeserializationErrorCommand();
+        }
     }
     
     private HashMap<String, String> convertToString(HashMap<String, jsonsendHolder> objectData, HashMap<String, String> Stringdata){

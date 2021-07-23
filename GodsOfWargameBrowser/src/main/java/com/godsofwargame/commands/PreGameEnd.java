@@ -5,13 +5,13 @@
  */
 package com.godsofwargame.commands;
 
+import JSONOrienter.JSONCommandHandler;
+import JSONOrienter.JSONHandler;
 import com.godsofwargame.backend.DataDistributer;
 import com.godsofwargame.backend.GodsofWargame;
-import com.godsofwargame.backend.JSONhandler;
 import com.godsofwargame.backend.UnitCommandStructure;
 import com.godsofwargame.backend.UnitTypes;
 import java.io.IOException;
-import java.util.HashMap;
 /**
  *Whenever a command Structure is lost this is called, It first checks the total number of command Structures remaining
  * If one or less remain the game will fully end, if more than one exists then whoever lost theirs is passed to PlayerToSpectator,
@@ -20,7 +20,7 @@ import java.util.HashMap;
  */
 public class PreGameEnd implements internalCommands{
     GodsofWargame gameState;
-    JSONhandler passer = new JSONhandler();
+    //JSONhandler passer = new JSONhandler();
     UnitCommandStructure removed;//as gameEnding is related to 
     public PreGameEnd(GodsofWargame GameState){
         gameState = GameState;
@@ -34,9 +34,11 @@ public class PreGameEnd implements internalCommands{
         try {
             if(isLastCommander(gameState)){
                 sendCloseStatement closer = new sendCloseStatement(gameState);
-                HashMap<String, String> serializedEnd = new HashMap<>();
-                serializedEnd = passer.convertToString(closer.sendCustomCloseMessage("WIN CONDITION MET"), serializedEnd);
-                DataDistributer.distributeToPeers(gameState.getClients(), serializedEnd);
+                closer.sendCustomCloseMessage("WIN CONDITION MET");
+                JSONHandler passer = new JSONCommandHandler(gameState);
+                //HashMap<String, String> serializedEnd = new HashMap<>();
+                //serializedEnd = passer.convertToString(closer.sendCustomCloseMessage("WIN CONDITION MET"), serializedEnd);
+                DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize(closer.sendCustomCloseMessage("WIN CONDITION MET")));
                 endGame();
             }
         }

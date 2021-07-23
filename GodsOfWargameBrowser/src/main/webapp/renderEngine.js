@@ -13,7 +13,7 @@ var arrayWidth;
 var width;
 var height;
 var TerrainMap = new Array();//TODO this array seems to be backwards based on frontend backend cord pos
-
+initGrid();
     
 
 
@@ -80,10 +80,13 @@ function getTerrainMap(){
     return TerrainMap;
 }
 function refresh(){
+    /*
     for(i=0;i<TerrainMap.length;i++){
         drawTerrain(TerrainMap[i]);
         //console.log(TerrainMap[i]);
     }
+        
+     */
     for(i=0;i<unitList.length;i++){
         console.log(unitList[i]);
         drawUnit(unitList[i]);

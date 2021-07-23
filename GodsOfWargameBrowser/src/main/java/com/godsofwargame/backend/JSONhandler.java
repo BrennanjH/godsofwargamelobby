@@ -12,16 +12,15 @@ package com.godsofwargame.backend;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import java.util.HashMap;
-import java.util.Set;
 
-
+@Deprecated
 public class JSONhandler  {
     GsonBuilder build = new GsonBuilder();//these objects manage creating of commandObjects
     Gson deserializingCommand = build.registerTypeAdapter(commandInterface.class, new interfaceAdapter()).create();
     
     Gson serializer = new Gson();//Serializer for all outgoing data
     
-    commandProcessor executer = new commandProcessor(); //these objects manage creation of UnitTypes
+    CommandProcessor executer = new CommandProcessor(); //these objects manage creation of UnitTypes
     GsonBuilder unitTypeFinder = new GsonBuilder();
     Gson deserializingUnits = unitTypeFinder.registerTypeAdapter(UnitTypes.class, new UnitTypeAdapter() ).create();
     
