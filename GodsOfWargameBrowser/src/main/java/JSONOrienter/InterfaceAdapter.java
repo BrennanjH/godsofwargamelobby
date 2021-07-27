@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.godsofwargame.backend;
+package JSONOrienter;
 
+import com.godsofwargame.backend.commandInterface;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -15,16 +16,16 @@ import com.google.gson.JsonPrimitive;
 //import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 
-public class interfaceAdapter implements JsonDeserializer<commandInterface>{
-
+@Deprecated
+public class InterfaceAdapter implements JsonDeserializer<commandInterface>{
+    
     private static final String CLASSNAME = "className";//the key pertaining to command names
     //the key for all information not pertaining to command info
     private static final String DATA = "data";
     private static final String INFO = "info";
     
     @Override
-    public commandInterface deserialize(JsonElement jsonElement, Type type,
-        JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public commandInterface deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
         System.out.println(" inside deserialize commandInterface");
         JsonObject jsonObject = jsonElement.getAsJsonObject();
         JsonPrimitive prim = (JsonPrimitive) jsonObject.get(CLASSNAME);

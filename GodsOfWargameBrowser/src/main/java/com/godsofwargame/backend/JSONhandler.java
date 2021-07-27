@@ -9,6 +9,7 @@ package com.godsofwargame.backend;
  *
  * @author brenn
  */
+import JSONOrienter.InterfaceAdapter;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;
 import java.util.HashMap;
@@ -16,11 +17,10 @@ import java.util.HashMap;
 @Deprecated
 public class JSONhandler  {
     GsonBuilder build = new GsonBuilder();//these objects manage creating of commandObjects
-    Gson deserializingCommand = build.registerTypeAdapter(commandInterface.class, new interfaceAdapter()).create();
+    Gson deserializingCommand = build.registerTypeAdapter(commandInterface.class, new InterfaceAdapter()).create();
     
     Gson serializer = new Gson();//Serializer for all outgoing data
     
-    CommandProcessor executer = new CommandProcessor(); //these objects manage creation of UnitTypes
     GsonBuilder unitTypeFinder = new GsonBuilder();
     Gson deserializingUnits = unitTypeFinder.registerTypeAdapter(UnitTypes.class, new UnitTypeAdapter() ).create();
     
@@ -32,7 +32,7 @@ public class JSONhandler  {
         UnitTypes alpha = deserializingUnits.fromJson(incoming, UnitTypes.class);
         System.out.println(alpha.testValue());
         command.setUnit(alpha);
-        executer.processor(command, gameState,Id);
+        
         //HashMap<String, String> send = new HashMap<>();
         //send = convertToString( executer.processor(command, gameState, Id), send);
         

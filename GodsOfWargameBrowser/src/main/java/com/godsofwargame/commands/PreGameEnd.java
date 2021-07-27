@@ -5,7 +5,7 @@
  */
 package com.godsofwargame.commands;
 
-import JSONOrienter.JSONCommandHandler;
+import JSONOrienter.CommandHandler;
 import JSONOrienter.JSONHandler;
 import com.godsofwargame.backend.DataDistributer;
 import com.godsofwargame.backend.GodsofWargame;
@@ -35,7 +35,7 @@ public class PreGameEnd implements internalCommands{
             if(isLastCommander(gameState)){
                 sendCloseStatement closer = new sendCloseStatement(gameState);
                 closer.sendCustomCloseMessage("WIN CONDITION MET");
-                JSONHandler passer = new JSONCommandHandler(gameState);
+                JSONHandler passer = new CommandHandler(gameState);
                 //HashMap<String, String> serializedEnd = new HashMap<>();
                 //serializedEnd = passer.convertToString(closer.sendCustomCloseMessage("WIN CONDITION MET"), serializedEnd);
                 DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize(closer.sendCustomCloseMessage("WIN CONDITION MET")));

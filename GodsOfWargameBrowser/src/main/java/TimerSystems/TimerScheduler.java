@@ -5,7 +5,7 @@
  */
 package TimerSystems;
 import JSONOrienter.JSONHandler;
-import JSONOrienter.JSONCommandHandler;
+import JSONOrienter.CommandHandler;
 import com.godsofwargame.backend.DataDistributer;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.jsonsendHolder;
@@ -40,7 +40,7 @@ public class TimerScheduler extends TimerTask{
     private void updatePlayers(){
         
         //JSONhandler passer = new JSONhandler();
-        JSONHandler passer = new JSONCommandHandler(gameState);
+        JSONHandler passer = new CommandHandler(gameState);
         //HashMap<String, String> serializedData = new HashMap<>();
         //serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState), serializedData);
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());

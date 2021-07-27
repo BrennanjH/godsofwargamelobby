@@ -6,9 +6,9 @@
 package JSONOrienter;
 
 import com.godsofwargame.backend.commandInterface;
+import com.godsofwargame.backend.createUnitCommand;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 /**
  *
@@ -27,28 +27,12 @@ public class CommandOrientation{
     */
     public commandInterface commandGetStart() throws InvalidJSONException{
         
-        try{
             System.out.println("Got to GetStart");
-            Gson toCommand = new Gson();
-            getHead();
-            commandInterface temp = toCommand.fromJson(OriginalJSON, commandInterface.class);
-            System.out.println("Got to testValue ");
-            temp.testValue();
-            System.out.println("Got to after testValue");
+            Gson toMessage = new Gson();
             
-            return temp;
-        }
-        catch(InvalidJSONException E){
-            throw E;
-            //TODO create error responses that attempt to inform sender of message a failure to comprehend
-        }
+            JsonObject a = toMessage.fromJson(OriginalJSON, JsonObject.class);
+            System.out.println(a.getAsString() + " Testing new JSON handling");
+            
+            return new createUnitCommand();
     }
-    //generates a header
-    private JSONHeader getHead() throws InvalidJSONException{
-        
-        return new JSONHeader();
-    }
-    
-        
-        
 }

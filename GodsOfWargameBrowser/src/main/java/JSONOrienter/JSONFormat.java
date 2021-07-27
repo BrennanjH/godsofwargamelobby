@@ -10,5 +10,6 @@ package JSONOrienter;
  * @author brenn
  */
 public interface JSONFormat {
-    
+    public JSONBody getBody();
+    public JSONHeader getHead();
 }

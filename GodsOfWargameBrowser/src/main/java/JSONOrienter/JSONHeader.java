@@ -13,20 +13,13 @@ import java.util.HashMap;
  *
  * @author brenn
  */
-public class JSONHeader implements JSONFormat{
-    HashMap<String, String> keyValues= new HashMap<>();//Each Key value is a key value for JSON Header, usually 1-3 values fill this map
-    
-    //IF the header is already isolated you can use passHeader to simply fill the HashMap with values
-    public void passHeader(String isolatedHeader){
-        
-    }
-    //if you trust JSONHeaders ability to find and create the header you can use findHeader
-    public void findHeader(String fullJSON){
+public class JSONHeader {
+    public HashMap<String, String> keyValues= new HashMap<>();//Each Key value is a key value for JSON Header, usually 1-3 values fill this map
+
+    //A method to convert the header string to a hashMap which can be used to easily get json values
+    private void convertToKeys(){
         
     }
 
-    public String getKeyValue(String key) {
-        return keyValues.get(key);
-    }
     
 }

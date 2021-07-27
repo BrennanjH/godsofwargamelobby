@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.godsofwargame.backend;
+package JSONOrienter;
+
 import java.util.HashMap;
-/**
+
+/**A class that represents the body of a command. 
  *
  * @author brenn
  */
-
-public class CommandProcessor{ 
-    public void processor (commandInterface command, GodsofWargame gameState, String Id){
-        command.execute(gameState , Id);
-    }
+public class JSONBody {
+    public HashMap<String, String> keyValues= new HashMap<>();
+    String body;
+    
+    
 }

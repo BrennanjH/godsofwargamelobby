@@ -5,7 +5,9 @@
  */
 
 function createUnitCommand(){
-    this.className = "createUnitCommand";
+    this.header = {
+        className = "createUnitCommand"
+    };
     this.body = {
         unitObject = new Unit()
     };

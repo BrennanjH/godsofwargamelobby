@@ -7,7 +7,7 @@ package com.godsofwargame.backend;
 
 
 import JSONOrienter.JSONHandler;
-import JSONOrienter.JSONCommandHandler;
+import JSONOrienter.CommandHandler;
 import java.io.IOException;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -30,7 +30,7 @@ public class NewWSEndpoint {
     //Gson serial = new Gson();
     //JSONhandler passer = new JSONhandler(); //DEPRECATED
     
-    JSONHandler passer = new JSONCommandHandler(gameState);
+    JSONHandler passer = new CommandHandler(gameState);
     
     @OnMessage
     public void messageRecieved(String incoming, Session session) throws IOException, EncodeException {
