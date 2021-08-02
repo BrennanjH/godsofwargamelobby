@@ -7,7 +7,6 @@ package com.godsofwargame.commands;
 
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitTypes;
-import com.godsofwargame.backend.commandInterface;
 
 /**
  *

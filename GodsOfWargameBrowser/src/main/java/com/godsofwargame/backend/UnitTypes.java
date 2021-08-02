@@ -33,6 +33,7 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     Called to check if a unit is able to act, implementations apply their own logic and perform tasks related to that unit's 
     functionality
     */
+    abstract public void prepare();
     abstract public void removeUnit(GodsofWargame GameState);//allows the unit to handle specifics about it's removal
     abstract public void move(GodsofWargame gameState, Routing movePath, String ID);
     abstract public void attack(GodsofWargame gameState);

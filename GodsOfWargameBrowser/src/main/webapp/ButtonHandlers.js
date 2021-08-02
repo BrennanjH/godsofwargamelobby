@@ -15,6 +15,7 @@ function setNextUnit(){
      setRange(getslideRange());
      setDamage(getslideDamage());
      removeMoveListener();
+     setType("UnitTank");
      
      addUnitEventListener();
      console.log("setNextUnitCalled");
@@ -31,7 +32,7 @@ function handleMUpTank()
 {
     resetImages();
     hold = true;
-    
+    //type = "UnitTank";
     let rules = ["MOUNTAIN"];
     TerrainRules = new terrainRules(rules);
     document.images["jsbutton"].src = "placeholder.png";

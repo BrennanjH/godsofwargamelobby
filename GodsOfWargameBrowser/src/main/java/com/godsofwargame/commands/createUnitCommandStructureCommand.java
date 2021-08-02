@@ -3,10 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.godsofwargame.backend;
+package com.godsofwargame.commands;
 
+import com.godsofwargame.commands.commandInterface;
 import Units.AbstractUnitAttack;
 import Units.pathing.AbstractUnitMovement;
+import com.godsofwargame.backend.GodsofWargame;
+import com.godsofwargame.backend.UnitCommandStructure;
+import com.godsofwargame.backend.UnitTypes;
+import com.godsofwargame.backend.jsonsendHolder;
 import java.util.HashMap;
 
 /**

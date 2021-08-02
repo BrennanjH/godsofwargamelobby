@@ -8,6 +8,7 @@ package com.godsofwargame.backend;
 
 import JSONOrienter.JSONHandler;
 import JSONOrienter.CommandHandler;
+import com.godsofwargame.commands.commandInterface;
 import java.io.IOException;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -40,9 +41,11 @@ public class NewWSEndpoint {
         //Note if system starts to recieve to many commands during runtime a buffer for commands or messages may needed
         //Since we can use multicore processing for commands and execution seperatly we should have the buffer store
         //Commands that have been deserialized since no thread contamination can occur at that stage
-        CommandProcessor commandSorter = new CommandProcessor();
+        
+        //CommandProcessor commandSorter = new CommandProcessor();
         commandInterface temp = passer.deserialize(incoming);
-        commandSorter.processor(temp, gameState, session.getId());
+        temp.execute(gameState,session.getId());
+        //commandSorter.processor(temp, gameState, session.getId());
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
     }
     @OnOpen 

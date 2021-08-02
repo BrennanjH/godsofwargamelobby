@@ -5,7 +5,7 @@
  */
 package JSONOrienter;
 
-import com.godsofwargame.backend.commandInterface;
+import com.godsofwargame.commands.commandInterface;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;

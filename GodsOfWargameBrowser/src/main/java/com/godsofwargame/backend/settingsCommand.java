@@ -5,6 +5,7 @@
  */
 package com.godsofwargame.backend;
 
+import com.godsofwargame.commands.commandInterface;
 import com.google.gson.Gson;
 import java.io.IOException;
 

@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.godsofwargame.backend;
+package com.godsofwargame.commands;
 
+import com.godsofwargame.commands.commandInterface;
 import Units.pathing.Routing;
+import com.godsofwargame.backend.GodsofWargame;
+import com.godsofwargame.backend.UnitTypes;
 import java.util.HashMap;
 /**
  *

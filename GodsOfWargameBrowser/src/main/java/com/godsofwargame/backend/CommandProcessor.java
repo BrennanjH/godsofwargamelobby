@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package com.godsofwargame.backend;
+
+import com.godsofwargame.commands.commandInterface;
+
 /**
  *
  * @author brenn

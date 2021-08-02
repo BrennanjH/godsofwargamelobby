@@ -5,6 +5,7 @@
  */
 package JSONOrienter;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 /**A class that represent the JSON header and body as two Strings usually converted to Message Type
@@ -12,9 +13,13 @@ import com.google.gson.JsonObject;
  * @author brenn
  */
 public class SeperatedSimpleMessage {
-    String body;
-    String header;
+    private final String BODY = "body";
+    private final String HEADER = "header";
+            
+    JsonElement body;
+    JsonElement header;
     public SeperatedSimpleMessage(JsonObject message){
-        
+        body = message.get(BODY);
+        header = message.get(HEADER);
     }
 }

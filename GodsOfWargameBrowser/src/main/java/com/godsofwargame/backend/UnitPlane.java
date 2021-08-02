@@ -14,6 +14,7 @@ import Units.UnitPlaneCreate;
 import Units.pathing.UnitPlaneMovement;
 import Units.UnitTankRemoval;
 import Units.pathing.Routing;
+import Units.pathing.UnitTankTerrainRules;
 
 /**
  *
@@ -47,6 +48,11 @@ public class UnitPlane extends UnitTypes{
     }
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
         return gameState.getDeployedForces()[this.uxPos][this.uyPos].size();
+    }
+    @Override
+    public void prepare(){
+        //For now it assumes that terrainTypes aren't sent
+        terrainRules = new UnitTankTerrainRules();
     }
     
 }

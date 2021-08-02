@@ -12,4 +12,3 @@ function createUnitCommand(){
         unitObject = new Unit()
     };
 }
-

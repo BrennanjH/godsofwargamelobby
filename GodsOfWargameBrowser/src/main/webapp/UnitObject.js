@@ -79,6 +79,9 @@ function getUnitList(){
 function addUnit(unit){
     unitList[xPos][yPos][zPos] = unit;
 }
+function setType(classname){
+    type = classname;
+}
 /*
 function setzPos(x,y){//a function which returns the first available slot for a unit in said cord, if no slot is available it will fail
     

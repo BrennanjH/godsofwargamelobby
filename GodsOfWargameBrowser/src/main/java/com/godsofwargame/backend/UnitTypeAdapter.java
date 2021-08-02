@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
  *
  * @author brenn
  */
+@Deprecated
 public class UnitTypeAdapter implements JsonDeserializer<UnitTypes>{ //may break if array is used in future, should probably not change though
     private static final String UNITSTORAGE = "units";
     //private static final String DATA = "data";

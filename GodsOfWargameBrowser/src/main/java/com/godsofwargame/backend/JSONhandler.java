@@ -9,6 +9,7 @@ package com.godsofwargame.backend;
  *
  * @author brenn
  */
+import com.godsofwargame.commands.commandInterface;
 import JSONOrienter.InterfaceAdapter;
 import com.google.gson.GsonBuilder;
 import com.google.gson.Gson;

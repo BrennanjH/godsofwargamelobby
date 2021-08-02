@@ -12,6 +12,7 @@ import Units.AbstractUnitRemoval;
 import Units.UnitCommandStructureCreate;
 import Units.UnitCommandStructureRemoval;
 import Units.pathing.Routing;
+import Units.pathing.UnitTankTerrainRules;
 
 
 /**
@@ -61,6 +62,11 @@ public class UnitCommandStructure extends UnitTypes{
 
     public void setMoveHandler(AbstractUnitMovement moveHandler) {
         this.moveHandler = moveHandler;
+    }
+    @Override
+    public void prepare(){
+        //For now it assumes that terrainTypes aren't sent
+        terrainRules = new UnitTankTerrainRules();
     }
     
 }

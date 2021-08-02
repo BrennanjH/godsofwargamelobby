@@ -5,10 +5,14 @@
  */
 package JSONOrienter;
 
-import com.godsofwargame.backend.commandInterface;
-import com.godsofwargame.backend.createUnitCommand;
+import com.godsofwargame.backend.UnitTypeAdapter;
+import com.godsofwargame.backend.UnitTypes;
+import com.godsofwargame.commands.commandInterface;
+import com.godsofwargame.commands.createUnitCommand;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 /**
  *
@@ -20,19 +24,37 @@ public class CommandOrientation{
     public CommandOrientation(String commandJSON){
         OriginalJSON = commandJSON;
     }
-    /*
-    //implies existance of Hard start which would be used to create a new JSONHandler
-    //With new properties that can handle the unique message, Essentially a theoretical
-    class that exists for abnormal but known JSON cases. NON known cases should throw error.
+    /* A method which creates a command that is ready to execute, it gets a command to the starting line
     */
     public commandInterface commandGetStart() throws InvalidJSONException{
         
             System.out.println("Got to GetStart");
-            Gson toMessage = new Gson();
             
-            JsonObject a = toMessage.fromJson(OriginalJSON, JsonObject.class);
-            System.out.println(a.getAsString() + " Testing new JSON handling");
             
-            return new createUnitCommand();
+            //JsonObject a = toMessage.fromJson(OriginalJSON, JsonObject.class);
+            //System.out.println(a.keySet().toString() + " Testing new JSON handling");
+            SeperatedSimpleMessage seperated = getAsMessage();
+            
+            //System.out.println(seperated.header.getAsJsonObject().get("className").getAsJsonPrimitive().getAsString());
+            GsonBuilder build = new GsonBuilder();
+            Gson toCommand  =   build.registerTypeAdapter(commandInterface.class,
+                                new TypeAdaptorCommand(seperated.header.getAsJsonObject().get("className").getAsJsonPrimitive().getAsString())).create();
+            GsonBuilder unitTypeFinder = new GsonBuilder();
+            Gson toUnit     =   unitTypeFinder.registerTypeAdapter(UnitTypes.class, 
+                                new TypeAdaptorUnit(seperated.body.getAsJsonObject().get("unitObject")) ).create();//NOTE if Units are passed as an array in future then a frontend change storing all units in array will be necessary
+            
+            commandInterface command = toCommand.fromJson(seperated.body, commandInterface.class);
+            UnitTypes a = toUnit.fromJson(seperated.body.getAsJsonObject().get("unitObject"), UnitTypes.class);
+            a.prepare();
+            System.out.println("Testing UnitValue: " + a.toString());
+            command.setUnit(a);
+            
+            return command; //return buildCommand(
+            
+    }
+    private SeperatedSimpleMessage getAsMessage(){
+        Gson toMessage = new Gson();
+        JsonObject a = toMessage.fromJson(OriginalJSON, JsonObject.class);
+        return new SeperatedSimpleMessage(a);
     }
 }

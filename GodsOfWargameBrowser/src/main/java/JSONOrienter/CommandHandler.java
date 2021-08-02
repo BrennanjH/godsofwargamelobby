@@ -6,7 +6,7 @@
 package JSONOrienter;
 
 import com.godsofwargame.backend.GodsofWargame;
-import com.godsofwargame.backend.commandInterface;
+import com.godsofwargame.commands.commandInterface;
 import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.peerSpecificIdentifier;
 import com.godsofwargame.commands.DeserializationErrorCommand;
@@ -44,7 +44,7 @@ public class CommandHandler implements JSONHandler{
     }
     @Override
     public commandInterface deserialize(String incoming ){
-        CommandOrientation head = new CommandOrientation(incoming);//TODO get the header of the command and serialize it
+        CommandOrientation head = new CommandOrientation(incoming);
         System.out.println("Got to deserialize");
         
         try {
