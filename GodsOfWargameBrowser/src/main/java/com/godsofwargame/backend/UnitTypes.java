@@ -15,7 +15,9 @@ import Units.pathing.TerrainRules;
  */
 //TODO Ideally this and it's subclasses should have their own package
 public abstract class UnitTypes {//no constructor since init is actually done in the front end and this is called recursively
-    AbstractUnitMovement moveHandler;
+    
+    transient AbstractUnitMovement moveHandler;
+    
     TerrainRules terrainRules;
     String UnitType;
     String OWNER; //javascript tells the javascript which player it is so that the player can tag it
@@ -33,7 +35,7 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     Called to check if a unit is able to act, implementations apply their own logic and perform tasks related to that unit's 
     functionality
     */
-    abstract public void prepare();
+    abstract public void prepare(GodsofWargame gameState);
     abstract public void removeUnit(GodsofWargame GameState);//allows the unit to handle specifics about it's removal
     abstract public void move(GodsofWargame gameState, Routing movePath, String ID);
     abstract public void attack(GodsofWargame gameState);

@@ -5,20 +5,23 @@
  */
 package com.godsofwargame.backend;
 
+import Location.Terrain;
+import Location.Territory;
 import java.util.ArrayList;
 import java.util.List;
-/**
+/**A class that represents all the data that is going to be serialized for the Frontend
  *
  * @author brenn
  */
 public class jsonsendHolder {
-    private  List<Terrain> terrainList;// = new ArrayList<>();
-    private  List<UnitTypes> unitList;// = new ArrayList<>();
-    private  playerData playerInfo;
+    private List<Terrain> terrainList;
+    private List<UnitTypes> unitList;
+    private playerData playerInfo;
+    private List<Territory> territories;
 
-    //private  List<UnitTypes> deleteUnitList;// = new ArrayList<>();
-    private  String serverMes;//is this truely needed?
-    private  firstResponseSetup firstResponseData;// = new firstResponseSetup();
+    
+    private String serverMes;//is this truely needed?
+    private firstResponseSetup firstResponseData;
 
     public jsonsendHolder() {
         terrainList = new ArrayList<>();
@@ -50,11 +53,17 @@ public class jsonsendHolder {
     public playerData getPlayerInfo() {
         return playerInfo;
     }
-
+    
     public void setPlayerInfo(playerData playerInfo) {
         this.playerInfo = playerInfo;
     }
+    public List<Territory> getTerritories() {
+        return territories;
+    }
 
+    public void setTerritories(List<Territory> territories) {
+        this.territories = territories;
+    }
     public void addServerMessage(String message){
         serverMes = message;
     }

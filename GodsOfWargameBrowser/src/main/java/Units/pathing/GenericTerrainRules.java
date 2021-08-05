@@ -5,7 +5,7 @@
  */
 package Units.pathing;
 
-import com.godsofwargame.backend.Terrain;
+import Location.Terrain;
 
 /** A simple class that if used allows the terrainRuleSet to change at runtime
  *

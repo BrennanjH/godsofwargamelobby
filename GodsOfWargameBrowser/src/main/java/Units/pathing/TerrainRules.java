@@ -5,7 +5,7 @@
  */
 package Units.pathing;
 
-import com.godsofwargame.backend.Terrain;
+import Location.Terrain;
 
 /**UnitTypes should have a TerrainRules applied to them that defines how they 
  * interact with different Terrains

@@ -6,10 +6,23 @@
 
 function createUnitCommand(){
     this.header = {
-        className : "createUnitCommand"
+        className : "createUnitCommand",
+        unitPresence : true
     };
     this.body = {
         unitObject : new Unit()
     };
 }
-
+//Not in use
+function setting(){
+    
+    
+    this.header = {
+        className : "settingsCommand",
+        unitPresence : false
+    };
+    this.body = {
+        //No body necessary for a settings command as it's just a request. 
+    };
+    
+}

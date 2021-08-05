@@ -50,7 +50,7 @@ public class UnitPlane extends UnitTypes{
         return gameState.getDeployedForces()[this.uxPos][this.uyPos].size();
     }
     @Override
-    public void prepare(){
+    public void prepare(GodsofWargame gameState){
         //For now it assumes that terrainTypes aren't sent
         terrainRules = new UnitTankTerrainRules();
     }

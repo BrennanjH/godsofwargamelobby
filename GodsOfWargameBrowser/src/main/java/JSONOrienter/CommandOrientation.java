@@ -5,6 +5,7 @@
  */
 package JSONOrienter;
 
+import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitTypeAdapter;
 import com.godsofwargame.backend.UnitTypes;
 import com.godsofwargame.commands.commandInterface;
@@ -20,9 +21,10 @@ import com.google.gson.JsonParseException;
  */
 public class CommandOrientation{
     private final String OriginalJSON;
-    
-    public CommandOrientation(String commandJSON){
+    GodsofWargame gameState;
+    public CommandOrientation(String commandJSON, GodsofWargame gameState){
         OriginalJSON = commandJSON;
+        this.gameState = gameState;
     }
     /* A method which creates a command that is ready to execute, it gets a command to the starting line
     */
@@ -39,15 +41,20 @@ public class CommandOrientation{
             GsonBuilder build = new GsonBuilder();
             Gson toCommand  =   build.registerTypeAdapter(commandInterface.class,
                                 new TypeAdaptorCommand(seperated.header.getAsJsonObject().get("className").getAsJsonPrimitive().getAsString())).create();
-            GsonBuilder unitTypeFinder = new GsonBuilder();
-            Gson toUnit     =   unitTypeFinder.registerTypeAdapter(UnitTypes.class, 
-                                new TypeAdaptorUnit(seperated.body.getAsJsonObject().get("unitObject")) ).create();//NOTE if Units are passed as an array in future then a frontend change storing all units in array will be necessary
+            
             
             commandInterface command = toCommand.fromJson(seperated.body, commandInterface.class);
-            UnitTypes a = toUnit.fromJson(seperated.body.getAsJsonObject().get("unitObject"), UnitTypes.class);
-            a.prepare();
-            System.out.println("Testing UnitValue: " + a.toString());
-            command.setUnit(a);
+            if(seperated.header.getAsJsonObject().get("unitPresence").getAsJsonPrimitive().getAsBoolean()){
+                GsonBuilder unitTypeFinder = new GsonBuilder();
+                Gson toUnit     =   unitTypeFinder.registerTypeAdapter(UnitTypes.class, 
+                                    new TypeAdaptorUnit(seperated.body.getAsJsonObject().get("unitObject")) ).create();//NOTE if Units are passed as an array in future then a frontend change storing all units in array will be necessary
+                UnitTypes a = toUnit.fromJson(seperated.body.getAsJsonObject().get("unitObject"), UnitTypes.class);
+                a.prepare(gameState);
+                System.out.println("Testing UnitValue: " + a.toString());
+                command.setUnit(a);
+            }
+            
+            
             
             return command; //return buildCommand(
             

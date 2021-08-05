@@ -5,6 +5,8 @@
  */
 package com.godsofwargame.backend;
 
+import Location.Terrain;
+import Location.Territory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
             dataForSending = seperateUnitsByUser( getUnitsAsList(gameState), dataForSending);
             dataForSending = seperateTerrainByUser( getTerrainAsList(gameState), dataForSending);//TODO fix unitLoss bug (fixed? don't remember this bug)
             dataForSending = seperatePlayerDataByUser( gameState.getMapState().getPlayers(), dataForSending); //no need for a list since 1:1 ratio of playerData to players
-            
+            dataForSending = seperateTerritoriesByUser(gameState.getMapState().getTerritories(), dataForSending);
             return dataForSending;
     }
     //If terrain ever has a special behavior (such as fog of war) this overload can be removed
@@ -53,6 +55,16 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
         return sortedData;
     }
     */
+    public static HashMap<String,jsonsendHolder> seperateTerritoriesByUser(List<Territory> territories, HashMap<String,jsonsendHolder> sortedData){
+        for (String s : sortedData.keySet()){
+            
+            sortedData.get(s).setTerritories(territories);
+        }
+        return sortedData;
+        
+        
+        //return sortedData;
+    }
     //fills HashMap with unique reference jsonsendHolders
     private static HashMap<String, jsonsendHolder> setClients(HashMap<String,jsonsendHolder> sortedData, GodsofWargame gameState,jsonsendHolder data){
         jsonsendHolder hold;//WARNING I'm almost certain that each hold put inside sortedData will be the same reference
@@ -75,7 +87,7 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
     private static HashMap<String,jsonsendHolder> seperateTerrainByUser(List<Terrain> terrainList,HashMap<String,jsonsendHolder> sortedData){
         for (String s : sortedData.keySet()){
             
-            for(Terrain t : terrainList){
+            for(Terrain t : terrainList){//WARNING This seems like an unnecessary step
                 sortedData.get(s).addTerrain(t);
             }
             //TODO pass Terrain to a fog of war method to check if terrain is visible by player if fog of war is created

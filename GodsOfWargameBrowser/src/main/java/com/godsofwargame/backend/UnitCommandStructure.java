@@ -15,7 +15,7 @@ import Units.pathing.Routing;
 import Units.pathing.UnitTankTerrainRules;
 
 
-/**
+/** 
  *
  * @author brenn
  */
@@ -25,7 +25,7 @@ import Units.pathing.UnitTankTerrainRules;
 public class UnitCommandStructure extends UnitTypes{
     //InterfaceUnitCreate createHandler; //To be filled with JSON 
     AbstractUnitAttack attackHandler;
-    AbstractUnitMovement moveHandler;
+    //AbstractUnitMovement moveHandler;
     //InterfaceUnitRemoval removalHandler;
     
     @Override
@@ -63,8 +63,11 @@ public class UnitCommandStructure extends UnitTypes{
     public void setMoveHandler(AbstractUnitMovement moveHandler) {
         this.moveHandler = moveHandler;
     }
+    /*
+    A method that acts as a constructor initiating fields that may be necessary, It is called immediatly after parsing from JSON
+    */
     @Override
-    public void prepare(){
+    public void prepare(GodsofWargame gameState){
         //For now it assumes that terrainTypes aren't sent
         terrainRules = new UnitTankTerrainRules();
     }

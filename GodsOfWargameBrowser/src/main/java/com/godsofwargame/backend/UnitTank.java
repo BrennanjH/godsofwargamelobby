@@ -21,8 +21,6 @@ public class UnitTank extends UnitTypes {
     
     @Override
     public void move(GodsofWargame gameState, Routing movePath, String ID){ //final parameter not needed
-        
-        moveHandler = new UnitTankMovement(this, gameState);
         moveHandler.move(gameState,movePath,ID);
     }
     @Override
@@ -44,9 +42,10 @@ public class UnitTank extends UnitTypes {
     public String testValue(){
         return "I'm definitly a UnitTank type";
     }
+    //Acts as a constructor for the object that can be called after being built
     @Override
-    public void prepare(){
-        //For now it assumes that terrainTypes aren't sent
+    public void prepare(GodsofWargame gameState){
+        moveHandler = new UnitTankMovement(this, gameState);
         terrainRules = new UnitTankTerrainRules();
     }
     

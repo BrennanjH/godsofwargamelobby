@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.godsofwargame.backend;
+package Location;
 
-import com.google.gson.annotations.Expose;
+import com.godsofwargame.backend.TerrainTypes;
 
 
 
@@ -16,7 +16,7 @@ public class Terrain{
    //@Expose(serialize= true)
    private String type="NOT_SET"; 
    //@Expose(serialize= true)
-   private int xVal;
+   private int xVal; //TODO change the xVal and yVal into Coordinate Objects
    //@Expose(serialize= true)
    private int yVal;
     

@@ -18,7 +18,6 @@ function sendText(json) {
     console.log("sending text: " + json);
     websocket.send(json);
 }
-
 function onMessage(evt) {
     console.log("received: " + evt.data);
     JSONgameStateUpdater(evt.data);

@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package com.godsofwargame.backend;
+import Location.Terrain;
+import Location.Territory;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +24,8 @@ public class Map  {//acts as the gamestate object
     //ArrayList<playerData> players = new ArrayList<>();
     
     private List<UnitTypes>[][] deployedForces = new List[row][col];
+    private List<Territory> territories = new ArrayList<>();
+
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public Map(){
@@ -112,7 +116,10 @@ public class Map  {//acts as the gamestate object
          return current;
    }
    */
-   
+   public List<Territory> getTerritories() {
+        return territories;
+    }
+
     public void addPlayer(String key, playerData newPlayer){
         players.put(key, newPlayer);
     }

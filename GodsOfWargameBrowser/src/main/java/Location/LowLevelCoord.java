@@ -6,7 +6,7 @@
 package Location;
 
 /**This holds theZCoord but it is usually only used for minor logic decisions 
- * so it's best practice to reference coords as HighLevelCoords
+ * so it's best to reference coords as HighLevelCoords
  *
  * @author brenn
  */

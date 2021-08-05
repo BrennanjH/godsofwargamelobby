@@ -44,7 +44,7 @@ public class CommandHandler implements JSONHandler{
     }
     @Override
     public commandInterface deserialize(String incoming ){
-        CommandOrientation head = new CommandOrientation(incoming);
+        CommandOrientation head = new CommandOrientation(incoming ,gameState);
         System.out.println("Got to deserialize");
         
         try {

@@ -5,7 +5,7 @@
  */
 package Units.pathing;
 
-import com.godsofwargame.backend.Terrain;
+import Location.Terrain;
 
 /**Acts as a template object that when constructed automatically defines terrain valid for tanks
  * If a Unit moves like a tank it is forcibly moved like this.
