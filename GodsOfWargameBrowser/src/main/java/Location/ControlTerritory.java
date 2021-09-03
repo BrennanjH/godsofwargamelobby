@@ -21,12 +21,12 @@ public class ControlTerritory implements Territory {
     
     @Override
     public Team getFaction() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return Owner;
     }
 
     @Override
     public void setCoordinate(Coordinate location) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        pos = (HighLevelCoord) location;
     }
     
 }
