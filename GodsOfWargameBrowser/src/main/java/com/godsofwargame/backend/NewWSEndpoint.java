@@ -16,6 +16,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  *
@@ -23,9 +24,10 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint(value="/godsofwargame", encoders = {TomcatEncoder.class})
 public class NewWSEndpoint {
+    private AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GodsofWargame.class);
+    private GodsofWargame gameState = ctx.getBean(GodsofWargame.class);//WARNING might need to become Static
     
-    
-    private static GodsofWargame gameState = new GodsofWargame();//STATIC
+     
     //private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private playerData player;
     //Gson serial = new Gson();
@@ -42,12 +44,18 @@ public class NewWSEndpoint {
         //Since we can use multicore processing for commands and execution seperatly we should have the buffer store
         //Commands that have been deserialized since no thread contamination can occur at that stage
         
+        //Get Command from incoming
         commandInterface temp = passer.deserialize(incoming);
+        
+        //Use command object to perform buisness logic
         temp.execute(gameState,session.getId());
+        
+        //Update user on gamestate changes caused by command
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
     }
     @OnOpen 
     public void onOpen (Session peer) {
+        //add reference to new user into GodsofWargame Object
         gameState.getClients().put(peer.getId(), peer);
         player = new playerData(peer.getId());
         
@@ -56,11 +64,14 @@ public class NewWSEndpoint {
         
         gameState.getMapState().addPlayer(peer.getId(), player);//place the Id in a hashMap and the players information alongside it
         System.out.println("peer joined: " + peer.getId());
+        //Perform first time setup when user joins
         if (!(gameState.checkState())){    
             System.out.println("Gamestate load started");
             gameState.load();
             System.out.println("Gamestate load Complete");
         }
+        
+        //Update new user with new gamestate
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         
     }
