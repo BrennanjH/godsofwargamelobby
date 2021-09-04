@@ -5,6 +5,7 @@
  */
 
 //All objects exist in command object backend uses.
+/*
 function moveUnitCommand(unitObj , path){
     
     this.unitObject = unitObj;
@@ -17,3 +18,5 @@ function moveUnitCommand(unitObj , path){
     };
     
 }
+ * 
+ */

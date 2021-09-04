@@ -5,8 +5,6 @@
  */
 package Location;
 
-import com.godsofwargame.backend.TerrainTypes;
-
 
 
 public class Terrain{
@@ -24,7 +22,7 @@ public class Terrain{
         generate(x,y);
     }
     private Terrain generate(int x, int y){
-      type = TerrainTypes.getTemp()[((int) (Math.random()*2))];
+      type = TerrainTypes.getTemp()[((int) (Math.random()*TerrainTypes.getTemp().length))];
       xVal = x;
       yVal = y;//the render engine will invert these value later due to the grid being based on a screen and not a concept
       //System.out.println(type);

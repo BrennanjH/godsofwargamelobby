@@ -12,29 +12,29 @@ function movePossibleServer(command){//Sends information to Server for processin
   
 }
 function movePossibleClient(){//runs first then sends a check to server
-    let zpos = getFirstAvailableUnitList(x2,y2);
-    console.log(zpos + " z pos");
-    if((zpos === "undefined" || checkTerrainType(y2,x2).scanTerrainRules() )){
-        console.log("movement error");
+    let unit = findZero(getUnitsAt(x1,y1));
+    console.log(unit.uzPos + " z pos");
+    //Validate the unit object and terrainRules with move request
+    if (typeof unit !== undefined && compareTerrainToUnit(getTerrainIndex(unit.uxPos, unit.uyPos) , unit) && unit.OWNER === playerID) {
+        var movement = convertTerrainToInt(unit);
+        var grid = new PF.Grid(movement);
+        var finder = new PF.AStarFinder();
+        var path = finder.findPath(unit.uxPos, unit.uyPos, x2, y2, grid); //I used unit.val because the pathing is related to that unit as opposed to the x1,y1 coords
+        var moveUnit = new moveUnitCommand(unit, path);
+        console.log("pathing results");
+        console.log(path);
+        movePossibleServer(moveUnit);
+    } else {
+        console.log("Unit Movement Failed");
     }
-    else{
-        console.log(zpos);
-        console.log(unitList[x1][y1][0]);
-        
-        var movingunit = new moveUnitCommand(unitList[x1][y1][0]  , );//TODO create A* program //moves the top unit only
-        
-        movePossibleServer(movingunit);
-        
-    }
+    
 }
 
-function isUnitPresent(x,y,z){//checks to see if a unit exists at said cord
-    
-    return false;
-}
-function checkTerrainType(x,y){
-    return TerrainMap[x][y].type;
-}
-function scanTerrainRules(unit){
-    TerrainRules;
+function compareTerrainToUnit(terrain, unit){
+    for(j=0; j<unit.terrainRules.badSpots.length; j++){
+        if( terrain.type === unit.terrainRules.badSpots[j]) {
+            return false;
+        }
+    }
+    return true;
 }

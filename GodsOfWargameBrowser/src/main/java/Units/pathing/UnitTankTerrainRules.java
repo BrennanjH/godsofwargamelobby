@@ -6,6 +6,8 @@
 package Units.pathing;
 
 import Location.Terrain;
+import java.util.ArrayList;
+import java.util.List;
 
 /**Acts as a template object that when constructed automatically defines terrain valid for tanks
  * If a Unit moves like a tank it is forcibly moved like this.
@@ -14,7 +16,11 @@ import Location.Terrain;
  */
 public class UnitTankTerrainRules implements TerrainRules{
 
-    final String[] badSpots = {"MOUNTAIN"};
+    private final List<String> badSpots;
+    public UnitTankTerrainRules(){
+        badSpots = new ArrayList<>();
+        badSpots.add("MOUNTAIN");
+    }
     
     @Override
     public boolean isValid(Terrain terrain) {
@@ -23,6 +29,17 @@ public class UnitTankTerrainRules implements TerrainRules{
                 return false;
         }
         return true;
+    }
+
+    @Override
+    public void addBadSpot(String invalidTerrainString) {
+        
+        //This class is meant to act more as a template so it shouldn't allow new terrain Alterations after creation
+    }
+
+    @Override
+    public List<String> getBadSpots() {
+        return badSpots;
     }
     
     

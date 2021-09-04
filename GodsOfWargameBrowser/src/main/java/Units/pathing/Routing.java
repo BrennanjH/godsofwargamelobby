@@ -17,6 +17,6 @@ import java.util.List;
  * @author brenn
  */
 public class Routing {
-    public List<Coordinate> pathingRoute = new ArrayList<>();
-    
+    //public List<Coordinate> pathingRoute = new ArrayList<>();
+    public int[][] pathingRoute;
 }

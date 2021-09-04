@@ -24,10 +24,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 @ServerEndpoint(value="/godsofwargame", encoders = {TomcatEncoder.class})
 public class NewWSEndpoint {
-    private AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GodsofWargame.class);
-    private GodsofWargame gameState = ctx.getBean(GodsofWargame.class);//WARNING might need to become Static
+    private static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GOWConfig.class);
+    private static GodsofWargame gameState = ctx.getBean("godsOfWargame", GodsofWargame.class);//WARNING might need to become Static
+    //private static GodsofWargame gameState = new GodsofWargame();
     
-     
     //private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private playerData player;
     //Gson serial = new Gson();
@@ -80,6 +80,7 @@ public class NewWSEndpoint {
     public void onClose (Session peer) {
         gameState.removeSession(peer);
         if(gameState.getClients().isEmpty()){
+            ctx.close();
             gameState.setIsInstantiated(false);
             gameState.cancelTimer();//Shut down timer at last peer leaving
         }else{

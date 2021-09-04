@@ -14,7 +14,7 @@ import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
 
 /** Custom deserializer that is passed the commands Type and then parses
- * the json into a command as well as access other TypeAdaptors for Units
+ * the json into a command
  *
  * @author brenn
  */

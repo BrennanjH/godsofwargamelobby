@@ -26,3 +26,14 @@ function setting(){
     };
     
 }
+//For server
+function moveUnitCommand(unit, path){
+    this.header = {
+        className : "moveUnitCommand",
+        unitPresence : true
+    };
+    this.body = {
+        movingUnit : unit,
+        pathingRoute : path
+    };
+}

@@ -18,7 +18,9 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     
     transient AbstractUnitMovement moveHandler;
     
+    
     TerrainRules terrainRules;
+    
     String UnitType;
     String OWNER; //javascript tells the javascript which player it is so that the player can tag it
     int uhealth ,

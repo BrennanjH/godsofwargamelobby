@@ -76,6 +76,16 @@ function getSpeed(){
 function getUnitList(){
     return unitList;
 }
+function getFirstUnitIndex(x,y){
+    //console.log(x + " " + y);
+    for(let i=0; i< unitList.length;i++){
+        //console.log("Inside For " + unitList[i].uxPos + " " + unitList[i].uyPos);
+        if( unitList[i].uxPos === x && unitList[i].uyPos === y) {
+            return i;
+        }
+    }
+    return -1;
+}
 function addUnit(unit){
     unitList[xPos][yPos][zPos] = unit;
 }
@@ -100,11 +110,33 @@ function setzPos(x,y){//a function which returns the first available slot for a 
 }
  
  */
-function getFirstAvailableUnitList(x,y){
-    for(i =0; i<5;i++){
-        if(unitList[x][y][i] === null){
-            return i;
+function getUnitsAt(x, y) {
+    console.log("**********************************");
+    console.log("x: " + x + " y: " + y);
+    var zArray = [];
+    for(let i=0 , z=0; i<unitList.length; i++) {
+        console.log(z + " z " + i + " i");
+        console.log(unitList[i].uxPos + " ux");
+        console.log(unitList[i].uyPos + " uy");
+        if(unitList[i].uxPos === x && unitList[i].uyPos === y){
+            console.log("Entered inside if");
+            zArray[z] = unitList[i];
+            z++;
         }
     }
-    return "undefined";
+    console.log("zArray");
+    console.log(zArray);
+    console.log("**********************************");
+    return zArray;
+}
+function findZero(unitArray){
+    console.log(unitArray);
+    for(let i=0; i<unitArray.length;i++){
+        if(unitArray[i].uzPos === 0){
+            //returns the unit with zPos == 0;
+            return unitArray[i]; 
+        }
+    }
+    console.log("findZero: No return");
+    //Returns nothing if no unit matches 
 }

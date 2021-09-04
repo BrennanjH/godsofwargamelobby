@@ -26,18 +26,22 @@ function moveClick(event){//TODO create method to check if a unit was selected
 
     console.log("moveClick called");
     console.log(hasClicked);
-    if (hasClicked === false){ //TODO to reduce waste processing perhaps change
+    if (hasClicked === false ){
         
         hasClicked = true;
         
         x1 = getTrueMousePositionx(event.pageX);
         y1 = getTrueMousePositiony(event.pageY);
-        if (unitList[x1][y1][0] === null){
+        //console.log("GEttings x1, y1");
+        //console.log(x1 + " " + y1);
+        if (getFirstUnitIndex(x1,y1) === -1){
+            //console.log("Got inside second if ");
+            //console.log(getFirstUnitIndex(x1,y1));
             hasClicked = false;
+        } else{
+            tintSquare(x1,y1);
         }
-        else{
-        tintSquare(x1,y1);
-        }
+        
         
     }
     else{

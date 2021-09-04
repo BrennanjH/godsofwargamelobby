@@ -14,7 +14,7 @@ var width;
 var height;
 var TerrainMap = new Array();//TODO this array seems to be backwards based on frontend backend cord pos
 initGrid();
-    
+
 
 
 function drawUnit(Unit){
@@ -24,7 +24,12 @@ function drawUnit(Unit){
         let img = new Image();
         img.src = Unit.UnitType + ".png";
         context.drawImage(img, Unit.uxPos*width, Unit.uyPos*height,width,height );
+        
+        //Change Image src for Turret
+        img.src = Unit.UnitType + "-Turret.png";
+        context.drawImage(img, Unit.uxPos*width, Unit.uyPos*height,width,height);
         console.log(playerID);
+        /*
         if(Unit.OWNER === playerID){
             
             context.fillStyle = 'rgba(0, 0, 255, 0.4)';
@@ -33,7 +38,7 @@ function drawUnit(Unit){
             context.fillStyle = 'rgba(255, 0, 0, 0.4)';
             context.fillRect(Unit.uxPos*width, Unit.uyPos*height,width,height);
         }
-      
+        */
     }
 }
 
@@ -72,12 +77,20 @@ function getImageHeight(){
     return height;
 }
 function setTerrainMap(ArrayList){
- 
+
     TerrainMap = ArrayList;
-    console.log(TerrainMap);
+    //console.log(TerrainMap);
 }
 function getTerrainMap(){
     return TerrainMap;
+}
+function getTerrainIndex(x,y){
+    for(let i=0; i<TerrainMap.length;i++){
+        if(TerrainMap[i].xVal === x && TerrainMap[i] === y){
+            return i;
+        }
+    }
+    return -1;
 }
 function refresh(){
     /*
@@ -89,8 +102,16 @@ function refresh(){
      */
     for(i=0;i<unitList.length;i++){
         console.log(unitList[i]);
+        /*
+        var movement = convertTerrainToInt(unitList[i]);
+        var grid = new PF.Grid(movement);
+        var finder = new PF.AStarFinder();
+        var path = finder.findPath(unitList[i].xVal, unitList[i].yVal)
+         * 
+         */
         drawUnit(unitList[i]);
     }
+    
 }
 function drawTerrain(terrain){
     let unitImage = new Image();

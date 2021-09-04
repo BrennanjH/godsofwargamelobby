@@ -18,10 +18,12 @@ import org.springframework.context.annotation.Scope;
 public class GOWConfig {
     
     @Bean
-    @Scope("Singleton")
-    public GodsofWargame godsOfWargame(){
+    @Scope(value="singleton")
+    public static GodsofWargame godsOfWargame(){
+        System.out.println("GOWConfig: Creating GodsofWargameObject");
         return new GodsofWargame();
     }
     
     
 }
+

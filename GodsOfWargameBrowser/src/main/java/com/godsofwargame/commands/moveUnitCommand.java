@@ -18,33 +18,38 @@ public class moveUnitCommand implements commandInterface{//a small class that ha
 
 ////COMMAND REQUIREMENTS//////////////////////////////////////////////////////////////////////////    
     
-    Routing movePath;
-    UnitTypes movingUnit;
+    private Routing pathingRoute;
+    private UnitTypes movingUnit;
     
     @Override
     public void execute(GodsofWargame gameState, String ID){
         try {
         System.out.println("MoveUnitCommand executed");
         
-        movingUnit.move(gameState, movePath, ID);
+        movingUnit.move(gameState, pathingRoute, ID);
         } catch (ArrayIndexOutOfBoundsException E){
             System.out.println("Index error at MoveUnit");
         }
-        //distributionRuleSet(gameState.getMapState(),movingUnit.move(gameState,newX,newY, ID));
-        //return dataForSending;
     }
-    /*
-    private void distributionRuleSet(Map gameState, jsonsendHolder serverSet){//Heres where fog of war rules get made
-        Set<String> keys = gameState.getPlayers().keySet();
-        for( String s : keys){ //Since there are no special rules on movement yet this for loop is fine
-            dataForSending.put(s, serverSet);
-        }
-    }
-    */
+    
     @Override
-    public void setUnit(UnitTypes unit){//literally useless as reflection handles setting information.
+    public void setUnit(UnitTypes unit){
         movingUnit = unit;
     }
+
+    public Routing getPathingRoute() {
+        return pathingRoute;
+    }
+
+    public UnitTypes getMovingUnit() {
+        return movingUnit;
+    }
+
+    public void setPathingRoute(Routing pathingRoute) {
+        this.pathingRoute = pathingRoute;
+    }
+
+    
     /*
     @Override
     public HashMap<String,jsonsendHolder> getJsonsendHolders(){
