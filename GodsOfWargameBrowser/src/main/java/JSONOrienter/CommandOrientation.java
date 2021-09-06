@@ -38,6 +38,7 @@ public class CommandOrientation{
         SeperatedSimpleMessage seperated = getAsMessage();
         
         //System.out.println(seperated.header.getAsJsonObject().get("className").getAsJsonPrimitive().getAsString());
+        //TODO implent @JsonAdapter() to commands and units so that This awful code can be removed
         GsonBuilder build = new GsonBuilder();
         Gson toCommand  =   build.registerTypeAdapter(commandInterface.class,
                             new TypeAdaptorCommand(seperated.header.getAsJsonObject().get("className").getAsJsonPrimitive().getAsString())).create();
@@ -51,6 +52,7 @@ public class CommandOrientation{
             Gson toUnit     =   unitTypeFinder.registerTypeAdapter(UnitTypes.class, 
                                 new TypeAdaptorUnit(seperated.body.getAsJsonObject().get("unitObject")) ).create();//NOTE if Units are passed as an array in future then a frontend change storing all units in array will be necessary
             UnitTypes a = toUnit.fromJson(seperated.body.getAsJsonObject().get("unitObject"), UnitTypes.class);
+            //System.out.println(a.toString());
             a.prepare(gameState);
             System.out.println("Testing UnitValue: " + a.toString());
             command.setUnit(a);

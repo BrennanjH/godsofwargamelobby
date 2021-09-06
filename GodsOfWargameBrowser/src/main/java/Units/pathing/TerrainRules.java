@@ -5,7 +5,7 @@
  */
 package Units.pathing;
 
-import JSONOrienter.TerrainRulesAdaptor;
+import JSONOrienter.TypeAdaptorTerrainRules;
 import Location.Terrain;
 import com.google.gson.annotations.JsonAdapter;
 import java.util.List;
@@ -15,10 +15,10 @@ import java.util.List;
  *
  * @author brenn
  */
-@JsonAdapter(TerrainRulesAdaptor.class)
+@JsonAdapter(TypeAdaptorTerrainRules.class)
 public interface TerrainRules {
     //Used with TerrainRules implementations to define Terrain That isn't valid for movement different from 
-    
+
     //implentations use isValid() to decide on weather or not a square is Valid
     //For pathing based on builder results. No builder call will mean everything is good
     public boolean isValid(Terrain terrain);

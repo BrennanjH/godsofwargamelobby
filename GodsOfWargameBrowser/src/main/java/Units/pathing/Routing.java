@@ -19,4 +19,13 @@ import java.util.List;
 public class Routing {
     //public List<Coordinate> pathingRoute = new ArrayList<>();
     public int[][] pathingRoute;
+
+    public int[][] getPathingRoute() {
+        return pathingRoute;
+    }
+
+    public void setPathingRoute(int[][] pathingRoute) {
+        this.pathingRoute = pathingRoute;
+    }
+    
 }

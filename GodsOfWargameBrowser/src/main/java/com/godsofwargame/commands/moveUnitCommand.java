@@ -5,31 +5,43 @@
  */
 package com.godsofwargame.commands;
 
-import com.godsofwargame.commands.commandInterface;
+import JSONOrienter.TypeAdaptorRouting;
 import Units.pathing.Routing;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitTypes;
-import java.util.HashMap;
+import com.google.gson.annotations.JsonAdapter;
 /**
  *
  * @author brenn
  */
 public class moveUnitCommand implements commandInterface{//a small class that handles movement related commands
 
-////COMMAND REQUIREMENTS//////////////////////////////////////////////////////////////////////////    
+////COMMAND REQUIREMENTS//////////////////////////////////////////////////////////////////////////   
     
+    @JsonAdapter(TypeAdaptorRouting.class)
     private Routing pathingRoute;
+    
+    //int[][] pathingRoute;
     private UnitTypes movingUnit;
     
+    transient GodsofWargame gameState;
     @Override
     public void execute(GodsofWargame gameState, String ID){
-        try {
-        System.out.println("MoveUnitCommand executed");
         
-        movingUnit.move(gameState, pathingRoute, ID);
-        } catch (ArrayIndexOutOfBoundsException E){
-            System.out.println("Index error at MoveUnit");
+        this.gameState = gameState;
+        UnitTypes serverSide = gameState.getMapState()
+                                        .getUnitTypeinDeployedForces(movingUnit.getUxPos(), movingUnit.getUyPos(), movingUnit.getUzPos());
+        if (validate(serverSide, ID)) {
+            System.out.println("moveUnitCommand: Validation Passed");
+            //add unit to timer
+            
+            //serverSide.move(gameState, pathingRoute, ID);
+        } else {
+            System.out.println("moveUnitCommand: Validation Failed");
         }
+        
+        
+        
     }
     
     @Override
@@ -48,8 +60,25 @@ public class moveUnitCommand implements commandInterface{//a small class that ha
     public void setPathingRoute(Routing pathingRoute) {
         this.pathingRoute = pathingRoute;
     }
-
-    
+    private boolean validate(UnitTypes serverSide, String ID) {
+        
+        return compareUnits(serverSide, movingUnit) && checkOwner(serverSide, ID);
+            
+        
+    }
+    private boolean compareUnits(UnitTypes serverSide, UnitTypes clientSide){
+        
+        return serverSide.getUxPos() == clientSide.getUxPos() &&
+               serverSide.getUyPos() == clientSide.getUyPos() &&
+               serverSide.getUzPos() == 0 &&
+               serverSide.getUzPos() == clientSide.getUzPos();
+    }
+    private boolean checkOwner(UnitTypes serverSide , String ID){
+        System.out.println("Serverside Objects Owner: " + serverSide.getOWNER());
+        System.out.println("command issuers ID: " +  ID);
+        return ID.equals(serverSide.getOWNER());
+        
+    }
     /*
     @Override
     public HashMap<String,jsonsendHolder> getJsonsendHolders(){

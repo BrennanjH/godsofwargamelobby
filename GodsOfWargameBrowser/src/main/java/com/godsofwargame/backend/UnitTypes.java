@@ -47,7 +47,7 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     
     @Override
     public String toString(){
-        String unitInfo = "Owner:"+ getOWNER() + " Unit Type:" + getUnitType()+ " Health:" + getUhealth() + " Speed:" +  getUspeed() + " Range:" + getUrange() + " Damage:" + getUdamage() + " X,Y: " + getUxPos() + "," + getUyPos();
+        String unitInfo = "badSpots: " + terrainRules.toString() +" Owner:"+ getOWNER() + " Unit Type:" + getUnitType()+ " Health:" + getUhealth() + " Speed:" +  getUspeed() + " Range:" + getUrange() + " Damage:" + getUdamage() + " X,Y: " + getUxPos() + "," + getUyPos();
         return unitInfo;
     }
 ////////GETTERS & SETTERS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -18,7 +18,7 @@ import com.godsofwargame.backend.mapUpdater;
 public class UnitTankMovement extends AbstractUnitMovement{
     UnitTypes mover;
     //TerrainRules terrainRules;
-    int lx,ly;
+    //int lx,ly;
     Routing path;
     GodsofWargame gameState;
     //constructor to be used by new units that have tank pathing but not tank terrain interactions
@@ -34,17 +34,28 @@ public class UnitTankMovement extends AbstractUnitMovement{
     //Generates Routing object
     @Override
     public void move(GodsofWargame gameState,Routing movePath, String ID){
+        //set Necessary fields
+        this.gameState = gameState;
+        this.path = movePath;
         
+        //add Unit to timer System
     }
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
         System.out.println(gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size());
         
         return gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size();
     }
-    protected boolean checkOwner(UnitTypes serverSide , String ID){
+    private boolean checkOwner(UnitTypes serverSide , String ID){
         System.out.println("Serverside Objects Owner: " + serverSide.getOWNER());
         System.out.println("command issuers ID: " +  ID);
         return ID.equals(serverSide.getOWNER());
         
+    }
+    private boolean compareUnits(UnitTypes serverSide, UnitTypes clientSide){
+        
+        return serverSide.getUxPos() == clientSide.getUxPos() &&
+               serverSide.getUyPos() == clientSide.getUyPos() &&
+               serverSide.getUzPos() == 0 &&
+               serverSide.getUzPos() == clientSide.getUzPos();
     }
 }

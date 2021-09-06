@@ -33,7 +33,7 @@ function moveUnitCommand(unit, path){
         unitPresence : true
     };
     this.body = {
-        movingUnit : unit,
+        unitObject : unit,
         pathingRoute : path
     };
 }

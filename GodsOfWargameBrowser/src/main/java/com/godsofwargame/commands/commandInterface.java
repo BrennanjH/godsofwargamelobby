@@ -6,13 +6,13 @@
 package com.godsofwargame.commands;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitTypes;
-import java.util.HashMap;
+
 /**
  *
  * @author brenn
  * 
  */
-
+//@JsonAdapter(TypeAdaptorCommand.class)
 public interface commandInterface {
     
     //HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();

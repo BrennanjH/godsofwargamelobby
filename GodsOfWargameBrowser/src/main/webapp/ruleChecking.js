@@ -15,6 +15,7 @@ function movePossibleClient(){//runs first then sends a check to server
     let unit = findZero(getUnitsAt(x1,y1));
     console.log(unit.uzPos + " z pos");
     //Validate the unit object and terrainRules with move request
+    console.log(unit);
     if (typeof unit !== undefined && compareTerrainToUnit(getTerrainIndex(unit.uxPos, unit.uyPos) , unit) && unit.OWNER === playerID) {
         var movement = convertTerrainToInt(unit);
         var grid = new PF.Grid(movement);

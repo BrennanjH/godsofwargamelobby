@@ -15,7 +15,7 @@ import java.util.List;
  * @author brenn
  */
 public class UnitTankTerrainRules implements TerrainRules{
-
+    
     private final List<String> badSpots;
     public UnitTankTerrainRules(){
         badSpots = new ArrayList<>();
@@ -41,6 +41,9 @@ public class UnitTankTerrainRules implements TerrainRules{
     public List<String> getBadSpots() {
         return badSpots;
     }
-    
+    @Override
+    public String toString(){
+        return badSpots.toString();
+    }
     
 }

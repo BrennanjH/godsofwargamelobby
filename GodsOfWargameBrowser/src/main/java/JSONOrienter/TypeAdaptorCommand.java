@@ -40,7 +40,7 @@ public class TypeAdaptorCommand implements JsonDeserializer<commandInterface>{
     public Class getObjectClass(String className) {
             try {
                 //System.out.println("getObjectCalled");
-                return Class.forName("com.godsofwargame.commands." + className);//TODO what is .forName(string) doing?
+                return Class.forName("com.godsofwargame.commands." + className);
                 } catch (ClassNotFoundException e) {
                     //e.printStackTrace();
                     throw new JsonParseException(e.getMessage());
