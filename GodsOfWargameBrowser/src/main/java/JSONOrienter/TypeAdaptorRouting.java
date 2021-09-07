@@ -12,6 +12,7 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 /** 
  *
@@ -21,16 +22,17 @@ public class TypeAdaptorRouting implements JsonDeserializer<Routing> {
 
     @Override
     public Routing deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
-        //System.out.println("TypeAdaptorRouting: This is je: " + je.getAsJsonObject().entrySet().toString());
-        //System.out.println(je.getAsString());
+        
         Gson des = new Gson();
         Routing test = new Routing();
-        test.setPathingRoute(des.fromJson(je, int[][].class));
+        System.out.println("TypeAdaptorRouting: testing je");
+        int[][] simplePath = des.fromJson(je, int[][].class);
+        ArrayList<int[]> e = new ArrayList<>();
+        for (int[] temp : simplePath) {
+            e.add(temp);
+        }
+        test.setPathingRoute(e);
         return test;
-        //return test.setPathingRoute(des.fromJson(je, int[][].class));
-        
-        //return jdc.deserialize(je, Routing.class);
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

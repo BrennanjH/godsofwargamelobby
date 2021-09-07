@@ -14,8 +14,17 @@ import com.godsofwargame.backend.jsonsendHolder;
  * @author brenn
  */
 abstract public class AbstractUnitMovement extends AbstractUnit{
-    public boolean moving = false;
-    abstract public void move(GodsofWargame gameState,Routing movePath, String ID);//Should generate routing object
+    //public boolean moving = false;
+    protected Routing path = new Routing();
+    abstract public void move(GodsofWargame gameState);//Should generate routing object
     abstract public void beginMovement();
-    
+    public void setPath(Routing newRoute){
+        path = newRoute;
+    }
+    public Routing getPath(){
+        return path;
+    }
+    public boolean isMoving(){
+        return !(path.getPathingRoute().size() <= 1);
+    }
 }

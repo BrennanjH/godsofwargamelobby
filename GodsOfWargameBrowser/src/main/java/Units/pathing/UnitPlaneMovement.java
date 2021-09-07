@@ -26,7 +26,7 @@ public class UnitPlaneMovement extends AbstractUnitMovement{
         
     }
     @Override
-    public void move(GodsofWargame gameState,Routing movePath, String ID){
+    public void move(GodsofWargame gameState){
         
     }
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y

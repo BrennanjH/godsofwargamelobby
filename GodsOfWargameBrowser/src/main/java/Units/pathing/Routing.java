@@ -18,14 +18,14 @@ import java.util.List;
  */
 public class Routing {
     //public List<Coordinate> pathingRoute = new ArrayList<>();
-    public int[][] pathingRoute;
+    public List<int[]> pathingRoute = new ArrayList<>();
 
-    public int[][] getPathingRoute() {
+    public List<int[]> getPathingRoute() {
         return pathingRoute;
     }
 
-    public void setPathingRoute(int[][] pathingRoute) {
-        this.pathingRoute = pathingRoute;
+    public void setPathingRoute(ArrayList<int[]> newRoute){
+        pathingRoute = newRoute;
     }
     
 }

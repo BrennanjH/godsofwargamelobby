@@ -29,8 +29,8 @@ public class UnitCommandStructure extends UnitTypes{
     //InterfaceUnitRemoval removalHandler;
     
     @Override
-    public void move(GodsofWargame gameState,Routing movePath, String ID){
-        moveHandler.move(gameState,movePath,ID);
+    public void move(GodsofWargame gameState){
+        moveHandler.move(gameState);
     }
     @Override
     public void attack(GodsofWargame gameState){

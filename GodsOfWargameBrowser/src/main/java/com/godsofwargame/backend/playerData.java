@@ -14,7 +14,7 @@ public class playerData {//holds information related to the player and only the 
     private final String playerID;
     playerData(String ID){
         playerID = ID;
-        money = 500;//default starting value
+        money = 20000;//default starting value
     }
     public int getMoney() {
         return money;

@@ -86,15 +86,6 @@ public class Map  {//acts as the gamestate object
         }
    }
     
-   /*
-   public void processCurrent(){
-      current.setMap(this);
-   }
-   public Combine getCurrent(){//gives the combined map array out but doesn't process it
-      this.processCurrent();
-      return current;
-   }
-   */
    public int getRow(){
       return col;
    }
@@ -106,16 +97,7 @@ public class Map  {//acts as the gamestate object
        return terrainGrid[x][y];
       
    }
-   /*
-      public Combine[][] defaultFill(){ //used to fill a dynamic 2d array with default objects for testing purposes
-      for (int rows=0; rows<current.length;rows++){
-         for (int cols=0; cols<current[rows].length;cols++){
-            current[rows][cols] = new Combine();
-         }
-      }
-         return current;
-   }
-   */
+   
    public List<Territory> getTerritories() {
         return territories;
     }

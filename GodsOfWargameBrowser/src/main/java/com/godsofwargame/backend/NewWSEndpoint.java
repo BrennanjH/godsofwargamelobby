@@ -24,6 +24,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 @ServerEndpoint(value="/godsofwargame", encoders = {TomcatEncoder.class})
 public class NewWSEndpoint {
+    //TODO Create Syncronized() on gameState so that only one thread can access it
     private static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GOWConfig.class);
     private static GodsofWargame gameState = ctx.getBean("godsOfWargame", GodsofWargame.class);//WARNING might need to become Static
     //private static GodsofWargame gameState = new GodsofWargame();

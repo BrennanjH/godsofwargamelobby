@@ -39,7 +39,7 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     */
     abstract public void prepare(GodsofWargame gameState);
     abstract public void removeUnit(GodsofWargame GameState);//allows the unit to handle specifics about it's removal
-    abstract public void move(GodsofWargame gameState, Routing movePath, String ID);
+    abstract public void move(GodsofWargame gameState);
     abstract public void attack(GodsofWargame gameState);
     abstract public String testValue();
     abstract public void createSelf(GodsofWargame gameState, String ID);

@@ -20,8 +20,8 @@ import Units.pathing.UnitTankTerrainRules;
 public class UnitTank extends UnitTypes {
     
     @Override
-    public void move(GodsofWargame gameState, Routing movePath, String ID){ //final parameter not needed
-        moveHandler.move(gameState,movePath,ID);
+    public void move(GodsofWargame gameState){ //final parameter not needed
+        moveHandler.move(gameState);
     }
     @Override
     public void attack(GodsofWargame gameState){

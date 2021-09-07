@@ -19,7 +19,7 @@ public class AttackHandling implements Handling{
     }
     @Override 
     public void Handle(){
-        
+        //TODO Fix outofboundsexception in attacking system
         //results.setDeleteUnitList(peerSpecificIdentifier.getUnitsAsList(gameState));
         fire();//All units attack at once
         removeDead();//Units that died are removed from gameState

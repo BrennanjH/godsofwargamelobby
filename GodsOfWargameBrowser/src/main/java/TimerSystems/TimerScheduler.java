@@ -47,16 +47,9 @@ public class TimerScheduler extends TimerTask{
         
     }
     
-    /*
-    private void updatePlayers(jsonsendHolder data){
-        
-        JSONhandler passer = new JSONhandler();
-        HashMap<String, String> serializedData = new HashMap<>();
-        serializedData = passer.convertToString(peerSpecificIdentifier.sortData(gameState, data), serializedData);
-        DataDistributer.distributeToPeers(gameState.getClients(), serializedData);
-        
+    public Handling getMoveInit() {
+        return moveInit;
     }
-    */
 
 }
 

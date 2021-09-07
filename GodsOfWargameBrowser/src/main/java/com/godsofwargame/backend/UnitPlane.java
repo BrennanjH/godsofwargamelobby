@@ -22,9 +22,9 @@ import Units.pathing.UnitTankTerrainRules;
  */
 public class UnitPlane extends UnitTypes{
     @Override
-    public void move(GodsofWargame gameState,Routing movePath, String ID){//TODO finish this, also int newZ is probably useless
+    public void move(GodsofWargame gameState){//TODO finish this, also int newZ is probably useless
         moveHandler = new UnitPlaneMovement(this);
-        moveHandler.move(gameState,movePath,ID);
+        moveHandler.move(gameState);
     }
     @Override
     public void attack(GodsofWargame gameState){

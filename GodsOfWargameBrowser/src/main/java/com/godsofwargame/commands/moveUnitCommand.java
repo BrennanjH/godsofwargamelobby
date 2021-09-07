@@ -33,9 +33,9 @@ public class moveUnitCommand implements commandInterface{//a small class that ha
                                         .getUnitTypeinDeployedForces(movingUnit.getUxPos(), movingUnit.getUyPos(), movingUnit.getUzPos());
         if (validate(serverSide, ID)) {
             System.out.println("moveUnitCommand: Validation Passed");
-            //add unit to timer
+            //Add pathingRoute to serverSideUnits moveHandler
+            serverSide.getMoveHandler().setPath(pathingRoute);
             
-            //serverSide.move(gameState, pathingRoute, ID);
         } else {
             System.out.println("moveUnitCommand: Validation Failed");
         }
