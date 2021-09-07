@@ -44,14 +44,18 @@
                 </td>
                 <td>
                     <div class="slidecontainer">
+                        <p>Health Val: <span id="healthVal"></span></p>
                        <input type="range" min="1" max="100" value="50" class="slider" id="HealthSlider">
-                       <p>Health Val: <span id="healthVal"></span></p>
-                       <input type="range" min="1" max="100" value="50" class="slider" id="DamageSlider">
+                       
                        <p>Damage Val: <span id="damageVal"></span></p>
-                       <input type="range" min="0" max="5" value="1" class="slider" id="SpeedSlider">
+                       <input type="range" min="1" max="100" value="50" class="slider" id="DamageSlider">
+                       
                        <p>Speed Val: <span id="speedVal"></span></p>
-                       <input type="range" min="0" max="5" value="1" class="slider" id="RangeSlider">
+                       <input type="range" min="0" max="5" value="1" class="slider" id="SpeedSlider">
+                       
                        <p>Range Val: <span id="rangeVal"></span></p>
+                       <input type="range" min="0" max="5" value="1" class="slider" id="RangeSlider">
+                       
                        <button type="button" onClick="return setNextUnit()">Create Unit</button>
                        <script src="Sliders.js"></script>
                     </div>

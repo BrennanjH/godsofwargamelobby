@@ -17,11 +17,11 @@ function movePossibleClient(){//runs first then sends a check to server
     //Validate the unit object and terrainRules with move request
     console.log(unit);
     if (typeof unit !== undefined && compareTerrainToUnit(getTerrainIndex(unit.uxPos, unit.uyPos) , unit) && unit.OWNER === playerID) {
-        var movement = convertTerrainToInt(unit);
-        var grid = new PF.Grid(movement);
-        var finder = new PF.AStarFinder();
-        var path = finder.findPath(unit.uxPos, unit.uyPos, x2, y2, grid); //I used unit.val because the pathing is related to that unit as opposed to the x1,y1 coords
-        var moveUnit = new moveUnitCommand(unit, path);
+        let movement = convertTerrainToInt(unit);
+        let grid = new PF.Grid(movement);
+        let finder = new PF.AStarFinder({diagonalMovement: PF.DiagonalMovement.Always});
+        let path = finder.findPath(unit.uxPos, unit.uyPos, x2, y2, grid); //I used unit.val because the pathing is related to that unit as opposed to the x1,y1 coords
+        let moveUnit = new moveUnitCommand(unit, path);
         console.log("pathing results");
         console.log(path);
         movePossibleServer(moveUnit);

@@ -23,15 +23,16 @@ function placeUnit(event){
     addMoveEventListener(); //TODO when manual buttons are added remove this
 }
 function moveClick(event){//TODO create method to check if a unit was selected
-
+    let pressedX = mouseCordsRelativeToCanvasX(event);
+    let pressedY = mouseCordsRelativeToCanvasY(event);
     console.log("moveClick called");
     console.log(hasClicked);
     if (hasClicked === false ){
         
         hasClicked = true;
         
-        x1 = getTrueMousePositionx(event.pageX);
-        y1 = getTrueMousePositiony(event.pageY);
+        x1 = getTrueMousePositionx(pressedX);
+        y1 = getTrueMousePositiony(pressedY);
         //console.log("GEttings x1, y1");
         //console.log(x1 + " " + y1);
         if (getFirstUnitIndex(x1,y1) === -1){
@@ -59,11 +60,22 @@ function moveClick(event){//TODO create method to check if a unit was selected
    //console.log(getUnitList());
    
 }
-
+function mouseCordsRelativeToCanvasX(mouseEvent){
+    let cRect = canvas.getBoundingClientRect();
+    let canvasX = Math.round(mouseEvent.clientX - cRect.left);
+    console.log("canvasX: " + canvasX);
+    return canvasX;
+}
+function mouseCordsRelativeToCanvasY(mouseEvent){
+    let cRect = canvas.getBoundingClientRect();
+    let canvasY = Math.round(mouseEvent.clientY - cRect.top);
+    console.log("canvasY: " + canvasY);
+    return canvasY;
+}
 function selectSquare(event){//TODO create a display that will show characteristics of pressed tile
     
 }
-
+//redundant solution but ok
 function setXYPositions(event){
     let grid = canvas.getBoundingClientRect();
     
@@ -73,10 +85,14 @@ function setXYPositions(event){
     console.log("x: " + x1 + " y: " + y1);
 }
 function getTrueMousePositionx(x){ //finds the top left corner of pressed square x
-   return Math.trunc(x/getImageWidth());
+    let x = Math.trunc(x/getImageWidth());
+    console.log("trueX: " + x);
+    return x;
 }
 function getTrueMousePositiony(y){ //finds the top left corner of pressed squares y
-    return Math.trunc(y/getImageHeight());
+    let y = Math.trunc(y/getImageHeight());
+    console.log("trueY: " + y);
+    return y;
 }
 
 function addMoveEventListener(){
