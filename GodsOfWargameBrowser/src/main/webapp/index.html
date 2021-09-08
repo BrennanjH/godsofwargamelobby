@@ -22,22 +22,24 @@
                             <td>
                                 <a onMouseOver="return changeImageTank()" onMouseOut="return changeImageBackTank()" 
                                 onMouseDown="return handleMDownTank()" onMouseUp="return handleMUpTank()"   >
-                                <img name="jsbutton" src="UnitTank.png" width="110" height="60" border="0" alt="javascript button"></a>
+                                <img name="tankButton" src="tank_full.png" width="110" height="60" border="0" alt="javascript button"></a>
                             </td>
                             <td>
                                 <a onMouseOver="return changeImageAA()" onMouseOut="return changeImageBackAA()" 
                                 onMouseDown="return handleMDownAA()" onMouseUp="return handleMUpAA()"   >
-                                <img name="jsbutton" src="UnitAntiAir.png" width="110" height="60" border="0" alt="javascript button"></a>
+                                <img name="AAButton" src="UnitAntiAir.png" width="110" height="60" border="0" alt="javascript button"></a>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <a onMouseOver="return changeImagePlane()" onMouseOut="return changeImageBackPlane()" 
                                 onMouseDown="return handleMDownPlane()" onMouseUp="return handleMUpPlane()"   >
-                                <img name="jsbutton" src="UnitPlane.png" width="110" height="60" border="0" alt="javascript button"></a>
+                                <img name="planeButton" src="UnitPlane.png" width="110" height="60" border="0" alt="javascript button"></a>
                             </td>
                             <td>
-                                
+                                <a onMouseOver="return changeImageUCS()" onMouseOut="return changeImageBackUCS()" 
+                                onMouseDown="return handleMDownUCS()" onMouseUp="return handleMUpUCS()"   >
+                                <img name="commandUnitButton" src="UnitCommandStructure.png" width="110" height="60" border="0" alt="javascript button"></a>
                             </td>
                         </tr>
                     </table>
@@ -61,12 +63,16 @@
                     </div>
                     
                 </td>
+                <td>
+                    <div class="behaviors">
+                        
+                    </div>
+                </td>
             </tr>
         </table>
         <script src="commands.js"></script>
         <script src="playerData.js"></script>
         <script src="ButtonHandlers.js"></script>
-        <script src="moveUnitCommand.js"></script>
         <script src="JSONdecoder.js"></script>
         <script src="UnitObject.js"></script>
         <script src="playerInputs.js"></script>

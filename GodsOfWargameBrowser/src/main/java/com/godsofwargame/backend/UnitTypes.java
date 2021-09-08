@@ -21,8 +21,8 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     
     TerrainRules terrainRules;
     
-    String UnitType;
-    String OWNER; //javascript tells the javascript which player it is so that the player can tag it
+    String UnitType,property;
+    String OWNER;
     int uhealth ,
         uspeed,
         urange ,//This may need to become a Range.class object but that relies on the javaScript so I'd rather not
@@ -31,6 +31,7 @@ public abstract class UnitTypes {//no constructor since init is actually done in
         uxPos ,
         uyPos ,
         uzPos;
+    
     
 /////////Command Support Methods///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
@@ -52,6 +53,14 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     }
 ////////GETTERS & SETTERS/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+    
     public TerrainRules getTerrainRules() {
         return terrainRules;
     }

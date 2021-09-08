@@ -12,6 +12,7 @@ package com.godsofwargame.backend;
 public class playerData {//holds information related to the player and only the player
     private int money;
     private final String playerID;
+    transient boolean readyState;
     playerData(String ID){
         playerID = ID;
         money = 20000;//default starting value
@@ -28,6 +29,14 @@ public class playerData {//holds information related to the player and only the 
     }
     public String getPlayerID() {
         return playerID;
+    }
+
+    public boolean isReadyState() {
+        return readyState;
+    }
+
+    public void setReadyState(boolean readyState) {
+        this.readyState = readyState;
     }
     
     

@@ -13,6 +13,8 @@ function createUnitCommand(){
         unitObject : new Unit()
     };
 }
+
+
 //Not in use
 function setting(){
     

@@ -26,9 +26,12 @@ function drawUnit(Unit){
         context.drawImage(img, Unit.uxPos*width, Unit.uyPos*height,width,height );
         
         //Change Image src for Turret
+        /*
         img.src = Unit.UnitType + "-Turret.png";
         context.drawImage(img, Unit.uxPos*width, Unit.uyPos*height,width,height);
         console.log(playerID);
+        */
+       
         /*
         if(Unit.OWNER === playerID){
             

@@ -47,6 +47,7 @@ public class UnitTank extends UnitTypes {
     public void prepare(GodsofWargame gameState){
         moveHandler = new UnitTankMovement(this, gameState);
         terrainRules = new UnitTankTerrainRules();
+        property = "GROUND";
     }
     
 }

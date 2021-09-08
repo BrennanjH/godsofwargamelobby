@@ -17,7 +17,7 @@ abstract public class AbstractUnitMovement extends AbstractUnit{
     //public boolean moving = false;
     protected Routing path = new Routing();
     abstract public void move(GodsofWargame gameState);//Should generate routing object
-    abstract public void beginMovement();
+    
     public void setPath(Routing newRoute){
         path = newRoute;
     }

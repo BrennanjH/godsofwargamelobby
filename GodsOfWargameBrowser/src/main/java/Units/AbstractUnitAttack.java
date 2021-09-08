@@ -12,5 +12,6 @@ import com.godsofwargame.backend.GodsofWargame;
  * @author brenn
  */
 abstract public class AbstractUnitAttack extends AbstractUnit{
+    protected TargetingParameters UnitTargetTypes;
     abstract public void attack(GodsofWargame mapState);
 }

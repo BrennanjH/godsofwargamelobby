@@ -20,7 +20,7 @@ public class jsonsendHolder {
     private List<Territory> territories;
 
     
-    private String serverMes;//is this truely needed?
+    private String serverMes;
     private firstResponseSetup firstResponseData;
 
     public jsonsendHolder() {

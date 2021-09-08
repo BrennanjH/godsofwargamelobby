@@ -24,7 +24,7 @@ public class createUnitCommandStructureCommand implements commandInterface{
     AbstractUnitAttack attackHandler;
     AbstractUnitMovement moveHandler;
     private UnitCommandStructure newUnit;
-    HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
+    //HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
     @Override
     public void execute(GodsofWargame gameState,String Id){
         try{

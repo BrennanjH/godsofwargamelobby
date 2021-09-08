@@ -47,8 +47,8 @@ function moveClick(event){//TODO create method to check if a unit was selected
     }
     else{
         hasClicked = false;
-        x2 = getTrueMousePositionx(event.pageX);
-        y2 = getTrueMousePositiony(event.pageY);
+        x2 = getTrueMousePositionx(pressedX);
+        y2 = getTrueMousePositiony(pressedY);
         
         //onClick(x2,y2);//no real need to tint since it will immediatly clear after clicking
         
@@ -61,16 +61,20 @@ function moveClick(event){//TODO create method to check if a unit was selected
    
 }
 function mouseCordsRelativeToCanvasX(mouseEvent){
+    
     let cRect = canvas.getBoundingClientRect();
     let canvasX = Math.round(mouseEvent.clientX - cRect.left);
     console.log("canvasX: " + canvasX);
     return canvasX;
+    
 }
 function mouseCordsRelativeToCanvasY(mouseEvent){
+   
     let cRect = canvas.getBoundingClientRect();
     let canvasY = Math.round(mouseEvent.clientY - cRect.top);
     console.log("canvasY: " + canvasY);
     return canvasY;
+    
 }
 function selectSquare(event){//TODO create a display that will show characteristics of pressed tile
     
@@ -85,14 +89,19 @@ function setXYPositions(event){
     console.log("x: " + x1 + " y: " + y1);
 }
 function getTrueMousePositionx(x){ //finds the top left corner of pressed square x
-    let x = Math.trunc(x/getImageWidth());
-    console.log("trueX: " + x);
-    return x;
+   
+    let setx = Math.trunc(x/getImageWidth());
+    console.log("trueX: " + setx);
+    return setx;
+     
 }
 function getTrueMousePositiony(y){ //finds the top left corner of pressed squares y
-    let y = Math.trunc(y/getImageHeight());
-    console.log("trueY: " + y);
-    return y;
+    
+    let sety = Math.trunc(y/getImageHeight());
+    console.log("trueY: " + sety);
+    return sety;
+     
+     
 }
 
 function addMoveEventListener(){

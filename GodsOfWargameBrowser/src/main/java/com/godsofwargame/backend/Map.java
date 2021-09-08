@@ -15,10 +15,11 @@ public class Map  {//acts as the gamestate object
     
     final int row= 10;
     
-    final int col=10;
+    final int col=10 ;
     
     private Terrain[][] terrainGrid = new Terrain[row][col]; //holds The current state of the grids Terrain
     
+    //Should be removed from Map
     HashMap<String, playerData> players = new HashMap<>(); //TODO add economy to game//TODO turn this into a HashSet
     
     //ArrayList<playerData> players = new ArrayList<>();

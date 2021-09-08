@@ -21,10 +21,7 @@ public class UnitPlaneMovement extends AbstractUnitMovement{
     public UnitPlaneMovement(UnitTypes unit){
         mover = unit;
     }
-    @Override
-    public void beginMovement(){
-        
-    }
+    
     @Override
     public void move(GodsofWargame gameState){
         

@@ -1,39 +1,42 @@
 /*
- * To change attacker license header, choose License Headers in Project Properties.
- * To change attacker template file, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Units;
 
-
+import static Units.UnitTankAttack.trueRangeDown;
+import static Units.UnitTankAttack.trueRangeLeft;
+import static Units.UnitTankAttack.trueRangeRight;
+import static Units.UnitTankAttack.trueRangeUp;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitTypes;
+
 /**
  *
  * @author brenn
  */
-public class UnitTankAttack extends AbstractUnitAttack{
+public class UnitAntiAirAttack extends AbstractUnitAttack{
     UnitTypes attacker;
-    String[] interactions = {"GROUND"};
+    String[] interactions = {"AIR"};
     final int yIndexStart;
     final int yIndexStop;
     final int xIndexStart;
     final int xIndexStop;
-    public UnitTankAttack(UnitTypes unit,GodsofWargame gameState){
-        attacker = unit;
+    GodsofWargame gameState;
+    //private final boolean targetsAir = true;
+    public UnitAntiAirAttack(UnitTypes attacker, GodsofWargame gameState) {
+        this.gameState = gameState;
+        this.attacker = attacker;
         yIndexStart = trueRangeUp(attacker.getUrange(), attacker);
         yIndexStop = trueRangeDown(attacker.getUrange(), attacker,gameState.getMapState());
         xIndexStop = trueRangeRight(attacker.getUrange(), attacker,gameState.getMapState());
         xIndexStart = trueRangeLeft(attacker.getUrange(), attacker);
         UnitTargetTypes = new TargetingParameters(interactions);
-        
     }
-    //TODO fix the index so that they aren't recaculated each attack cycle
-    //TODO tanks shouldn't hit certain unit types so this needs to added
     @Override
-    public void attack(GodsofWargame gameState){
-        //System.out.println("yIndexStart: " + yIndexStart+" yIndexStop: " +yIndexStop +" xIndexStart: " + xIndexStart+" xIndexStop: " + xIndexStop);
+    public void attack(GodsofWargame mapState) {
         for(int i = xIndexStart; i <= xIndexStop;i++){
             for(int j = yIndexStart; j <= yIndexStop;j++){
                 
@@ -49,14 +52,8 @@ public class UnitTankAttack extends AbstractUnitAttack{
                 }
             }
         }
-        //System.out.println(attacker.getOWNER() + " : Didn't Fire");
     }
-    private void shootSquare(int row,int col, Map mapState){
-        for(int i = 0; i < mapState.getDeployedForces()[row][col].size(); i++){
-            mapState.getUnitTypeinDeployedForces(row, col, i).changeUhealth(attacker.getUdamage());
-        }
-        
-    }
+    
     public static int trueRangeUp(int radius,UnitTypes unit ){
         //System.out.println("trueRangeUP: " + Math.max(0, unit.getUyPos() - radius));
         return Math.max(0, unit.getUyPos() - radius);
@@ -72,5 +69,11 @@ public class UnitTankAttack extends AbstractUnitAttack{
     public static int trueRangeDown(int radius,UnitTypes unit , Map mapState){
         //System.out.println("trueRangeDown: " + Math.min(mapState.getRow(),unit.getUyPos() + radius));
         return Math.min(mapState.getRow() -1 ,unit.getUyPos() + radius);
+    }
+    private void shootSquare(int row,int col, Map mapState){
+        for(int i = 0; i < mapState.getDeployedForces()[row][col].size(); i++){
+            mapState.getUnitTypeinDeployedForces(row, col, i).changeUhealth(attacker.getUdamage());
+        }
+        
     }
 }

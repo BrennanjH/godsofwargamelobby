@@ -3,32 +3,36 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
- var unitList = new Array();
-//the following are temp values that are assigned upon button press that get used by constructor
- var classType; //A string unlike the other variables
- var speed;
- var health;
- var range;
- var damage;
- var TerrainRules;
- //following three get assigned when the unit is actually placed onto the grid
- var xPos;
- var yPos;
- var zPos;
- var type;
+ /* global playerID */
 
+var unitList = new Array();
+//the following are temp values that are assigned upon button press that get used by constructor
+
+var speed;
+var health;
+var range;
+var damage;
+var TerrainRules;
+//following three get assigned when the unit is actually placed onto the grid
+var xPos;
+var yPos;
+var zPos;
+var type;
+var property;
  
 function Unit() {
     this.UnitType = type;//will be set by methods later
+    console.log(type);
     this.terrainRules = TerrainRules;
     this.OWNER = playerID;
-        this.uhealth = health;
-        this.uspeed = speed;
-        this.urange = range;
-        this.udamage = damage;
-        this.uxPos = xPos;
-        this.uyPos = yPos;
-        this.uzPos = zPos;//this will also determine which unit is rendered. by default the first unit is chosen. //Currently obsolete
+    this.uhealth = health;
+    this.uspeed = speed;
+    this.urange = range;
+    this.udamage = damage;
+    this.property = property;
+    this.uxPos = xPos;
+    this.uyPos = yPos;
+    this.uzPos = zPos;//this will also determine which unit is rendered. by default the first unit is chosen. //Currently obsolete
 
 }
 

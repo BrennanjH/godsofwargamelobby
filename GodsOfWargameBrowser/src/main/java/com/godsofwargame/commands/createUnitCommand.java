@@ -48,24 +48,6 @@ public class createUnitCommand implements commandInterface {
     }
 //********HELPER METHODS*********************************************************************************************************************
     
-    private boolean isTerrainValid(Map gameState){
-        if( gameState.getTerrain(newUnit.getUxPos(),newUnit.getUyPos()).getType().equals("MOUNTAIN") ){//WARNING originally was y,x but I'm trying to fix code to all be x,y so I've changed this
-
-            System.out.println("isTerrainvalid returning false, create command failed");
-            
-            return false;
-        }
-        else
-        return true;
-    }
-    private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
-        return gameState.getDeployedForces()[newUnit.getUxPos()][newUnit.getUyPos()].size();
-    }
-    /*
-    @Override
-    public HashMap<String,jsonsendHolder> getJsonsendHolders(){
-        return dataForSending;
-    }
-    */
+    
     
 }

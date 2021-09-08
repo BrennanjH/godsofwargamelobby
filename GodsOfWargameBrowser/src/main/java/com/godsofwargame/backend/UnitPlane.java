@@ -53,6 +53,7 @@ public class UnitPlane extends UnitTypes{
     public void prepare(GodsofWargame gameState){
         //For now it assumes that terrainTypes aren't sent
         terrainRules = new UnitTankTerrainRules();
+        property = "AIR";
     }
     
 }

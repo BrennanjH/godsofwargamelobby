@@ -25,7 +25,7 @@ public class MoveHandling implements Handling{
         for(UnitTypes t : loopList){
             if( t.getMoveHandler().isMoving()){
                 //Decide how many times to loop through list
-                int loopLength = Math.min(t.getUspeed(), t.getMoveHandler().getPath().getPathingRoute().size());
+                int loopLength = Math.min(t.getUspeed(), t.getMoveHandler().getPath().getPathingRoute().size() -1 );
                 
                 for(int speedCheck=0; speedCheck < loopLength ; speedCheck++){
                    t.move(gameState);

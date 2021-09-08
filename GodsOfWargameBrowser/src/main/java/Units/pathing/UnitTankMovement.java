@@ -17,9 +17,8 @@ import com.godsofwargame.backend.mapUpdater;
  */
 public class UnitTankMovement extends AbstractUnitMovement{
     UnitTypes mover;
-    //TerrainRules terrainRules;
-    //int lx,ly;
-    //Routing path;
+    
+    
     GodsofWargame gameState;
     //constructor to be used by new units that have tank pathing but not tank terrain interactions
     public UnitTankMovement(UnitTypes unit, GodsofWargame gameState) {
@@ -27,21 +26,19 @@ public class UnitTankMovement extends AbstractUnitMovement{
         this.gameState = gameState;
         //terrainRules = unit.getTerrainRules();
     }
-    @Override
-    public void beginMovement(){
-        
-    }
+    
     //Generates Routing object
     @Override
     public void move(GodsofWargame gameState){
         //set Necessary fields
         this.gameState = gameState;
         //validate movement
-        System.out.println("unitTankMovement: move: " + path.pathingRoute);
+        //System.out.println("unitTankMovement: move: " + path.pathingRoute);
         int newX = path.getPathingRoute().get(1)[0];
         int newY = path.getPathingRoute().get(1)[1];
         if ( validate(newX, newY ) ) {
             //move unit to next square
+            //TODO create method in map that handles moving units around that way when a unit moves it can automatically downshift the z cords of units in the remaining location
             gameState.getMapState().removeUnitTypeinDeployedForces(mover.getUxPos(), mover.getUyPos(), mover);
             mover.setUxPos(newX);
             mover.setUyPos(newY);
@@ -62,6 +59,6 @@ public class UnitTankMovement extends AbstractUnitMovement{
                 //Validate Terrain
         return mover.getTerrainRules().isValid(gameState.getMapState().getTerrain(newX, newY)) &&
                 //Validate that the new positions path is not too far away from current location
-                ( (Math.abs((mover.getUxPos() + mover.getUyPos()) - (newX + newY))) <= 2 );
+                ( (Math.abs((mover.getUxPos() + mover.getUyPos()) - (newX + newY))) <= 2 );//WARNING This code limits difference in location by two for diagonal movement but isn't meant to let units move two squares up
     }
 }
