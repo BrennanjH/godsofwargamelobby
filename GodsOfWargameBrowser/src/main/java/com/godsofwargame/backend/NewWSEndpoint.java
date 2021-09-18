@@ -24,15 +24,16 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
  */
 @ServerEndpoint(value="/godsofwargame", encoders = {TomcatEncoder.class})
 public class NewWSEndpoint {
+    
+    //Used to perform a preload on the gameState, This is kept seperate from onopen since it isn't directly related to users
+    public NewWSEndpoint(){
+        //System.out.println("Can you believe this worked?: " + Math.random());
+    }
     //TODO Create Syncronized() on gameState so that only one thread can access it
     private static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GOWConfig.class);
     private static GodsofWargame gameState = ctx.getBean("godsOfWargame", GodsofWargame.class);//WARNING might need to become Static
-    //private static GodsofWargame gameState = new GodsofWargame();
     
-    //private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private playerData player;
-    //Gson serial = new Gson();
-    //JSONhandler passer = new JSONhandler(); //DEPRECATED
     
     JSONHandler passer = new CommandHandler(gameState);
     
@@ -62,12 +63,13 @@ public class NewWSEndpoint {
         
         commandInterface setting = new settingsCommand();
         setting.execute(gameState, peer.getId());
-        
+        System.out.println("NewWSEndpoint: onOpen: gameState Properties col test: " + gameState.getProperties().getCols());
         gameState.getMapState().addPlayer(peer.getId(), player);//place the Id in a hashMap and the players information alongside it
         System.out.println("peer joined: " + peer.getId());
         //Perform first time setup when user joins
         if (!(gameState.checkState())){    
             System.out.println("Gamestate load started");
+            
             gameState.load();
             System.out.println("Gamestate load Complete");
         }

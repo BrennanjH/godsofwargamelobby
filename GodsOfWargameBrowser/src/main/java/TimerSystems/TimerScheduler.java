@@ -28,7 +28,7 @@ public class TimerScheduler extends TimerTask{
     @Override
     public void run(){
         try{
-        jsonsendHolder results = new jsonsendHolder();//Not really necessary but for now it's better
+        jsonsendHolder results = new jsonsendHolder(gameState.getProperties());//Not really necessary but for now it's better
         attackInit.Handle();
         moveInit.Handle();
         updatePlayers();

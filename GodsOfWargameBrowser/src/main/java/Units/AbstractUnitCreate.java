@@ -16,5 +16,5 @@ import com.godsofwargame.backend.jsonsendHolder;
 abstract public class AbstractUnitCreate extends AbstractUnit{
     //public jsonsendHolder create(Map mapState, String Id);
     abstract public void create(GodsofWargame gameState, String Id);
-    final int healthPrice=1,damagePrice=1,rangePrice=50,speedPrice=0;
+    final int healthPrice=10,damagePrice=10,rangePrice=50,speedPrice=30;
 }

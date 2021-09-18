@@ -9,26 +9,34 @@ import Location.Terrain;
 import Location.Territory;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 /**A class that represents all the data that is going to be serialized for the Frontend
  *
  * @author brenn
  */
+
 public class jsonsendHolder {
     private List<Terrain> terrainList;
     private List<UnitTypes> unitList;
     private playerData playerInfo;
     private List<Territory> territories;
-
     
-    private String serverMes;
+    private MatchProperties properties;
+    private String serverMes = "Alls good";
     private firstResponseSetup firstResponseData;
-
-    public jsonsendHolder() {
+    
+    public jsonsendHolder(MatchProperties propertyData) {
         terrainList = new ArrayList<>();
         unitList = new ArrayList<>();
         //deleteUnitList = new ArrayList<>();
         firstResponseData = new firstResponseSetup();
+        properties = propertyData;
     }
+    
+    //public jsonsendHolder(){
+        
+    //}
     //creates a new references for lists but doesn't change the objects in the lists
     public jsonsendHolder( jsonsendHolder holder) {
         this.terrainList = new ArrayList(holder.getTerrainList());
@@ -36,6 +44,11 @@ public class jsonsendHolder {
         //this.deleteUnitList = new ArrayList(holder.getDeleteUnitList());
         this.serverMes = holder.getServerMes();
         this.firstResponseData = holder.getFirstResponseData();
+        this.properties = holder.getProperties();
+    }
+
+    public MatchProperties getProperties() {
+        return properties;
     }
     
     

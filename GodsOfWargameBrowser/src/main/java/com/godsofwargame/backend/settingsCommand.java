@@ -24,7 +24,7 @@ public class settingsCommand implements commandInterface{
     public void execute(GodsofWargame gameState,String Id){
         //dataForSending = new HashMap<>();
         Gson serializer = new Gson();
-        jsonsendHolder firstResponse = new jsonsendHolder();//returns this object for serializing but in reality only sends firstResponseSetup.java
+        jsonsendHolder firstResponse = new jsonsendHolder(gameState.getProperties());//returns this object for serializing but in reality only sends firstResponseSetup.java
         firstResponseSetup trueSend = new firstResponseSetup();
         trueSend.setID(Id);
         System.out.println("Succeeded in creating variables: settings Command");

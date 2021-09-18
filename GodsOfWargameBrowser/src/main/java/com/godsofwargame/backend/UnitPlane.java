@@ -7,14 +7,12 @@ package com.godsofwargame.backend;
 
 import Units.AbstractUnitAttack;
 import Units.AbstractUnitCreate;
-import Units.pathing.AbstractUnitMovement;
 import Units.AbstractUnitRemoval;
 import Units.UnitPlaneAttack;
 import Units.UnitPlaneCreate;
-import Units.pathing.UnitPlaneMovement;
 import Units.UnitTankRemoval;
-import Units.pathing.Routing;
-import Units.pathing.UnitTankTerrainRules;
+import Units.pathing.UnitPlaneTerrainRules;
+import Units.pathing.UnitTankMovement;
 
 /**
  *
@@ -23,7 +21,7 @@ import Units.pathing.UnitTankTerrainRules;
 public class UnitPlane extends UnitTypes{
     @Override
     public void move(GodsofWargame gameState){//TODO finish this, also int newZ is probably useless
-        moveHandler = new UnitPlaneMovement(this);
+        
         moveHandler.move(gameState);
     }
     @Override
@@ -52,7 +50,8 @@ public class UnitPlane extends UnitTypes{
     @Override
     public void prepare(GodsofWargame gameState){
         //For now it assumes that terrainTypes aren't sent
-        terrainRules = new UnitTankTerrainRules();
+        moveHandler = new UnitTankMovement(this, gameState);
+        terrainRules = new UnitPlaneTerrainRules();
         property = "AIR";
     }
     

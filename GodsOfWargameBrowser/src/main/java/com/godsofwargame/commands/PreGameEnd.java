@@ -22,38 +22,50 @@ public class PreGameEnd implements internalCommands{
     GodsofWargame gameState;
     //JSONhandler passer = new JSONhandler();
     UnitCommandStructure removed;//as gameEnding is related to 
-    public PreGameEnd(GodsofWargame GameState){
+    public PreGameEnd(UnitCommandStructure remove, GodsofWargame GameState){
         gameState = GameState;
+        removed = remove;
         //removed = remove;
     }
     @Override
-    public void execute(UnitTypes remove){
-        System.out.println("GameEnd Has been called");
-        removed = (UnitCommandStructure) remove;
-        PlayerToSpectator spectate = new PlayerToSpectator(gameState);
+    public void execute(){
+        System.out.println("PreGameEnd Has been called");
+        
+        
         try {
-            if(isLastCommander(gameState)){
-                sendCloseStatement closer = new sendCloseStatement(gameState);
-                closer.sendCustomCloseMessage("WIN CONDITION MET");
-                JSONHandler passer = new CommandHandler(gameState);
-                //HashMap<String, String> serializedEnd = new HashMap<>();
-                //serializedEnd = passer.convertToString(closer.sendCustomCloseMessage("WIN CONDITION MET"), serializedEnd);
-                DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize(closer.sendCustomCloseMessage("WIN CONDITION MET")));
-                endGame();
+            //Check if player has remaining command Units
+            if(isPlayersLastCommander(gameState)){
+                System.out.println("IsPlayerLast Commander: true");
+                //Check if any other players remain
+                if(isLastPlayer()){
+                    System.out.println("IsLastPlayer: true");
+                    //create custom ending message
+                    
+                    //end the game by removing all players
+                    endGame();
+                }
+                //Send Player to Spectator Role/remove them
+                //TODO
             }
         }
         catch ( IOException E){
             System.err.println("execute in PreEndGame has thrown IOException");
         }
     }
-    private boolean isLastCommander(GodsofWargame gameState){
-        return gameState.getCommanders().size() <= 1; 
+    private boolean isPlayersLastCommander(GodsofWargame gameState){
+        return !(gameState.getCommanders().containsKey(removed.getOWNER())); 
+    }
+    private boolean isLastPlayer(){
+        System.out.println("last player keyset size: " + gameState.getCommanders().keySet().size());
+        return gameState.getCommanders().keySet().size() <=1;
     }
     //Closes all sessions in gameState
     private void endGame() throws IOException{
+        /*
         for (String s : gameState.getClients().keySet() ){
             gameState.getClients().get(s).close();
         }
+        */
     }
     
 }

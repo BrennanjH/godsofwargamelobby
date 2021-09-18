@@ -10,39 +10,57 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.websocket.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Map  {//acts as the gamestate object
     
-    final int row= 10;
+    //@Value("${map.row}")
+    int row;// = Integer.parseInt(stringRow);
     
-    final int col=10 ;
+
+    //@Value("${map.column}")
+    int col;// = Integer.parseInt(stringCol);
     
-    private Terrain[][] terrainGrid = new Terrain[row][col]; //holds The current state of the grids Terrain
+    private Terrain[][] terrainGrid;// = new Terrain[row][col]; //holds The current state of the grids Terrain
     
     //Should be removed from Map
-    HashMap<String, playerData> players = new HashMap<>(); //TODO add economy to game//TODO turn this into a HashSet
+    HashMap<String, playerData> players;// = new HashMap<>(); //TODO add economy to game//TODO turn this into a HashSet
     
     //ArrayList<playerData> players = new ArrayList<>();
     
-    private List<UnitTypes>[][] deployedForces = new List[row][col];
-    private List<Territory> territories = new ArrayList<>();
+    private List<UnitTypes>[][] deployedForces;// = new List[row][col];
+    private List<Territory> territories;// = new ArrayList<>();
 
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public Map(){
-        System.out.println("Map instantiated");
+    @Autowired
+    public Map(@Value("${map.row:10}") String rows,@Value("${map.column:10}") String cols){
+        System.out.println("Map constructor: rows: " + rows);
+        row = Integer.parseInt(rows);
+        col = Integer.parseInt(cols);
+        System.out.println("Map constructor: rows as int: " + row);
+        terrainGrid = new Terrain[row][col];
+        players = new HashMap<>();
+        deployedForces = new List[row][col];
+        territories = new ArrayList<>();
+        
         for(int i =0;i<row;i++){
             
             for(int j =0;j<col;j++){
                 deployedForces[i][j] = new ArrayList<>();
             }
         }
+        System.out.println("Map instantiated");
     }
 
     public List<UnitTypes>[][] getDeployedForces() {
         return deployedForces;
         
     }
+    
     /*
     public List<UnitTypes> getListInDeployedForces(int x ,int y){
         return deployedForces[x][y];

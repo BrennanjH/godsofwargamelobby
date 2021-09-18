@@ -5,13 +5,17 @@
  */
 package com.godsofwargame.commands;
 
-import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitTypes;
 
 /**
  *
  * @author brenn
  */
-public interface internalCommands {
-    public void execute();
+public class PlayerRemover implements internalCommands{
+
+    @Override
+    public void execute() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
 }

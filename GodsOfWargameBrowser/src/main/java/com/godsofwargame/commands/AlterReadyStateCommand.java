@@ -26,16 +26,19 @@ public class AlterReadyStateCommand implements commandInterface {
     //Change the users ready state, prepare Command Unit for construction
     @Override
     public void execute(GodsofWargame gameState, String Id) {
+        System.out.println("AlterReadyStateCommand: Entered Execution");
         JSONHandler passer = new CommandHandler(gameState);
         this.gameState = gameState;
+        
         //Check if server has already started
         if(gameState.checkState()){
+            System.out.println("AlterReadyStateCommand: alteration failed, gameState already initialized");
             //Cancel command processing
             return;
         }
         //Check to see if pre-game setup is completed {creating and placing a commandUnit}
         if (readyState == true && validate(Id)){
-            
+            System.out.println("AlterReadyStateCommand: playerstate set to true");
             //Set readyState flag to true
             gameState.getMapState().getPlayer(Id).setReadyState(true);
             
@@ -49,6 +52,7 @@ public class AlterReadyStateCommand implements commandInterface {
                 
             }
         } else {
+            System.out.println("AlterReadyStateCommand: playerstate set to false");
             //set readyState flag in PlayerData for user to false
             gameState.getMapState().getPlayer(Id).setReadyState(false);
             

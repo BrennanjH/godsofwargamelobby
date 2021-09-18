@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+/* global desiredReadyState */
+
 function createUnitCommand(){
     this.header = {
         className : "createUnitCommand",
@@ -37,5 +39,14 @@ function moveUnitCommand(unit, path){
     this.body = {
         unitObject : unit,
         pathingRoute : path
+    };
+}
+function readyCommand(readyState){
+    this.header = {
+        className : "AlterReadyStateCommand",
+        unitPresence : false
+    };
+    this.body = {
+        readyState : readyState
     };
 }

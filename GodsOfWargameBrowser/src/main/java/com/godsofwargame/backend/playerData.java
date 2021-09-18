@@ -13,7 +13,8 @@ public class playerData {//holds information related to the player and only the 
     private int money;
     private final String playerID;
     transient boolean readyState;
-    playerData(String ID){
+    
+    public playerData(String ID){
         playerID = ID;
         money = 20000;//default starting value
     }

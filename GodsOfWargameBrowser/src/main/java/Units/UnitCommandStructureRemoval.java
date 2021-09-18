@@ -16,7 +16,7 @@ public class UnitCommandStructureRemoval extends AbstractUnitRemoval{
     UnitCommandStructure mover;
     public UnitCommandStructureRemoval(UnitCommandStructure unit){
         mover = unit;
-        }
+    }
     @Override
     public void removeUnit(GodsofWargame gameState){
         if(mover.getUhealth() <= 0){
@@ -24,8 +24,8 @@ public class UnitCommandStructureRemoval extends AbstractUnitRemoval{
             gameState.getMapState().removeUnitTypeinDeployedForces(mover.getUxPos(), mover.getUyPos(), mover);
             gameState.removeCommander(mover);
             //Since this is a commander a check needs be run to determine the fate of the game
-            PreGameEnd ender = new PreGameEnd(gameState);
-            ender.execute(mover);
+            PreGameEnd ender = new PreGameEnd(mover, gameState);
+            ender.execute();
         }
     }
 }

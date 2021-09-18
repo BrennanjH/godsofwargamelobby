@@ -9,12 +9,12 @@ package com.godsofwargame.backend;
 import TimerSystems.TimerScheduler;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.websocket.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 /*
 import java.net.ServerSocket; Probably won't be used
 import java.io.File;
@@ -24,16 +24,24 @@ import java.io.IOException;
 */
 //CLASS that instantiates the game 
 //TODO change all Map.class calls to GodsofWargame.class calls so that all gameState objects can be referenced from one class
+
 public class GodsofWargame {
-   
     
     protected static HashMap<String, Session> clients = new HashMap<>();//STATIC
-    public Map mapState = new Map();
+    //@Autowired
+    @Autowired
+    public Map mapState;// = new Map();
     private Timer attackTimer;
     private TimerTask task;
-    private HashMap<String, UnitCommandStructure> commanders = new HashMap<>();//May need to be either a HashMap or Set
+    private HashMap<String, ArrayList<UnitCommandStructure>> commanders = new HashMap<>();//May need to be either a HashMap or Set
+    @Autowired
+    private MatchProperties properties;
     
     private boolean isInstantiated = false;
+
+    public MatchProperties getProperties() {
+        return properties;
+    }
     
     public Map getMapState() {
         return mapState;
@@ -59,15 +67,35 @@ public class GodsofWargame {
        isInstantiated = true;
     } 
 
-    public HashMap<String, UnitCommandStructure> getCommanders() {
+    public HashMap<String, ArrayList<UnitCommandStructure>> getCommanders() {
         return commanders;
     }
 
     public void addCommander(UnitCommandStructure command){
-        commanders.put(command.getOWNER(), command);
+        if(commanders.containsKey(command.getOWNER())){
+            commanders.get(command.getOWNER()).add(command);
+        } else {
+            ArrayList<UnitCommandStructure> temp = new ArrayList<>();
+            temp.add(command);
+            commanders.put(command.getOWNER(), temp);
+        }
+        
     }
     public void removeCommander(UnitCommandStructure command){
-        commanders.remove(command.getOWNER());
+        ArrayList<UnitCommandStructure> temp = commanders.get(command.getOWNER());
+        //int index;
+        for (int i =0; i< temp.size(); i++){
+            if (temp.get(i).equals(command)){
+                System.out.println("removeCommander: in if remove unit");
+                temp.remove(i);
+                break;
+                        //.remove(temp);
+            }
+        }
+        if (commanders.get(command.getOWNER()).isEmpty()){
+            System.out.println("removeCommander: in if remove player");
+            commanders.remove(command.getOWNER());
+        }
     }
     //Must be called at session send so that all information pertaining to player is removed
     public void removeSession(Session leaver){
@@ -81,5 +109,8 @@ public class GodsofWargame {
     public void setIsInstantiated(boolean isInstantiated) {
         this.isInstantiated = isInstantiated;
     }
-    
+    private boolean compareUnits(UnitTypes unit1, UnitTypes unit2){
+        return (unit1.uxPos == unit2.uxPos) && (unit1.uyPos == unit2.uyPos) && (unit1.uzPos == unit2.uzPos);
+    }
+
 }

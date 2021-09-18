@@ -10,6 +10,7 @@ import Location.Territory;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  *  The purpose of this class to take the gameState and use it to split the data
@@ -22,7 +23,9 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
     //TODO have this method only send messages to the person who joined.
     public static HashMap<String, jsonsendHolder> sortData(GodsofWargame gameState){//Public class that any class can use to sort data between clients
             HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();//the sorted data's goes here
-            jsonsendHolder empty = new jsonsendHolder();
+            
+            jsonsendHolder empty = new jsonsendHolder(gameState.getProperties());
+            
             dataForSending = setClients(dataForSending, gameState,empty);
             dataForSending = seperateUnitsByUser( getUnitsAsList(gameState), dataForSending);
             dataForSending = seperateTerrainByUser( getTerrainAsList(gameState), dataForSending);//TODO fix unitLoss bug (fixed? don't remember this bug)

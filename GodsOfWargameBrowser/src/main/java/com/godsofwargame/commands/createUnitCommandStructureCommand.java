@@ -21,15 +21,13 @@ import java.util.HashMap;
 //NOTE This command is for finalizing a command Unit it doesn't actually execute the code needed for a command Unit to exist in gameState
 //that is handled by createSelf() inside the command Unit which is executed by this command
 public class createUnitCommandStructureCommand implements commandInterface{
-    AbstractUnitAttack attackHandler;
-    AbstractUnitMovement moveHandler;
+    
     private UnitCommandStructure newUnit;
     //HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();
     @Override
     public void execute(GodsofWargame gameState,String Id){
         try{
-        newUnit.setAttackHandler(attackHandler);
-        newUnit.setMoveHandler(moveHandler);
+        
         newUnit.createSelf(gameState,Id);
         } catch (ArrayIndexOutOfBoundsException E){
             System.out.println("Index error at createCommandStructure");

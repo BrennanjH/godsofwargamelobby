@@ -24,7 +24,7 @@ class sendCloseStatement {
     
     //Broadcasts a custom message to everybody, Intended for use cases where custom Error is desired
     HashMap<String, jsonsendHolder> sendCustomCloseMessage(String messageEnd){
-        jsonsendHolder messageHolder = new jsonsendHolder();
+        jsonsendHolder messageHolder = new jsonsendHolder(gameState.getProperties());
         messageHolder.addServerMessage(messageEnd);
         return peerSpecificIdentifier.simpleData(gameState, messageHolder);
         
@@ -32,7 +32,7 @@ class sendCloseStatement {
     //Sends just one session a close message, for use when somebody is Forcibly being disconnected but other users aren't
     //TODO finish this method
     void sendSessionCloseMessage(String message, Session listener){
-        jsonsendHolder messageHolder = new jsonsendHolder();
+        jsonsendHolder messageHolder = new jsonsendHolder(gameState.getProperties());
         
     }
 }

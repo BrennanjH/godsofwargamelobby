@@ -9,7 +9,7 @@ var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
 
 var hasClicked = false;
-
+var desiredReadyState = false;
 
 var x1,y1,x2,y2;
 //TODO add hotkeys and button prompts to manually change event listeners for commands
@@ -133,4 +133,11 @@ function removeAllListeners(){
     canvas.removeEventListener("click", selectSquare, false);
     canvas.removeEventListener("click", moveClick,false);
     canvas.removeEventListener("click", placeUnit,false);
+}
+function readyUp(){
+    desiredReadyState = !desiredReadyState;
+    let command  = new readyCommand(desiredReadyState);
+    readyStatePossible(command);
+    //ready = true; ready is set to true when the servers response returns and is stored in playerdata object
+    
 }

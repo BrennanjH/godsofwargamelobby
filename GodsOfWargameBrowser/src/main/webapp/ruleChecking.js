@@ -30,7 +30,10 @@ function movePossibleClient(){//runs first then sends a check to server
     }
     
 }
-
+function readyStatePossible(readyStateCommand){ //Should perform logic to get ready state to become inverted
+    //Desired logic is not yet designed
+    commandPossibleServer(readyStateCommand);
+}
 function compareTerrainToUnit(terrain, unit){
     for(j=0; j<unit.terrainRules.badSpots.length; j++){
         if( terrain.type === unit.terrainRules.badSpots[j]) {
@@ -38,4 +41,8 @@ function compareTerrainToUnit(terrain, unit){
         }
     }
     return true;
+}
+function commandPossibleServer(command){
+    console.log(command);
+    sendText(JSON.stringify(command));
 }
