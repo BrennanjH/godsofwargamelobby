@@ -7,3 +7,4 @@
 //Currently not in use as gameState is set by server
 var setRows;
 var setCols;
+var gameSettings;

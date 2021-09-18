@@ -13,7 +13,7 @@ var arrayWidth;
 var width;
 var height;
 var TerrainMap = new Array();//TODO this array seems to be backwards based on frontend backend cord pos
-initGrid();
+//initGrid();
 
 
 
@@ -103,6 +103,7 @@ function refresh(){
     }
         
      */
+    initGrid();
     for(i=0;i<unitList.length;i++){
         console.log(unitList[i]);
         /*

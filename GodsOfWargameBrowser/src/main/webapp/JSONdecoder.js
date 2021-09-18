@@ -11,6 +11,7 @@ function JSONgameStateUpdater(json){//Properly updates gamestate (lists of units
     terrainHandling(message.terrainList);// Unlike UnitHandling which runs regardless of Unit presence TerrainHandling doesn't run if empty
     unitHandling(message.unitList);
     playerDataHandling(message.playerInfo);
+    propertiesHandling(message.properties);
 }
 function playerDataHandling(data){
     if(typeof data !== "undefined"){
@@ -23,11 +24,11 @@ function serverMessageHandling(message){
 }
 
 function initGrid(){
-        setArrayHeight(10);
-        setArrayWidth(10);
-        setImageWidth();
-        setImageHeight();
-        addMoveEventListener();
+    setArrayHeight(gameSettings.cols);
+    setArrayWidth(gameSettings.rows);
+    setImageWidth();
+    setImageHeight();
+    addMoveEventListener();
 }
 
 function unitHandling(list){
@@ -43,6 +44,11 @@ function terrainHandling(list){
             drawTerrain(list[i]);
         }
         
+    }
+}
+function propertiesHandling(properties){
+    if(typeof properties !== undefined){
+        gameSettings = properties;
     }
 }
 //TODO see if there is a way to cut these methods out after first use

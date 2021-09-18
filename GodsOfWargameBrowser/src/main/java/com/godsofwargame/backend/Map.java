@@ -47,9 +47,9 @@ public class Map  {//acts as the gamestate object
         deployedForces = new List[row][col];
         territories = new ArrayList<>();
         
-        for(int i =0;i<row;i++){
+        for(int i =0;i<deployedForces.length;i++){
             
-            for(int j =0;j<col;j++){
+            for(int j =0;j<deployedForces[i].length;j++){
                 deployedForces[i][j] = new ArrayList<>();
             }
         }
@@ -106,10 +106,10 @@ public class Map  {//acts as the gamestate object
    }
     
    public int getRow(){
-      return col;
+      return row;
    }
    public int getCol(){
-      return row;
+      return col;
    }
    public Terrain getTerrain(int x, int y){
       //System.out.println(terrainGrid[x][y].getType());
@@ -144,6 +144,7 @@ public class Map  {//acts as the gamestate object
                 
                 
                 //To improve For Loop create on run through tag the units to be removed,after loop remove them, then update them
+                //System.out.println("Map: removeOwnerFromDeployedForces: deployedForces size: " + getDeployedForces()[i][j].size());
                 for(int k =0; k < getDeployedForces()[i][j].size(); k++){
                     
                     if(ID.equals(getUnitTypeinDeployedForces(i,j,k).OWNER ) ){
