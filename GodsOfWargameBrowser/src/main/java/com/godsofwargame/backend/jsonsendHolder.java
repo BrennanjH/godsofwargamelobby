@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class jsonsendHolder {
     private List<Terrain> terrainList;
     private List<UnitTypes> unitList;
-    private PlayerData playerInfo;
+    private PlayerData1 playerInfo;
     private List<Territory> territories;
     
     private MatchProperties properties;
@@ -63,11 +63,11 @@ public class jsonsendHolder {
         deleteUnitList.add(unit);
     }
     */
-    public PlayerData getPlayerInfo() {
+    public PlayerData1 getPlayerInfo() {
         return playerInfo;
     }
     
-    public void setPlayerInfo(PlayerData playerInfo) {
+    public void setPlayerInfo(PlayerData1 playerInfo) {
         this.playerInfo = playerInfo;
     }
     public List<Territory> getTerritories() {

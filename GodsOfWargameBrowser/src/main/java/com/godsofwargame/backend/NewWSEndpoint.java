@@ -33,7 +33,7 @@ public class NewWSEndpoint {
     private static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GOWConfig.class);
     private static GodsofWargame gameState = ctx.getBean("godsOfWargame", GodsofWargame.class);//WARNING might need to become Static
     
-    private PlayerData player;
+    private PlayerData1 player;
     
     JSONHandler passer = new CommandHandler(gameState);
     
@@ -61,7 +61,7 @@ public class NewWSEndpoint {
         
         //add reference to new user into GodsofWargame Object
         gameState.getClients().put(peer.getId(), peer);
-        player = new PlayerData(peer.getId());
+        player = new PlayerData1(peer.getId());
         
         commandInterface setting = new settingsCommand();
         setting.execute(gameState, peer.getId());
