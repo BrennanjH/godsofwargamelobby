@@ -33,12 +33,12 @@ public class GodsofWargame {
     public Map mapState;// = new Map();
     private Timer attackTimer;
     private TimerTask task;
-    private HashMap<String, ArrayList<UnitCommandStructure>> commanders = new HashMap<>();//May need to be either a HashMap or Set
+    private HashMap<String, ArrayList<UnitCommandStructure>> commanders = new HashMap<>();//Links player Id to all owned CommandUnits
     @Autowired
     private MatchProperties properties;
+    @Autowired
+    private LoadState readyStates;
     
-    private boolean isInstantiated = false;
-
     public MatchProperties getProperties() {
         return properties;
     }
@@ -52,19 +52,29 @@ public class GodsofWargame {
     public void cancelTimer(){
         attackTimer.cancel();
     }
-  
-    public boolean checkState(){ //looks to see if a map class already has been instantiated 
-       
-       return isInstantiated;
+
+    public LoadState getReadyStates() {
+        return readyStates;
+    }
+
+    public void resetReadyState(){
+        readyStates = new LoadState();
     }
     
-    protected void load(){//kicks off a chain that generates the terrain of the match (predetermined or not)
-       attackTimer = new Timer();
-       task = new TimerScheduler( this);
-       mapState.GenerateTerrain();//gets terrain placed into 2d array stored in map object
-       attackTimer.schedule(task,1000,5000);//TODO Figure out why this can't be stopped and started
-       //game.getCurrent();
-       isInstantiated = true;
+    protected void preload(){//Sets up the server and lobby based on gameProperties
+        //Create Terrain
+        mapState.GenerateTerrain();//gets terrain placed into 2d array stored in map object
+        //Change preload flag to true
+        readyStates.setPreLoad(true);
+    }
+    public void load(){//kicks off a chain that generates the terrain of the match (predetermined or not)
+        System.out.println("GodsofWargame: load: load initiated");
+        //start Timers
+        attackTimer = new Timer();
+        task = new TimerScheduler( this);
+        attackTimer.schedule(task,1000,5000);
+        //change fullyLoaded flag to true
+        readyStates.setFullyLoaded(true);
     } 
 
     public HashMap<String, ArrayList<UnitCommandStructure>> getCommanders() {
@@ -106,9 +116,7 @@ public class GodsofWargame {
         
     }
 
-    public void setIsInstantiated(boolean isInstantiated) {
-        this.isInstantiated = isInstantiated;
-    }
+    
     private boolean compareUnits(UnitTypes unit1, UnitTypes unit2){
         return (unit1.uxPos == unit2.uxPos) && (unit1.uyPos == unit2.uyPos) && (unit1.uzPos == unit2.uzPos);
     }

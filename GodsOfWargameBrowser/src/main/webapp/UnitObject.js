@@ -17,7 +17,7 @@ var TerrainRules;
 var xPos;
 var yPos;
 var zPos;
-var type;
+var type = "UnitTank"; //default to tank so if the user forgets to input type it won't break server
 var property;
  
 function Unit() {
@@ -44,8 +44,10 @@ function Unit() {
  }
  function updateUnitList(list){
      unitList = list;//Not sure if x,or y comes first
+     /*
      console.log("updated unitList: ");
      console.log(unitList);
+     */
  }
 function setClass(setType){
     classType = setType;

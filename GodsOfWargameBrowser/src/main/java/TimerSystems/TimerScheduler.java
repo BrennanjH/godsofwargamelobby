@@ -20,18 +20,21 @@ public class TimerScheduler extends TimerTask{
     GodsofWargame gameState;
     Handling attackInit;
     Handling moveInit;
+    Handling currencyInit;
     public TimerScheduler(GodsofWargame GameState){
         gameState = GameState;
         attackInit = new AttackHandling(GameState);
         moveInit = new MoveHandling(GameState);
+        currencyInit = new CurrencyHandler(GameState);
     }
     @Override
     public void run(){
         try{
-        jsonsendHolder results = new jsonsendHolder(gameState.getProperties());//Not really necessary but for now it's better
-        attackInit.Handle();
-        moveInit.Handle();
-        updatePlayers();
+            jsonsendHolder results = new jsonsendHolder(gameState.getProperties());//Not really necessary but for now it's better
+            attackInit.Handle();
+            moveInit.Handle();
+            currencyInit.Handle();
+            updatePlayers();
         }
         catch (Exception E){
             E.printStackTrace();
