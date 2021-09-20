@@ -33,7 +33,7 @@ public class NewWSEndpoint {
     private static AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(GOWConfig.class);
     private static GodsofWargame gameState = ctx.getBean("godsOfWargame", GodsofWargame.class);//WARNING might need to become Static
     
-    private PlayerData player;
+    private playerData player;
     
     JSONHandler passer = new CommandHandler(gameState);
     
@@ -57,11 +57,9 @@ public class NewWSEndpoint {
     }
     @OnOpen 
     public void onOpen (Session peer) {
-        //Check if server has already start and remove player if yes (process in development)
-        
         //add reference to new user into GodsofWargame Object
         gameState.getClients().put(peer.getId(), peer);
-        player = new PlayerData(peer.getId());
+        player = new playerData(peer.getId());
         
         commandInterface setting = new settingsCommand();
         setting.execute(gameState, peer.getId());
@@ -69,11 +67,11 @@ public class NewWSEndpoint {
         gameState.getMapState().addPlayer(peer.getId(), player);//place the Id in a hashMap and the players information alongside it
         System.out.println("peer joined: " + peer.getId());
         //Perform first time setup when user joins
-        if (!(gameState.getReadyStates().isPreLoad())){    
-            System.out.println("Gamestate pre-load started");
+        if (!(gameState.checkState())){    
+            System.out.println("Gamestate load started");
             
-            gameState.preload();
-            System.out.println("Gamestate pre-load Complete");
+            gameState.load();
+            System.out.println("Gamestate load Complete");
         }
         
         //Update new user with new gamestate
@@ -86,11 +84,8 @@ public class NewWSEndpoint {
         gameState.removeSession(peer);
         if(gameState.getClients().isEmpty()){
             ctx.close();
-            //ShutDown timers if any are started
-            if(gameState.getReadyStates().isFullyLoaded())
-                gameState.cancelTimer();//Shut down timer at last peer leaving
-            //reset the start so new players can join
-            gameState.resetReadyState();
+            gameState.setIsInstantiated(false);
+            gameState.cancelTimer();//Shut down timer at last peer leaving
         }else{
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         }

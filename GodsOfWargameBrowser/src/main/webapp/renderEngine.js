@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-/* global context, unitList */
+/* global context */
 
 var myimgobj = document.images["jsbutton"];
 //var canvas = document.getElementById("myCanvas");
@@ -18,7 +18,7 @@ var TerrainMap = new Array();//TODO this array seems to be backwards based on fr
 
 
 function drawUnit(Unit){
-    //console.log("drawUnitcalled");
+    console.log("drawUnitcalled");
     //console.log(Unit.uzPos);
     if (Unit.uzPos === 0){
         let img = new Image();
@@ -32,12 +32,16 @@ function drawUnit(Unit){
         console.log(playerID);
         */
        
-        
-        if(Unit.OWNER !== playerID){
+        /*
+        if(Unit.OWNER === playerID){
             
-            context.fillStyle = 'rgba(255, 0, 255, 0.3)';
+            context.fillStyle = 'rgba(0, 0, 255, 0.4)';
             context.fillRect(Unit.uxPos*width, Unit.uyPos*height,width,height);
-        } 
+        } else {
+            context.fillStyle = 'rgba(255, 0, 0, 0.4)';
+            context.fillRect(Unit.uxPos*width, Unit.uyPos*height,width,height);
+        }
+        */
     }
 }
 
@@ -92,17 +96,14 @@ function getTerrainIndex(x,y){
     return -1;
 }
 function refresh(){
-    //console.log("refresh Called");
-    initGrid();
+    /*
     for(i=0;i<TerrainMap.length;i++){
-        //console.log("refresh Draw Terrain Called");
-        //console.log(TerrainMap[i]);
         drawTerrain(TerrainMap[i]);
         //console.log(TerrainMap[i]);
     }
         
-     
-    
+     */
+    initGrid();
     for(i=0;i<unitList.length;i++){
         console.log(unitList[i]);
         /*
@@ -120,7 +121,6 @@ function drawTerrain(terrain){
     let unitImage = new Image();
     //console.log(terrain.type.toString() + ".png");
     //console.log(terrain.type + ".png");
-    
     unitImage.src = terrain.type.toString() + ".png";
     //console.log(width);
     context.drawImage(unitImage,(terrain.xVal*width),(terrain.yVal*height) ,width, height);
