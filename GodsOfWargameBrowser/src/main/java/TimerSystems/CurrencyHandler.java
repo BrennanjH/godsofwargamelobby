@@ -6,15 +6,15 @@
 package TimerSystems;
 
 import com.godsofwargame.backend.GodsofWargame;
-import com.godsofwargame.backend.PlayerData1;
+import com.godsofwargame.backend.PlayerData;
 
 /** Identifies all the criteria for a players income
  *
  * @author brenn
  */
-public class CurrencyHandler1 implements Handling{
+public class CurrencyHandler implements Handling{
     GodsofWargame gameState;
-    public CurrencyHandler1(GodsofWargame GameState){
+    public CurrencyHandler(GodsofWargame GameState){
         gameState = GameState;
     }
     @Override 
@@ -22,7 +22,7 @@ public class CurrencyHandler1 implements Handling{
         //loop through all players
         for(String key : gameState.getMapState().getPlayers().keySet()){
             //For convience get player of key
-            PlayerData1 focusedPlayer = gameState.getMapState().getPlayer(key);
+            PlayerData focusedPlayer = gameState.getMapState().getPlayer(key);
             //get Player income Handler
             PlayerIncome generateIncome = new PlayerIncome(focusedPlayer , gameState);
             //Get player income
@@ -35,8 +35,8 @@ public class CurrencyHandler1 implements Handling{
 }
 class PlayerIncome {
     GodsofWargame gameState;
-    PlayerData1 user;
-    public PlayerIncome(PlayerData1 user, GodsofWargame gameState){
+    PlayerData user;
+    public PlayerIncome(PlayerData user, GodsofWargame gameState){
         this.gameState = gameState;
         this.user = user;
     }

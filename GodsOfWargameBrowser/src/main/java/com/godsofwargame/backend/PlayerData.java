@@ -9,12 +9,12 @@ package com.godsofwargame.backend;
  *
  * @author brenn
  */
-public class PlayerData1 {//holds information related to the player and only the player
+public class PlayerData {//holds information related to the player and only the player
     private int money;
     private final String playerID;
     transient boolean readyState;
     
-    public PlayerData1(String ID){
+    public PlayerData(String ID){
         playerID = ID;
         money = 20000;//default starting value
     }

@@ -25,7 +25,7 @@ public class TimerScheduler extends TimerTask{
         gameState = GameState;
         attackInit = new AttackHandling(GameState);
         moveInit = new MoveHandling(GameState);
-        currencyInit = new CurrencyHandler1(GameState);
+        currencyInit = new CurrencyHandler(GameState);
     }
     @Override
     public void run(){
