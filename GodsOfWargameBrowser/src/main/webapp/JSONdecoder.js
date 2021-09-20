@@ -32,18 +32,17 @@ function initGrid(){
 }
 
 function unitHandling(list){
-    console.log(list);
-    console.log("insideUnitHandling");
     updateUnitList(list);//look in UnitObject.js for related methods and variables
-    
 }
 function terrainHandling(list){
     if(typeof list[0] !== "undefined"){
         setTerrainMap(list);//TODO change this to only change the terrain objects that conflict with new Terrain (may not be reasonable design choice)
+        
+        /*
         for(i =0; i< list.length; i++){
             drawTerrain(list[i]);
         }
-        
+        */
     }
 }
 function propertiesHandling(properties){

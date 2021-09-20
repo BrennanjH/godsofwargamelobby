@@ -27,7 +27,7 @@ public class Map  {//acts as the gamestate object
     private Terrain[][] terrainGrid;// = new Terrain[row][col]; //holds The current state of the grids Terrain
     
     //Should be removed from Map
-    HashMap<String, playerData> players;// = new HashMap<>(); //TODO add economy to game//TODO turn this into a HashSet
+    HashMap<String, PlayerData> players;// = new HashMap<>(); 
     
     //ArrayList<playerData> players = new ArrayList<>();
     
@@ -121,17 +121,17 @@ public class Map  {//acts as the gamestate object
         return territories;
     }
 
-    public void addPlayer(String key, playerData newPlayer){
+    public void addPlayer(String key, PlayerData newPlayer){
         players.put(key, newPlayer);
     }
     private void removePlayer(String lostPlayerID){//private to protect from misuse
         players.remove(lostPlayerID);
     }
-    public playerData getPlayer(String playersID){
+    public PlayerData getPlayer(String playersID){
         return players.get(playersID);
     }
 
-    public HashMap<String, playerData> getPlayers() {
+    public HashMap<String, PlayerData> getPlayers() {
         return players;
     }
     public void removeSession(Session leaver){

@@ -5,9 +5,9 @@
  */
 
 
+
 var canvas = document.getElementById("myCanvas");
 var context = canvas.getContext("2d");
-
 var hasClicked = false;
 var desiredReadyState = false;
 
@@ -105,15 +105,15 @@ function getTrueMousePositiony(y){ //finds the top left corner of pressed square
 }
 
 function addMoveEventListener(){
-    console.log("addMove");
+    console.log("Switched to Move event Listener");
     canvas.addEventListener("click", moveClick ,false);
 }
 function removeMoveListener(){
-    console.log("removeMove");
+    console.log("removed Move event Listener");
     canvas.removeEventListener("click", moveClick,false);
 }
 function addUnitEventListener(){
-    console.log("addUnitEvent");
+    console.log("switched to add Unit Event Listener");
     canvas.addEventListener("click", placeUnit,false);
 }
 function removeUnitEventListener(){
@@ -136,6 +136,7 @@ function removeAllListeners(){
 }
 function readyUp(){
     desiredReadyState = !desiredReadyState;
+    console.log("readyState: " + desiredReadyState);
     let command  = new readyCommand(desiredReadyState);
     readyStatePossible(command);
     //ready = true; ready is set to true when the servers response returns and is stored in playerdata object

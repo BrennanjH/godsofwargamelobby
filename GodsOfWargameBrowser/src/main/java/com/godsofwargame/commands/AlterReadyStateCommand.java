@@ -31,7 +31,7 @@ public class AlterReadyStateCommand implements commandInterface {
         this.gameState = gameState;
         
         //Check if server has already started
-        if(gameState.checkState()){
+        if(gameState.getReadyStates().isFullyLoaded()){
             System.out.println("AlterReadyStateCommand: alteration failed, gameState already initialized");
             //Cancel command processing
             return;
@@ -49,7 +49,7 @@ public class AlterReadyStateCommand implements commandInterface {
             //Check if all payers are ready
             if( allPlayersReady() ) {
                 //start game
-                
+                gameState.load();
             }
         } else {
             System.out.println("AlterReadyStateCommand: playerstate set to false");

@@ -18,7 +18,7 @@ public class MatchProperties {
     private String cols;
     @Value("${map.row}")
     private String rows;
-
+    
     public String getCols() {
         return cols;
     }

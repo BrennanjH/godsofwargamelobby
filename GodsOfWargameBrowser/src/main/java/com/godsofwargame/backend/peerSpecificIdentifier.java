@@ -125,7 +125,7 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
         }
         return sortedData;
     }
-    private static HashMap<String,jsonsendHolder> seperatePlayerDataByUser(HashMap<String, playerData> playerList ,HashMap<String,jsonsendHolder> sortedData){
+    private static HashMap<String,jsonsendHolder> seperatePlayerDataByUser(HashMap<String, PlayerData> playerList ,HashMap<String,jsonsendHolder> sortedData){
         for (String s : sortedData.keySet() ) {
             //s is used to get the jsonsendHolder and unlike Terrain or Units playerData is on a 1 : 1 basis with players so creating     
             sortedData.get(s).setPlayerInfo(playerList.get(s));
