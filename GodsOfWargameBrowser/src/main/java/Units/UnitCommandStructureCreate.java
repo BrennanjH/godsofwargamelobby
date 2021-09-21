@@ -27,14 +27,20 @@ public class UnitCommandStructureCreate extends AbstractUnitCreate{
         if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){
             int cost = getCost();
             if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
+                //Charge the players account
                 gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
+                
+                //The new command Unit should be positioned on the map
                 mover.setUzPos(bottomStacker(gameState.getMapState()));
-                //listHolder.addUnit(mover);
-
                 mapUpdater.newUnitState(gameState.getMapState(),mover);
-                System.out.println("create Unit Command successful");
-
+                
+                //Create a territory piece below the commander so that new units can be spawned in where the commander was spawned
+                
+                
+                //Add the commanders to gameState so future references are easier to get
                 gameState.addCommander(mover);//IMPORTANT LINE OF CODE FOR COMMANDERS
+                
+                System.out.println("create Unit Command successful");
             }
         }
         

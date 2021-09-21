@@ -7,7 +7,7 @@ package Location;
 
 import Faction.Team;
 
-/**
+/** An object that represents a literal square of territory 
  *
  * @author brenn
  */

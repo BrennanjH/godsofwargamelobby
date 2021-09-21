@@ -50,3 +50,12 @@ function readyCommand(readyState){
         readyState : readyState
     };
 }
+function joinCoalitionCommand(teamName){
+    this.header = {
+        className: "JoinCoalitionCommand",
+        unitPresence: false
+    };
+    this.body = {
+        factionName: teamName
+    };
+}

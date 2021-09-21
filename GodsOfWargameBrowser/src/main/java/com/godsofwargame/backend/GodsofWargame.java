@@ -6,9 +6,11 @@
 package com.godsofwargame.backend;
 
 
+import Faction.Team;
 import TimerSystems.TimerScheduler;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,6 +40,7 @@ public class GodsofWargame {
     private MatchProperties properties;
     @Autowired
     private LoadState readyStates;
+    private List<Team> factions;
     
     public MatchProperties getProperties() {
         return properties;
@@ -64,6 +67,9 @@ public class GodsofWargame {
     protected void preload(){//Sets up the server and lobby based on gameProperties
         //Create Terrain
         mapState.GenerateTerrain();//gets terrain placed into 2d array stored in map object
+        //Set up fields
+        factions = new ArrayList<>();
+        
         //Change preload flag to true
         readyStates.setPreLoad(true);
     }
@@ -114,6 +120,10 @@ public class GodsofWargame {
         clients.remove(ID);
         mapState.removeSession(leaver);//Not sure if I want unit's to call their death rules but If yes then commanders.remove can be removed since the map will remove the command units internally
         
+    }
+
+    public List<Team> getFactions() {
+        return factions;
     }
 
     

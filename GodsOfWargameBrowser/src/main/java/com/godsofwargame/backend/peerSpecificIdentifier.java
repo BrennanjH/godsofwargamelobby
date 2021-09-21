@@ -30,7 +30,7 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
             dataForSending = seperateUnitsByUser( getUnitsAsList(gameState), dataForSending);
             dataForSending = seperateTerrainByUser( getTerrainAsList(gameState), dataForSending);//TODO fix unitLoss bug (fixed? don't remember this bug)
             dataForSending = seperatePlayerDataByUser( gameState.getMapState().getPlayers(), dataForSending); //no need for a list since 1:1 ratio of playerData to players
-            dataForSending = seperateTerritoriesByUser(gameState.getMapState().getTerritories(), dataForSending);
+            //dataForSending = seperateTerritoriesByUser(gameState.getMapState().getTerritories(), dataForSending);
             return dataForSending;
     }
     //If terrain ever has a special behavior (such as fog of war) this overload can be removed

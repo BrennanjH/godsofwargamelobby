@@ -24,23 +24,25 @@ public class UnitTankCreate extends AbstractUnitCreate{
     }
     @Override
     public void create(GodsofWargame gameState, String Id){
-        //jsonsendHolder listHolder = new jsonsendHolder();
-        //*************************
-        //mover.setOWNER(Id);//TODO This must be removed once frontends can identify themselves and properly send unit data
-        //**************************
-        if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){
-            int cost = getCost();
-            if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
-                gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
-                mover.setUzPos(bottomStacker(gameState.getMapState()));
-                //listHolder.addUnit(mover);
+        
+        if (validateTerritory()) {
+            if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){
+                int cost = getCost();
+                if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
+                    gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
+                    mover.setUzPos(bottomStacker(gameState.getMapState()));
+                    //listHolder.addUnit(mover);
 
-                mapUpdater.newUnitState(gameState.getMapState(),mover);
-                System.out.println("create Unit Command successful");
+                    mapUpdater.newUnitState(gameState.getMapState(),mover);
+                    System.out.println("create Unit Command successful");
+                }
+
             }
-            
         }
         //return listHolder;
+    }
+    private boolean validateTerritory(){ //Should check if the unit is sitting on top of owned terrain
+        return true;
     }
     //TODO fix bottom stacker so that it properly creates z cords
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y

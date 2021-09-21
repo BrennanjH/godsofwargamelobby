@@ -142,3 +142,9 @@ function readyUp(){
     //ready = true; ready is set to true when the servers response returns and is stored in playerdata object
     
 }
+function joinTeam(){
+    let a = document.getElementById("tName").value;
+    console.log(a);
+    var joinTeam = new joinCoalitionCommand(a);
+    commandPossibleServer(joinTeam);
+}

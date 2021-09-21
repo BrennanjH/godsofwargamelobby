@@ -32,8 +32,8 @@ public class Map  {//acts as the gamestate object
     //ArrayList<playerData> players = new ArrayList<>();
     
     private List<UnitTypes>[][] deployedForces;// = new List[row][col];
-    private List<Territory> territories;// = new ArrayList<>();
-
+    //private List<Territory> territories;// = new ArrayList<>();
+    private Territory[][] landOwnership;
     
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @Autowired
@@ -45,7 +45,7 @@ public class Map  {//acts as the gamestate object
         terrainGrid = new Terrain[row][col];
         players = new HashMap<>();
         deployedForces = new List[row][col];
-        territories = new ArrayList<>();
+        //territories = new ArrayList<>();
         
         for(int i =0;i<deployedForces.length;i++){
             
@@ -93,33 +93,31 @@ public class Map  {//acts as the gamestate object
         }
         //printTerrain();
         
-   }
-    
-   public void printTerrain(){
-       for (int rows=0; rows<terrainGrid.length;rows++){
-            for (int cols=0; cols<terrainGrid[rows].length;cols++){
-                //temp = new Terrain();
-                //terrainGrid[rows][cols]= temp.generate();
-                System.out.println(terrainGrid[rows][cols].getType());
-            }
-        }
-   }
-    
-   public int getRow(){
-      return row;
-   }
-   public int getCol(){
-      return col;
-   }
-   public Terrain getTerrain(int x, int y){
-      //System.out.println(terrainGrid[x][y].getType());
-       return terrainGrid[x][y];
-      
-   }
-   
-   public List<Territory> getTerritories() {
-        return territories;
     }
+    
+    public void printTerrain(){
+        for (int rows=0; rows<terrainGrid.length;rows++){
+             for (int cols=0; cols<terrainGrid[rows].length;cols++){
+                 //temp = new Terrain();
+                 //terrainGrid[rows][cols]= temp.generate();
+                 System.out.println(terrainGrid[rows][cols].getType());
+             }
+         }
+    }
+    
+    public int getRow(){
+       return row;
+    }
+    public int getCol(){
+       return col;
+    }
+    public Terrain getTerrain(int x, int y){
+       //System.out.println(terrainGrid[x][y].getType());
+        return terrainGrid[x][y];
+
+    }
+   
+   
 
     public void addPlayer(String key, PlayerData newPlayer){
         players.put(key, newPlayer);
@@ -167,4 +165,9 @@ public class Map  {//acts as the gamestate object
             hold.setUzPos(i);
         }
     }
+
+    public Territory[][] getLandOwnership() {
+        return landOwnership;
+    }
+    
 }

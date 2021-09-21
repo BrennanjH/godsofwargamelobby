@@ -13,7 +13,7 @@ import java.util.List;
  * @author brenn
  */
 public class Coalition implements Team{
-    List<Member> coalitionMembers;
+    private List<Member> coalitionMembers;
     String teamName;
     public Coalition(String name){
         coalitionMembers = new ArrayList<>();
@@ -22,5 +22,32 @@ public class Coalition implements Team{
     @Override
     public String getName(){
         return teamName;
+    }
+
+    @Override
+    public void addTeamMember(Member newMember) {
+        //validate if user already exists in team
+        for(Member m : coalitionMembers) {
+            if (newMember.getId().equals(m.getId())){
+                //User already exists so no change is needed
+                return;
+            }
+        }
+        coalitionMembers.add(newMember);
+    }
+
+    @Override
+    public void removeTeamMember(String memberId) {
+        for(Member m : coalitionMembers) {
+            if (memberId.equals(m.getId())){
+                coalitionMembers.remove(m);
+                return;
+            }
+        }
+    }
+
+    @Override
+    public List<Member> getTeam() {
+        return coalitionMembers;
     }
 }

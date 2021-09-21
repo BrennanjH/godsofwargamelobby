@@ -5,19 +5,29 @@
  */
 package com.godsofwargame.backend;
 
+import Faction.Member;
+import Faction.Team;
+
 /**
  *
  * @author brenn
  */
 public class PlayerData {//holds information related to the player and only the player
-    private int money;
+    private int money = 20000;//default starting value
     private final String playerID;
     transient boolean readyState;
+    public transient Member playerMember;
     
     public PlayerData(String ID){
         playerID = ID;
-        money = 20000;//default starting value
+        playerMember = new Member(ID);
     }
+
+    public Member getPlayerMember() {
+        return playerMember;
+    }
+    
+    
     public int getMoney() {
         return money;
     }

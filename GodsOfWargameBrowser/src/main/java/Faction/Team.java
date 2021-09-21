@@ -5,10 +5,15 @@
  */
 package Faction;
 
+import java.util.List;
+
 /**
  *
  * @author brenn
  */
 public interface Team {
     public String getName();
+    public void addTeamMember(Member newMember);
+    public void removeTeamMember(String memberId);
+    public List<Member> getTeam();
 }
