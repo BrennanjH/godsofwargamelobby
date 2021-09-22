@@ -40,7 +40,8 @@ public class PreGameEnd implements internalCommands{
                 if(isLastPlayer()){
                     System.out.println("IsLastPlayer: true");
                     //create custom ending message
-                    
+                    sendCloseStatement closer = new sendCloseStatement(gameState);
+                    closer.sendCustomCloseMessage("Game over winner has been decided");
                     //end the game by removing all players
                     endGame();
                 }

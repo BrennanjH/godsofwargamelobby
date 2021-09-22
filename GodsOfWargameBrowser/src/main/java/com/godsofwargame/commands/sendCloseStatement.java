@@ -16,14 +16,14 @@ import javax.websocket.Session;
  * @author brenn
  */
 //TODO should use a generic to allow methods to except either jsonsendHolder or A String
-class sendCloseStatement {
+public class sendCloseStatement {
     GodsofWargame gameState;
     sendCloseStatement(GodsofWargame gameState){
         this.gameState = gameState;
     }
     
-    //Broadcasts a custom message to everybody, Intended for use cases where custom Error is desired
-    HashMap<String, jsonsendHolder> sendCustomCloseMessage(String messageEnd){
+    //Broadcasts a custom message to everybody
+    public HashMap<String, jsonsendHolder> sendCustomCloseMessage(String messageEnd){
         jsonsendHolder messageHolder = new jsonsendHolder(gameState.getProperties());
         messageHolder.addServerMessage(messageEnd);
         return peerSpecificIdentifier.simpleData(gameState, messageHolder);

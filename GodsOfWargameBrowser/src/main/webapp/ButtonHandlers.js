@@ -46,7 +46,7 @@ function changeImageTank(){
 }
 function changeImageBackTank(){
     if(!hold){
-        document.images["tankButton"].src = "tank_full.png";
+        document.images["tankButton"].src = "UnitTank.png";
     }
     return true;
 }
