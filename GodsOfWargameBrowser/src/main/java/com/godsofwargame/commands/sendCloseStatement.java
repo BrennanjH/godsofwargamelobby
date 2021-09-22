@@ -5,6 +5,9 @@
  */
 package com.godsofwargame.commands;
 
+import JSONOrienter.CommandHandler;
+import JSONOrienter.JSONHandler;
+import com.godsofwargame.backend.DataDistributer;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.peerSpecificIdentifier;
@@ -18,15 +21,18 @@ import javax.websocket.Session;
 //TODO should use a generic to allow methods to except either jsonsendHolder or A String
 public class sendCloseStatement {
     GodsofWargame gameState;
+    JSONHandler passer;// = new CommandHandler(gameState);
     sendCloseStatement(GodsofWargame gameState){
         this.gameState = gameState;
+        passer = new CommandHandler(gameState);
     }
     
-    //Broadcasts a custom message to everybody
-    public HashMap<String, jsonsendHolder> sendCustomCloseMessage(String messageEnd){
+    //Broadcasts a custom message to everybody    HashMap<String, jsonsendHolder>
+    public void sendCustomCloseMessage(String messageEnd){
         jsonsendHolder messageHolder = new jsonsendHolder(gameState.getProperties());
         messageHolder.addServerMessage(messageEnd);
-        return peerSpecificIdentifier.simpleData(gameState, messageHolder);
+        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize(peerSpecificIdentifier.simpleData(gameState, messageHolder)));
+        //return peerSpecificIdentifier.simpleData(gameState, messageHolder);
         
     }
     //Sends just one session a close message, for use when somebody is Forcibly being disconnected but other users aren't

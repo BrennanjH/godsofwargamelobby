@@ -10,6 +10,8 @@ import JSONOrienter.JSONHandler;
 import JSONOrienter.CommandHandler;
 import com.godsofwargame.commands.commandInterface;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -83,7 +85,12 @@ public class NewWSEndpoint {
     //TODO there is a bug when player leave and join that seems to fail to shutdown or start certain threads (namely Timer0), (I think I fixed this)
     @OnClose
     public void onClose (Session peer) {
-        gameState.removeSession(peer);
+        
+        try {
+            gameState.removeSession(peer);
+        } catch (IOException ex) {
+            Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(gameState.getClients().isEmpty()){
             ctx.close();
             //ShutDown timers if any are started

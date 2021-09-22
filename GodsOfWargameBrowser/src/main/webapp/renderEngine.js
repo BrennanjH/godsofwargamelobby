@@ -104,7 +104,7 @@ function refresh(){
      
     
     for(i=0;i<unitList.length;i++){
-        console.log(unitList[i]);
+        //console.log(unitList[i]);
         /*
         var movement = convertTerrainToInt(unitList[i]);
         var grid = new PF.Grid(movement);

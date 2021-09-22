@@ -8,6 +8,7 @@ package com.godsofwargame.backend;
 
 import Faction.Team;
 import TimerSystems.TimerScheduler;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -114,9 +115,10 @@ public class GodsofWargame {
         }
     }
     //Must be called at session send so that all information pertaining to player is removed
-    public void removeSession(Session leaver){
+    public void removeSession(Session leaver) throws IOException{
         String ID = leaver.getId();
         commanders.remove(ID);
+        clients.get(ID).close();
         clients.remove(ID);
         mapState.removeSession(leaver);//Not sure if I want unit's to call their death rules but If yes then commanders.remove can be removed since the map will remove the command units internally
         

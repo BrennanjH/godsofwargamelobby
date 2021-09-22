@@ -23,7 +23,7 @@ public class jsonsendHolder {
     private List<Territory> territories;
     
     private MatchProperties properties;
-    private String serverMes = "Alls good";
+    private String serverMes; 
     private firstResponseSetup firstResponseData;
     
     public jsonsendHolder(MatchProperties propertyData) {
@@ -32,6 +32,7 @@ public class jsonsendHolder {
         //deleteUnitList = new ArrayList<>();
         firstResponseData = new firstResponseSetup();
         properties = propertyData;
+        serverMes = "Alls good";
     }
     
     //public jsonsendHolder(){

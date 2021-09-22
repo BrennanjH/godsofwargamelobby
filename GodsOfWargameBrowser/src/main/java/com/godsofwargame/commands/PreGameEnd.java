@@ -5,13 +5,11 @@
  */
 package com.godsofwargame.commands;
 
-import JSONOrienter.CommandHandler;
-import JSONOrienter.JSONHandler;
 import com.godsofwargame.backend.DataDistributer;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitCommandStructure;
-import com.godsofwargame.backend.UnitTypes;
 import java.io.IOException;
+import java.util.Set;
 /**
  *Whenever a command Structure is lost this is called, It first checks the total number of command Structures remaining
  * If one or less remain the game will fully end, if more than one exists then whoever lost theirs is passed to PlayerToSpectator,
@@ -34,19 +32,25 @@ public class PreGameEnd implements internalCommands{
         
         try {
             //Check if player has remaining command Units
+            
             if(isPlayersLastCommander(gameState)){
+                sendCloseStatement closer = new sendCloseStatement(gameState);
                 System.out.println("IsPlayerLast Commander: true");
+                //Send Player to Spectator Role/remove them
+                closer.sendCustomCloseMessage("Player: " + removed.getOWNER() + " Has been defeated");
+                
+                gameState.removeSession(gameState.getClients().get(removed.getOWNER()));
                 //Check if any other players remain
                 if(isLastPlayer()){
                     System.out.println("IsLastPlayer: true");
                     //create custom ending message
-                    sendCloseStatement closer = new sendCloseStatement(gameState);
-                    closer.sendCustomCloseMessage("Game over winner has been decided");
+                    
+                    closer.sendCustomCloseMessage("Game over! winner has been decided" );
                     //end the game by removing all players
                     endGame();
                 }
-                //Send Player to Spectator Role/remove them
-                //TODO
+                
+                
             }
         }
         catch ( IOException E){
@@ -60,13 +64,25 @@ public class PreGameEnd implements internalCommands{
         System.out.println("last player keyset size: " + gameState.getCommanders().keySet().size());
         return gameState.getCommanders().keySet().size() <=1;
     }
-    //Closes all sessions in gameState
+    //Closes all sessions in gameState and resets godsofWargame
     private void endGame() throws IOException{
-        /*
-        for (String s : gameState.getClients().keySet() ){
-            gameState.getClients().get(s).close();
+        
+        String[] ids = new String[gameState.getClients().size()];
+        int intervals= 0;
+        //Create a array of Strings that can be safely looped through
+        for(String s : gameState.getClients().keySet()){
+            ids[intervals] = s;
+            intervals++;
         }
-        */
+        //Using safe string[] close each sessionObject
+        for(String s : ids){
+            gameState.removeSession(gameState.getClients().get(s));
+        }
+        System.out.println("PreGameEnd: endGame: client size: " + gameState.getClients().size());
+        
+        //Finalize shutdown of server
+        gameState.cancelTimer();
+        
     }
     
 }
