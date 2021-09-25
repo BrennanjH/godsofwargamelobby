@@ -145,4 +145,5 @@ public class GodsofWargame {
         }
         throw new NoTeamAssociationException();
     }
+    
 }

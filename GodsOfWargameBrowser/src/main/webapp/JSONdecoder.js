@@ -15,14 +15,18 @@ function JSONgameStateUpdater(json){//Properly updates gamestate (lists of units
     territoryHandling(message.territories);
 }
 function territoryHandling(data){
-    if(Object.entries(data).length !== 0){
-        territoryMap = data;
+    if (typeof data !== "undefined"){
+        if(Object.entries(data).length !== 0){
+            territoryMap = data;
+        }
     }
 }
 function playerDataHandling(data){
-    if(Object.entries(data).length !== 0){
-        money = data.money;
-        document.getElementById("money").textContent = money;
+    if (typeof data !== "undefined"){
+        if(Object.entries(data).length !== 0){
+            money = data.money;
+            document.getElementById("money").textContent = money;
+        }
     }
 }
 function serverMessageHandling(message){
@@ -41,38 +45,44 @@ function unitHandling(list){
     updateUnitList(list);//look in UnitObject.js for related methods and variables
 }
 function terrainHandling(list){
-    if(Object.entries(list).length !== 0){
-        console.log("Setting TerrainList");
-        //console.log(list);
-        setTerrainMap(list);//TODO change this to only change the terrain objects that conflict with new Terrain (may not be reasonable design choice)
-        
-        /*
-        for(i =0; i< list.length; i++){
-            drawTerrain(list[i]);
+    if (typeof list !== "undefined"){
+        if(Object.entries(list).length !== 0){
+            console.log("Setting TerrainList");
+            //console.log(list);
+            setTerrainMap(list);//TODO change this to only change the terrain objects that conflict with new Terrain (may not be reasonable design choice)
+
+            /*
+            for(i =0; i< list.length; i++){
+                drawTerrain(list[i]);
+            }
+            */
         }
-        */
     }
 }
 function propertiesHandling(properties){
-    if(Object.entries(properties).length !== 0){
-        gameSettings = properties;
+    if (typeof properties !== "undefined"){
+        if(Object.entries(properties).length !== 0){
+            gameSettings = properties;
+        }
     }
 }
 //TODO see if there is a way to cut these methods out after first use
 function turnOff(message){//this function quickly becomes 
-    if(Object.entries(message).length !== 0){
-            console.log("Setting first response data");
-            console.log(typeof message);
-            
-            setPlayerId(message.ID);
-            
-            setTeamName(playerID);
+    if (typeof message !== "undefined"){
+        if(Object.entries(message).length !== 0){
+                console.log("Setting first response data");
+                console.log(typeof message);
 
-        function setPlayerId(Id){//afterSettingsCommand is executed the ID should return along with SettingsData
-            if(typeof Id !== "undefined"){
-                setID(Id);
-            }
-        }   
-        
+                setPlayerId(message.ID);
+
+                setTeamName(playerID);
+
+            function setPlayerId(Id){//afterSettingsCommand is executed the ID should return along with SettingsData
+                if(typeof Id !== "undefined"){
+                    setID(Id);
+                }
+            }   
+
+        }
     }
 }

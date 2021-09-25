@@ -8,8 +8,10 @@ package com.godsofwargame.backend;
 
 import JSONOrienter.JSONHandler;
 import JSONOrienter.CommandHandler;
+import com.godsofwargame.commands.GameEndHandler;
 import com.godsofwargame.commands.JoinCoalitionCommand;
 import com.godsofwargame.commands.commandInterface;
+import com.godsofwargame.commands.internalCommands;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -71,6 +73,7 @@ public class NewWSEndpoint {
         } else if( (gameState.getReadyStates().isFullyLoaded()) ) {
             
             try {
+                System.out.println("NewWSEndpoint: onOpen: game has started peer is being closed");
                 peer.close(); 
                 //TODO change .close to use a close reason
             } catch (IOException ex) {
@@ -103,25 +106,39 @@ public class NewWSEndpoint {
     @OnClose
     public void onClose (Session peer) {
         //TODO a lot of objects need to be removed still; Territory, and teams?
+        
+        GameEndHandler gameEnder = new GameEndHandler(peer.getId(), gameState);
+        System.out.println("NewWSEndpoint: onClose: peer is closed?: " + peer.isOpen());
+        gameEnder.playerLost();
+        /*
         if (peer.isOpen()){
+            try {
+                gameState.removeSession(peer);
+                DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
+            } catch (IOException ex) {
+                Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
             try {
                 gameState.removeSession(peer);
             } catch (IOException ex) {
                 Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if(gameState.getClients().isEmpty()){
-                ctx.close();
-                //ShutDown timers if any are started
-                if(gameState.getReadyStates().isFullyLoaded())
-                    gameState.cancelTimer();//Shut down timer at last peer leaving
-                //reset the start so new players can join
-                gameState.resetReadyState();
-            }else{
-                DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
-            }
-            //peers.remove(peer);
+        }
+        */
+            //System.out.println("onClose: " + gameState.getClients().isEmpty());
+        if(gameState.getClients().isEmpty()){
+            ctx.close();
+            //ShutDown timers if any are started
+            if(gameState.getReadyStates().isFullyLoaded())
+                gameState.cancelTimer();//Shut down timer at last peer leaving
+            //reset the start so new players can join
+            gameState.resetReadyState();
             
         }
+        //peers.remove(peer);
         System.out.println("peer left");
-    }
+        
+        }
+    
 }

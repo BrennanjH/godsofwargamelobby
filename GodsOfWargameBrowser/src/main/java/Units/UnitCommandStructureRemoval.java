@@ -7,7 +7,7 @@ package Units;
 
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.UnitCommandStructure;
-import com.godsofwargame.commands.PreGameEnd;
+import com.godsofwargame.commands.GameEndHandler;
 /**
  *
  * @author brenn
@@ -24,7 +24,7 @@ public class UnitCommandStructureRemoval extends AbstractUnitRemoval{
             gameState.getMapState().removeUnitTypeinDeployedForces(mover.getUxPos(), mover.getUyPos(), mover);
             gameState.removeCommander(mover);
             //Since this is a commander a check needs be run to determine the fate of the game
-            PreGameEnd ender = new PreGameEnd(mover, gameState);
+            GameEndHandler ender = new GameEndHandler(mover.getOWNER(), gameState);
             ender.execute();
         }
     }

@@ -57,8 +57,6 @@ public class JoinCoalitionCommand implements commandInterface {
             for(Team team : removeTeam){
                 //delete territory with assigned teams
                 for (int i =0; i< gameState.getMapState().getLandOwnership().length;i++){
-                    
-                        
                     for(int j = 0; j < gameState.getMapState().getLandOwnership()[i].length;j++){ //TODO update this method to try and give teams resources to the new team created by process
                         //delete all territorys that use the team being removed 
                         
@@ -69,7 +67,7 @@ public class JoinCoalitionCommand implements commandInterface {
                                 System.out.println("JoinCoalitionCommand: Execute: team = " + team.getName());
                                 System.out.println("JoinCoalitionCommand: Execute: territroy team name = " + gameState.getMapState().getLandOwnership()[i][j].getFaction().getName());
                                 gameState.getMapState().getLandOwnership()[i][j] = null;
-                            } 
+                            }
                         }
                     }
                 }
