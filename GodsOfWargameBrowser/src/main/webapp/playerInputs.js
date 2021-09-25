@@ -146,5 +146,11 @@ function joinTeam(){
     let a = document.getElementById("tName").value;
     console.log(a);
     var joinTeam = new joinCoalitionCommand(a);
+    //Performvalidation if it ever is needed in future here
+    
+    //Set new teamName on both front and backend
+    
+    setTeamName(a);
+    console.log(teamName);
     commandPossibleServer(joinTeam);
 }

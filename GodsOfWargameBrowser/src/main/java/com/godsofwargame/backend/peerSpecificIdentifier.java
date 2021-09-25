@@ -30,7 +30,7 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
             dataForSending = seperateUnitsByUser( getUnitsAsList(gameState), dataForSending);
             dataForSending = seperateTerrainByUser( getTerrainAsList(gameState), dataForSending);//TODO fix unitLoss bug (fixed? don't remember this bug)
             dataForSending = seperatePlayerDataByUser( gameState.getMapState().getPlayers(), dataForSending); //no need for a list since 1:1 ratio of playerData to players
-            //dataForSending = seperateTerritoriesByUser(gameState.getMapState().getTerritories(), dataForSending);
+            dataForSending = seperateTerritoriesByUser(getTerritoryAsList(gameState), dataForSending);
             return dataForSending;
     }
     //If terrain ever has a special behavior (such as fog of war) this overload can be removed
@@ -108,6 +108,15 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
                     temp.add(gameState.getMapState().getUnitTypeinDeployedForces(i,j,k));
                     //System.out.println(gameState.getMapState().getUnitTypeinDeployedForces(i,j,k).toString());
                 }
+            }
+        }
+        return temp;
+    }
+    public static List<Territory> getTerritoryAsList(GodsofWargame gameState){
+        List<Territory> temp = new ArrayList<>();
+        for(int i =0; i<gameState.getMapState().getRow() ;i++){
+            for(int j =0; j<gameState.getMapState().getCol() ;j++) {
+                temp.add(gameState.getMapState().getLandOwnership()[i][j]);
             }
         }
         return temp;

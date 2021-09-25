@@ -5,6 +5,7 @@
  */
 package Faction;
 
+import com.godsofwargame.backend.GodsofWargame;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,4 +51,6 @@ public class Coalition implements Team{
     public List<Member> getTeam() {
         return coalitionMembers;
     }
+
+    
 }

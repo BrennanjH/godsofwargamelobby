@@ -6,6 +6,7 @@
 package Location;
 
 import Faction.Team;
+import com.godsofwargame.backend.GodsofWargame;
 
 /** An object that represents a literal square of territory 
  *
@@ -13,10 +14,13 @@ import Faction.Team;
  */
 public class ControlTerritory implements Territory {
     Team Owner;
-    HighLevelCoord pos;
-    public ControlTerritory(Team Owner, HighLevelCoord a) {
+    Coordinate pos;
+    public ControlTerritory(Team Owner, Coordinate a, GodsofWargame gameState) {
         this.Owner = Owner;
-        pos = a;
+        pos =  a;
+        
+        //Register Territory with gameState mapstate
+        gameState.getMapState().getLandOwnership()[a.getxPos()][a.getyPos()] = this; //Validation towards territory creation can be done in the future
     }
     
     @Override
@@ -26,7 +30,7 @@ public class ControlTerritory implements Territory {
 
     @Override
     public void setCoordinate(Coordinate location) {
-        pos = (HighLevelCoord) location;
+        pos = location;
     }
     
 }

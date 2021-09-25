@@ -8,6 +8,7 @@ package com.godsofwargame.backend;
 
 import JSONOrienter.JSONHandler;
 import JSONOrienter.CommandHandler;
+import com.godsofwargame.commands.JoinCoalitionCommand;
 import com.godsofwargame.commands.commandInterface;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -65,6 +66,7 @@ public class NewWSEndpoint {
         gameState.getClients().put(peer.getId(), peer);
         player = new PlayerData(peer.getId());
         
+        //Send user settings data
         commandInterface setting = new settingsCommand();
         setting.execute(gameState, peer.getId());
         System.out.println("NewWSEndpoint: onOpen: gameState Properties col test: " + gameState.getProperties().getCols());
@@ -77,7 +79,11 @@ public class NewWSEndpoint {
             gameState.preload();
             System.out.println("Gamestate pre-load Complete");
         }
+        //Add player to new Team named after their Id
         
+        JoinCoalitionCommand teamJoiner = new JoinCoalitionCommand();
+        teamJoiner.setFactionName(peer.getId());
+        teamJoiner.execute(gameState, peer.getId());
         //Update new user with new gamestate
         DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         
@@ -85,7 +91,7 @@ public class NewWSEndpoint {
     //TODO there is a bug when player leave and join that seems to fail to shutdown or start certain threads (namely Timer0), (I think I fixed this)
     @OnClose
     public void onClose (Session peer) {
-        
+        //TODO a lot of objects need to be removed still; Territory, and teams?
         try {
             gameState.removeSession(peer);
         } catch (IOException ex) {
@@ -99,7 +105,7 @@ public class NewWSEndpoint {
             //reset the start so new players can join
             gameState.resetReadyState();
         }else{
-        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
+            DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
         }
         //peers.remove(peer);
         System.out.println("peer left");

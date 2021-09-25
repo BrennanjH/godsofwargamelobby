@@ -16,4 +16,5 @@ public interface Team {
     public void addTeamMember(Member newMember);
     public void removeTeamMember(String memberId);
     public List<Member> getTeam();
+    
 }

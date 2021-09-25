@@ -12,9 +12,15 @@ function JSONgameStateUpdater(json){//Properly updates gamestate (lists of units
     unitHandling(message.unitList);
     playerDataHandling(message.playerInfo);
     propertiesHandling(message.properties);
+    territoryHandling(message.territories);
+}
+function territoryHandling(data){
+    if(Object.entries(data).length !== 0){
+        territoryMap = data;
+    }
 }
 function playerDataHandling(data){
-    if(typeof data !== "undefined"){
+    if(Object.entries(data).length !== 0){
         money = data.money;
         document.getElementById("money").textContent = money;
     }
@@ -35,7 +41,9 @@ function unitHandling(list){
     updateUnitList(list);//look in UnitObject.js for related methods and variables
 }
 function terrainHandling(list){
-    if(typeof list[0] !== "undefined"){
+    if(Object.entries(list).length !== 0){
+        console.log("Setting TerrainList");
+        //console.log(list);
         setTerrainMap(list);//TODO change this to only change the terrain objects that conflict with new Terrain (may not be reasonable design choice)
         
         /*
@@ -46,27 +54,25 @@ function terrainHandling(list){
     }
 }
 function propertiesHandling(properties){
-    if(typeof properties !== undefined){
+    if(Object.entries(properties).length !== 0){
         gameSettings = properties;
     }
 }
 //TODO see if there is a way to cut these methods out after first use
 function turnOff(message){//this function quickly becomes 
-    if(typeof message !== "undefined"){
-        
-            setPlayerId(message.ID);
-            applySettingsData(message.settings);
+    if(Object.entries(message).length !== 0){
+            console.log("Setting first response data");
+            console.log(typeof message);
             
+            setPlayerId(message.ID);
+            
+            setTeamName(playerID);
 
         function setPlayerId(Id){//afterSettingsCommand is executed the ID should return along with SettingsData
             if(typeof Id !== "undefined"){
                 setID(Id);
             }
         }   
-        function applySettingsData(settings){
-            if(typeof settings !== "undefined"){
-
-            }
-        }
+        
     }
 }

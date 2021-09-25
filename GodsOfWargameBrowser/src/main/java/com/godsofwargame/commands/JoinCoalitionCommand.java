@@ -7,6 +7,7 @@ package com.godsofwargame.commands;
 
 import Faction.Coalition;
 import Faction.Team;
+import Location.Territory;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.PlayerData;
 import com.godsofwargame.backend.UnitTypes;
@@ -28,7 +29,9 @@ public class JoinCoalitionCommand implements commandInterface {
             PlayerData talkingMember = gameState.getMapState().getPlayer(Id);
             //check if server has requested team
             ArrayList<Team> removeTeam = new ArrayList<>();
-            for (Team t : gameState.getFactions()) { 
+            for (Team t : gameState.getFactions()) {
+                //remove player from all teams they were in before
+                t.removeTeamMember(Id);
                 
                 if ( t.getName().equals(factionName)) {
                     //Add member to the team list
@@ -36,8 +39,6 @@ public class JoinCoalitionCommand implements commandInterface {
                     t.addTeamMember(talkingMember.getPlayerMember());
                     teamExists = true;
                 }
-                //remove player from all teams they were in before
-                t.removeTeamMember(Id);
                 
                 //Tag empty factions for removal at the end
                 if(t.getTeam().isEmpty()){
@@ -53,8 +54,28 @@ public class JoinCoalitionCommand implements commandInterface {
                 gameState.getFactions().add(newCoalition);
             }
             //remove empty factions
-            for(Team t : removeTeam){
-                gameState.getFactions().remove(t);
+            for(Team team : removeTeam){
+                //delete territory with assigned teams
+                for (int i =0; i< gameState.getMapState().getLandOwnership().length;i++){
+                    
+                        
+                    for(int j = 0; j < gameState.getMapState().getLandOwnership()[i].length;j++){ //TODO update this method to try and give teams resources to the new team created by process
+                        //delete all territorys that use the team being removed 
+                        
+                        if(gameState.getMapState().getLandOwnership()[i][j] != null){
+                            System.out.println("JoinCoalitionCommand: Execute: territory not equal to null");
+                            if ( team.equals(gameState.getMapState().getLandOwnership()[i][j].getFaction())){
+                                System.out.println("JoinCoalitionCommand: Execute: team is equal to terrain team");
+                                System.out.println("JoinCoalitionCommand: Execute: team = " + team.getName());
+                                System.out.println("JoinCoalitionCommand: Execute: territroy team name = " + gameState.getMapState().getLandOwnership()[i][j].getFaction().getName());
+                                gameState.getMapState().getLandOwnership()[i][j] = null;
+                            } 
+                        }
+                    }
+                }
+                //Remove team from list
+                gameState.getFactions().remove(team);
+                
             }
         }
         System.out.println("JoinCoalitionCommand: Execute: Number of teams: " + gameState.getFactions().size());
@@ -68,6 +89,10 @@ public class JoinCoalitionCommand implements commandInterface {
     @Override
     public String testValue() {
        return "This is a JoinCoalitionCommand"; //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void setFactionName(String factionName) {
+        this.factionName = factionName;
     }
     
 }

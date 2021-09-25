@@ -6,7 +6,11 @@
 
 var playerID;
 var money; //Even if changed by USER server won't care as it keeps it's own copy set to the proper amount
+var teamName;
 
 function setID(ID) {
     playerID = ID;
+}
+function setTeamName(name){
+    teamName = name;
 }

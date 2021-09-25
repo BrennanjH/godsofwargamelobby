@@ -12,8 +12,8 @@ var arrayHeight;
 var arrayWidth;
 var width;
 var height;
-var TerrainMap = new Array();//TODO this array seems to be backwards based on frontend backend cord pos
-//initGrid();
+var TerrainMap = new Array();
+var territoryMap = new Array();
 
 
 
@@ -101,7 +101,11 @@ function refresh(){
         //console.log(TerrainMap[i]);
     }
         
-     
+    for(let i = 0; i < territoryMap.length ;i++ ){
+        
+        //console.log(territoryMap[i]);
+        drawTerritory(territoryMap[i]);
+    }
     
     for(i=0;i<unitList.length;i++){
         //console.log(unitList[i]);
@@ -116,6 +120,29 @@ function refresh(){
     }
     
 }
+function drawTerritory(territory){
+    if(territory !== null){
+        //Identify if player is on team of land
+        let isOnTeam = (teamName === territory.Owner.teamName);
+        console.log("teamname of territ: " + territory.Owner.teamName);
+        console.log("teamname on client: "  + teamName);
+        console.log(isOnTeam);
+        //get tint location
+        let x = territory.pos.xPos;
+        let y = territory.pos.yPos;
+        //Draw tint
+        if(isOnTeam){
+            context.fillStyle = "rgba(255,0,0,.5)";
+            context.fillRect(x* width,y * height,width,height);
+        } else{
+            context.fillStyle = "rgba(0,0,0,.5)";
+            context.fillRect(x* width,y * height,width,height);
+        }
+        
+        
+    }
+}
+
 function drawTerrain(terrain){
     let unitImage = new Image();
     //console.log(terrain.type.toString() + ".png");

@@ -6,6 +6,8 @@
 package com.godsofwargame.backend;
 
 
+import Faction.Member;
+import Faction.NoTeamAssociationException;
 import Faction.Team;
 import TimerSystems.TimerScheduler;
 import java.io.IOException;
@@ -132,5 +134,15 @@ public class GodsofWargame {
     private boolean compareUnits(UnitTypes unit1, UnitTypes unit2){
         return (unit1.uxPos == unit2.uxPos) && (unit1.uyPos == unit2.uyPos) && (unit1.uzPos == unit2.uzPos);
     }
-
+    //Finds the team that a player belongs to, Might need to return list if logic is needed in the future
+    public Team returnPlayerTeam(Member teamMember ) throws NoTeamAssociationException {
+        for ( Team t : factions){
+            for (Member m : t.getTeam()){
+                if(m.equals(teamMember)){
+                    return t;
+                }
+            }
+        }
+        throw new NoTeamAssociationException();
+    }
 }

@@ -5,11 +5,16 @@
  */
 package Units;
 
+import Faction.NoTeamAssociationException;
+import Location.ControlTerritory;
+import Location.Coordinate;
+import Location.HighLevelCoord;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitCommandStructure;
-import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.mapUpdater;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -35,7 +40,18 @@ public class UnitCommandStructureCreate extends AbstractUnitCreate{
                 mapUpdater.newUnitState(gameState.getMapState(),mover);
                 
                 //Create a territory piece below the commander so that new units can be spawned in where the commander was spawned
+                Coordinate territoryLocation = new HighLevelCoord(mover.getUxPos(),mover.getUyPos());
                 
+                try { 
+                    //Unused as ControlTerritroy automatiaclly registers itself with mapstate
+                    ControlTerritory newTerritory = new ControlTerritory(
+                            gameState.returnPlayerTeam(gameState.getMapState().getPlayer(mover.getOWNER()).getPlayerMember())
+                            , territoryLocation
+                            , gameState
+                    );
+                } catch (NoTeamAssociationException ex) {
+                    Logger.getLogger(UnitCommandStructureCreate.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 
                 //Add the commanders to gameState so future references are easier to get
                 gameState.addCommander(mover);//IMPORTANT LINE OF CODE FOR COMMANDERS

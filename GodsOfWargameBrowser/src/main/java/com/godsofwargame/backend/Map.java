@@ -46,6 +46,7 @@ public class Map  {//acts as the gamestate object
         players = new HashMap<>();
         deployedForces = new List[row][col];
         //territories = new ArrayList<>();
+        landOwnership = new Territory[row][col];
         
         for(int i =0;i<deployedForces.length;i++){
             
@@ -133,8 +134,12 @@ public class Map  {//acts as the gamestate object
         return players;
     }
     public void removeSession(Session leaver){
+        //remove sessions playerData
         removePlayer(leaver.getId());
+        //Delete sessions units
         removeOwnerFromDeployedForces(leaver.getId());
+        
+        
     }
     private void removeOwnerFromDeployedForces(String ID){
         for (int i=0; i < getRow();i++){
