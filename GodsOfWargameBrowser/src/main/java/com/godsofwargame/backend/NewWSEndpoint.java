@@ -60,7 +60,24 @@ public class NewWSEndpoint {
     }
     @OnOpen 
     public void onOpen (Session peer) {
-        //Check if server has already start and remove player if yes (process in development)
+        
+        System.out.println("peer joined: " + peer.getId());
+        //Perform first time setup when user joins
+        if (!(gameState.getReadyStates().isPreLoad())){    
+            System.out.println("Gamestate pre-load started");
+            
+            gameState.preload();
+            System.out.println("Gamestate pre-load Complete");
+        } else if( (gameState.getReadyStates().isFullyLoaded()) ) {
+            
+            try {
+                peer.close(); 
+                //TODO change .close to use a close reason
+            } catch (IOException ex) {
+                Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return;
+        }
         
         //add reference to new user into GodsofWargame Object
         gameState.getClients().put(peer.getId(), peer);
@@ -69,16 +86,10 @@ public class NewWSEndpoint {
         //Send user settings data
         commandInterface setting = new settingsCommand();
         setting.execute(gameState, peer.getId());
-        System.out.println("NewWSEndpoint: onOpen: gameState Properties col test: " + gameState.getProperties().getCols());
+        
+        
         gameState.getMapState().addPlayer(peer.getId(), player);//place the Id in a hashMap and the players information alongside it
-        System.out.println("peer joined: " + peer.getId());
-        //Perform first time setup when user joins
-        if (!(gameState.getReadyStates().isPreLoad())){    
-            System.out.println("Gamestate pre-load started");
-            
-            gameState.preload();
-            System.out.println("Gamestate pre-load Complete");
-        }
+        
         //Add player to new Team named after their Id
         
         JoinCoalitionCommand teamJoiner = new JoinCoalitionCommand();
@@ -92,22 +103,25 @@ public class NewWSEndpoint {
     @OnClose
     public void onClose (Session peer) {
         //TODO a lot of objects need to be removed still; Territory, and teams?
-        try {
-            gameState.removeSession(peer);
-        } catch (IOException ex) {
-            Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+        if (peer.isOpen()){
+            try {
+                gameState.removeSession(peer);
+            } catch (IOException ex) {
+                Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if(gameState.getClients().isEmpty()){
+                ctx.close();
+                //ShutDown timers if any are started
+                if(gameState.getReadyStates().isFullyLoaded())
+                    gameState.cancelTimer();//Shut down timer at last peer leaving
+                //reset the start so new players can join
+                gameState.resetReadyState();
+            }else{
+                DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
+            }
+            //peers.remove(peer);
+            
         }
-        if(gameState.getClients().isEmpty()){
-            ctx.close();
-            //ShutDown timers if any are started
-            if(gameState.getReadyStates().isFullyLoaded())
-                gameState.cancelTimer();//Shut down timer at last peer leaving
-            //reset the start so new players can join
-            gameState.resetReadyState();
-        }else{
-            DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
-        }
-        //peers.remove(peer);
         System.out.println("peer left");
     }
 }
