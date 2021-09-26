@@ -61,11 +61,8 @@ public class JoinCoalitionCommand implements commandInterface {
                         //delete all territorys that use the team being removed 
                         
                         if(gameState.getMapState().getLandOwnership()[i][j] != null){
-                            System.out.println("JoinCoalitionCommand: Execute: territory not equal to null");
+                            
                             if ( team.equals(gameState.getMapState().getLandOwnership()[i][j].getFaction())){
-                                System.out.println("JoinCoalitionCommand: Execute: team is equal to terrain team");
-                                System.out.println("JoinCoalitionCommand: Execute: team = " + team.getName());
-                                System.out.println("JoinCoalitionCommand: Execute: territroy team name = " + gameState.getMapState().getLandOwnership()[i][j].getFaction().getName());
                                 gameState.getMapState().getLandOwnership()[i][j] = null;
                             }
                         }

@@ -5,14 +5,12 @@
  */
 package com.godsofwargame.commands;
 
+import Faction.Team;
 import Location.Territory;
 import com.godsofwargame.backend.GodsofWargame;
-import com.godsofwargame.backend.UnitCommandStructure;
 import java.io.IOException;
 /**
- *Whenever a command Structure is lost this is called, It first checks the total number of command Structures remaining
- * If one or less remain the game will fully end, if more than one exists then whoever lost theirs is passed to PlayerToSpectator,
- * and nothing else is done with gameEnd until the next lost commandStructure.
+ * A class that is used to handle the removal of players both before and after gameState start
  * @author brenn
  */
 public class GameEndHandler implements internalCommands{
@@ -37,8 +35,11 @@ public class GameEndHandler implements internalCommands{
                 System.out.println("IsPlayerLast Commander: true");
                 //Send Player to Spectator Role/remove them
                 closer.sendCustomCloseMessage("Player: " + removed + " Has been defeated");
+               
                 
                 gameState.removeSession(gameState.getClients().get(removed));
+                //Delete empty teams if present and remove their land
+                cleanUpEmptyTeams();
                 //Check if any other players remain
                 if(isLastPlayer()){
                     System.out.println("IsLastPlayer: true");
@@ -61,12 +62,16 @@ public class GameEndHandler implements internalCommands{
             sendCloseStatement closer = new sendCloseStatement(gameState);
             //closer.sendCustomCloseMessage("Player: " + removed + " Has left the game");
             gameState.removeSession(gameState.getClients().get(removed));
+            
+            //Remove empty teams and delete their land
+            cleanUpEmptyTeams();
             //Check if any other players remain
             if(gameState.getReadyStates().isFullyLoaded()){
+                
                 if(isLastPlayer()){
                     System.out.println("IsLastPlayer: true");
                     //create custom ending message
-
+                    
                     closer.sendCustomCloseMessage("Game over! winner has been decided" );
                     //end the game by removing all players
                     endGame();
@@ -85,8 +90,9 @@ public class GameEndHandler implements internalCommands{
     }
     //Closes all sessions in gameState and resets godsofWargame
     private void endGame() throws IOException{
-        
+        System.out.println("gameEndHandler: endGame: entered");
         String[] ids = new String[gameState.getClients().size()];
+        System.out.println("gameEndHandler: endGame: client size "+ gameState.getClients().size());
         int intervals= 0;
         //Create a array of Strings that can be safely looped through
         for(String s : gameState.getClients().keySet()){
@@ -95,6 +101,7 @@ public class GameEndHandler implements internalCommands{
         }
         //Using safe string[] close each sessionObject
         for(String s : ids){
+            System.out.println("GameEndHandler: endGame: removeID: " + s);
             gameState.removeSession(gameState.getClients().get(s));
         }
         for (Territory[] landOwnership : gameState.getMapState().getLandOwnership()) {
@@ -106,5 +113,26 @@ public class GameEndHandler implements internalCommands{
         }
         
     }
-    
+    //A method to remove all teams that are empty and territories associated with them
+    private void cleanUpEmptyTeams(){
+        System.out.println("GameEndHandler: cleanUpEmptyTeams: Entered");
+        for (Team t : gameState.getFactions()){
+            if (t.getTeam().isEmpty()){
+                
+                //remove territory owned by team
+                for (int i =0; i< gameState.getMapState().getLandOwnership().length;i++){
+                    for(int j = 0; j < gameState.getMapState().getLandOwnership()[i].length;j++){ //TODO update this method to try and give teams resources to the new team created by process
+                        //delete all territorys that use the team being removed 
+                        
+                        if(gameState.getMapState().getLandOwnership()[i][j] != null){
+                            System.out.println("JoinCoalitionCommand: Execute: territory not equal to null");
+                            if ( t.equals(gameState.getMapState().getLandOwnership()[i][j].getFaction())){
+                                gameState.getMapState().getLandOwnership()[i][j] = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

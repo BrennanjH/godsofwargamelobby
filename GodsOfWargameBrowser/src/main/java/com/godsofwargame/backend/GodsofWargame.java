@@ -122,10 +122,27 @@ public class GodsofWargame {
         commanders.remove(ID);
         clients.get(ID).close();
         clients.remove(ID);
+        removeMemberFromTeam(ID);
         mapState.removeSession(leaver);//Not sure if I want unit's to call their death rules but If yes then commanders.remove can be removed since the map will remove the command units internally
         
     }
-
+    public void removeMemberFromTeam(String memberID){
+        List<Member> removeList = new ArrayList<>();
+        System.out.println("member ID: " + memberID);
+        for(Team t : factions){
+            for (Member m : t.getTeam()){
+                if (m.getId().equals(memberID)){
+                    removeList.add(m);
+                    
+                }
+            }
+            for(int i =0; i < removeList.size(); i++){
+            t.getTeam().remove(removeList.get(i));
+            }
+            
+        }
+        
+    }
     public List<Team> getFactions() {
         return factions;
     }

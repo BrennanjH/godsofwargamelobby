@@ -110,23 +110,7 @@ public class NewWSEndpoint {
         GameEndHandler gameEnder = new GameEndHandler(peer.getId(), gameState);
         System.out.println("NewWSEndpoint: onClose: peer is closed?: " + peer.isOpen());
         gameEnder.playerLost();
-        /*
-        if (peer.isOpen()){
-            try {
-                gameState.removeSession(peer);
-                DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
-            } catch (IOException ex) {
-                Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            try {
-                gameState.removeSession(peer);
-            } catch (IOException ex) {
-                Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        */
-            //System.out.println("onClose: " + gameState.getClients().isEmpty());
+        
         if(gameState.getClients().isEmpty()){
             ctx.close();
             //ShutDown timers if any are started
