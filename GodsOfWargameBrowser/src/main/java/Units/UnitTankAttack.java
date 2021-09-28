@@ -6,9 +6,12 @@
 package Units;
 
 
+import Faction.NoTeamAssociationException;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitTypes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author brenn
@@ -38,13 +41,20 @@ public class UnitTankAttack extends AbstractUnitAttack{
             for(int j = yIndexStart; j <= yIndexStop;j++){
                 
                 if ( !(gameState.getMapState().getDeployedForces()[i][j].isEmpty())  ){
-                    UnitTypes target = gameState.getMapState().getUnitTypeinDeployedForces(i, j, 0);
-                    //System.out.println((gameState.getMapState().getDeployedForces()[i][j].isEmpty()));
-                    if ( !(attacker.getOWNER().equals(target.getOWNER()))
-                            && UnitTargetTypes.canShootProperty(target.getProperty())){ 
+                    
+                    try {
+                        UnitTypes target = gameState.getMapState().getUnitTypeinDeployedForces(i, j, 0);
+                        
+                        //check if team of attacker is equal to defender
+                        
+                        if ( validateTeam(attacker,target,gameState) 
+                            && UnitTargetTypes.canShootProperty(target.getProperty())){
                         //System.out.println("UnitTank is shooting: "+ attacker.getOWNER());
                         shootSquare(i,j,gameState.getMapState());
                         return;
+                    }
+                    } catch (NoTeamAssociationException ex) {
+                        Logger.getLogger(UnitTankAttack.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
             }

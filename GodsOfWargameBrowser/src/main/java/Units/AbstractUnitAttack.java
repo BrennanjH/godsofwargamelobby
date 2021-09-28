@@ -5,9 +5,14 @@
  */
 package Units;
 
+import Faction.Member;
+import Faction.NoTeamAssociationException;
+import Faction.Team;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitTypes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,5 +36,13 @@ abstract public class AbstractUnitAttack extends AbstractUnit{
     protected static int trueRangeDown(int radius,UnitTypes unit , Map mapState){
         //System.out.println("trueRangeDown: " + Math.min(mapState.getRow(),unit.getUyPos() + radius));
         return Math.min(mapState.getCol() -1 ,unit.getUyPos() + radius);
+    }
+    protected boolean validateTeam(UnitTypes attacker, UnitTypes target, GodsofWargame gameState) throws NoTeamAssociationException{
+        
+
+        Team defendingTeam = gameState.returnPlayerTeam(gameState.getMapState().getPlayer(target.getOWNER()).getPlayerMember());
+        Team attackingOwner = gameState.returnPlayerTeam(gameState.getMapState().getPlayer(attacker.getOWNER()).getPlayerMember());
+        return !defendingTeam.equals(attackingOwner);
+        
     }
 }

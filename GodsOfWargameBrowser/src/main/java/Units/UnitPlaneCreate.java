@@ -23,16 +23,7 @@ public class UnitPlaneCreate extends AbstractUnitCreate{
     }
     @Override
     public void create(GodsofWargame gameState, String Id){
-        //jsonsendHolder listHolder = new jsonsendHolder();
-        /*
-        if(Id.equals(mover.getOWNER())){
-            mover.setUzPos(bottomStacker(gameState.getMapState()));
-            //listHolder.addUnit(mover);
-            mapUpdater.newUnitState(gameState.getMapState(),mover);
-            System.out.println("create Unit Command successful");
-        }
-        */
-        //return listHolder;
+        
         Member unitOwnersMember = gameState.getMapState().getPlayer(Id).getPlayerMember();
         if (validateTerritory(mover.getUxPos(),mover.getUyPos(), unitOwnersMember, gameState.getMapState())) {
             if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){

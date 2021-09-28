@@ -5,9 +5,12 @@
  */
 package Units;
 
+import Faction.NoTeamAssociationException;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitTypes;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,11 +36,21 @@ public class UnitPlaneAttack extends AbstractUnitAttack{
         for(int i = xIndexStart; i <= xIndexStop;i++){
             for(int j = yIndexStart; j <= yIndexStop;j++){
                 if (! (gameState.getMapState().getDeployedForces()[i][j].isEmpty())){
-                    if ( !(attacker.getOWNER().equals(gameState.getMapState().getUnitTypeinDeployedForces(i, j, 0).getOWNER())) ){ 
-                        //System.out.println("UnitTank is shooting: "+ mover.getOWNER());
+                    try {
+                        UnitTypes target = gameState.getMapState().getUnitTypeinDeployedForces(i, j, 0);
+                        
+                        //check if team of attacker is equal to defender
+                        
+                        if ( validateTeam(attacker,target,gameState) 
+                            && UnitTargetTypes.canShootProperty(target.getProperty())){
+                        //System.out.println("UnitTank is shooting: "+ attacker.getOWNER());
                         shootSquare(i,j,gameState.getMapState());
                         return;
                     }
+                    } catch (NoTeamAssociationException ex) {
+                        Logger.getLogger(UnitTankAttack.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    
                 }
             }
         }
