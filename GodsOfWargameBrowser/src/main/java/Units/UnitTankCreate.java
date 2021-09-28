@@ -5,10 +5,10 @@
  */
 package Units;
 
+import Faction.Member;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitTypes;
-import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.mapUpdater;
 
 
@@ -24,8 +24,9 @@ public class UnitTankCreate extends AbstractUnitCreate{
     }
     @Override
     public void create(GodsofWargame gameState, String Id){
-        
-        if (validateTerritory()) {
+        Member unitOwner = gameState.getMapState().getPlayer(Id).getPlayerMember();
+        System.out.println("Unit Tank Member data: " + unitOwner);
+        if (validateTerritory(mover.getUxPos(),mover.getUyPos(), unitOwner, gameState.getMapState())) {
             if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){
                 int cost = getCost();
                 if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
@@ -41,9 +42,7 @@ public class UnitTankCreate extends AbstractUnitCreate{
         }
         //return listHolder;
     }
-    private boolean validateTerritory(){ //Should check if the unit is sitting on top of owned terrain
-        return true;
-    }
+    
     //TODO fix bottom stacker so that it properly creates z cords
     private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
         //System.out.println(gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size());

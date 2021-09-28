@@ -5,10 +5,10 @@
  */
 package Units;
 
+import Faction.Member;
 import com.godsofwargame.backend.GodsofWargame;
 import com.godsofwargame.backend.Map;
 import com.godsofwargame.backend.UnitTypes;
-import com.godsofwargame.backend.jsonsendHolder;
 import com.godsofwargame.backend.mapUpdater;
 
 /**
@@ -33,17 +33,20 @@ public class UnitPlaneCreate extends AbstractUnitCreate{
         }
         */
         //return listHolder;
-        if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){
-            int cost = getCost();
-            if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
-                gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
-                mover.setUzPos(bottomStacker(gameState.getMapState()));
-                //listHolder.addUnit(mover);
+        Member unitOwnersMember = gameState.getMapState().getPlayer(Id).getPlayerMember();
+        if (validateTerritory(mover.getUxPos(),mover.getUyPos(), unitOwnersMember, gameState.getMapState())) {
+            if(isTerrainValid(gameState.getMapState()) && Id.equals(mover.getOWNER())){
+                int cost = getCost();
+                if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
+                    gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
+                    mover.setUzPos(bottomStacker(gameState.getMapState()));
+                    //listHolder.addUnit(mover);
 
-                mapUpdater.newUnitState(gameState.getMapState(),mover);
-                System.out.println("create Unit Command successful");
+                    mapUpdater.newUnitState(gameState.getMapState(),mover);
+                    System.out.println("create Unit Command successful");
+                }
+
             }
-            
         }
         
     }
