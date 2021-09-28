@@ -5,8 +5,8 @@
  */
 package com.godsofwargame.backend;
 
+import Faction.Member;
 import Units.pathing.AbstractUnitMovement;
-import Units.pathing.Routing;
 import Units.pathing.TerrainRules;
 
 /**
@@ -22,6 +22,7 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     TerrainRules terrainRules;
     
     String UnitType,property;
+    @Deprecated
     String OWNER;
     int uhealth ,
         uspeed,
@@ -31,7 +32,8 @@ public abstract class UnitTypes {//no constructor since init is actually done in
         uxPos ,
         uyPos ,
         uzPos;
-    
+    Member ownerMember;
+
     
 /////////Command Support Methods///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
@@ -143,5 +145,11 @@ public abstract class UnitTypes {//no constructor since init is actually done in
     public void changeUhealth(int damage) {
         this.uhealth -= damage;
     }
-    
+    public Member getOwnerMember() {
+        return ownerMember;
+    }
+
+    public void setOwnerMember(Member ownerMember) {
+        this.ownerMember = ownerMember;
+    }
 }

@@ -24,7 +24,10 @@ function territoryHandling(data){
 function playerDataHandling(data){
     if (typeof data !== "undefined"){
         if(Object.entries(data).length !== 0){
+            playerID = data.playerMember.Id;
             money = data.money;
+            teamName = data.playerMember.factionName;
+            console.log(data.playerMember.Id);
             document.getElementById("money").textContent = money;
         }
     }

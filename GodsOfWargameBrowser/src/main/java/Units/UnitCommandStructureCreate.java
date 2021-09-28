@@ -34,7 +34,7 @@ public class UnitCommandStructureCreate extends AbstractUnitCreate{
             if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
                 //Charge the players account
                 gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
-                
+                mover.setOwnerMember(gameState.getMapState().getPlayer(Id).getPlayerMember());
                 //The new command Unit should be positioned on the map
                 mover.setUzPos(bottomStacker(gameState.getMapState()));
                 mapUpdater.newUnitState(gameState.getMapState(),mover);

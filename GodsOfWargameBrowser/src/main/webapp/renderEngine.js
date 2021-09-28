@@ -31,11 +31,14 @@ function drawUnit(Unit){
         context.drawImage(img, Unit.uxPos*width, Unit.uyPos*height,width,height);
         console.log(playerID);
         */
-       
         
-        if(Unit.OWNER !== playerID){
+        if( Unit.ownerMember.factionName === teamName && Unit.ownerMember.Id !== playerID){
+            context.fillStyle = 'rgba(255, 0, 255, .3)';
+            context.fillRect(Unit.uxPos*width, Unit.uyPos*height,width,height);
+        }
+        else if(Unit.ownerMember.Id !== playerID){
             
-            context.fillStyle = 'rgba(255, 0, 255, 0.3)';
+            context.fillStyle = 'rgba(75, 75, 75, 0.5)';
             context.fillRect(Unit.uxPos*width, Unit.uyPos*height,width,height);
         } 
     }

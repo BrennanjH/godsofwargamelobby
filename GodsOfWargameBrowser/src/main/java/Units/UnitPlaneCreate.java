@@ -30,9 +30,10 @@ public class UnitPlaneCreate extends AbstractUnitCreate{
                 int cost = getCost();
                 if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
                     gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
+                    mover.setOwnerMember(gameState.getMapState().getPlayer(Id).getPlayerMember());
                     mover.setUzPos(bottomStacker(gameState.getMapState()));
                     //listHolder.addUnit(mover);
-
+                    
                     mapUpdater.newUnitState(gameState.getMapState(),mover);
                     System.out.println("create Unit Command successful");
                 }

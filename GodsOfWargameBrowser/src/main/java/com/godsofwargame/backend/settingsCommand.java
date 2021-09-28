@@ -18,6 +18,7 @@ import java.io.IOException;
 //Second it sets up the map. This is it's true purpose and only the first player should ever bother sending this command
 //The first purpose should be moved to an internal command that gets executed when OnOpen() in the endpoint get's called
 //because the first purpose has not been moved there is a try catch block in here that really shouldn't be.
+@Deprecated
 public class settingsCommand implements commandInterface{ 
     
     @Override

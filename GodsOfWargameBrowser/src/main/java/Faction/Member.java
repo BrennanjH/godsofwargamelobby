@@ -16,13 +16,21 @@ public class Member {
     //The Id is gotten from session ID and is simply a way to represents players
     //in terms of factions
     private String Id;
-
+    private String factionName;
     public String getId() {
         return Id;
     }
 
     public void setId(String Id) {
         this.Id = Id;
+    }
+
+    public String getFactionName() {
+        return factionName;
+    }
+
+    public void setFactionName(String factionName) {
+        this.factionName = factionName;
     }
     
     

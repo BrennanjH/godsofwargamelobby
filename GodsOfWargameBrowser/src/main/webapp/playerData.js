@@ -14,3 +14,14 @@ function setID(ID) {
 function setTeamName(name){
     teamName = name;
 }
+/*
+function playerData() {
+    this.playerID;
+    this.money;
+    this.teamName;
+    this.getMoney = function(){
+        return money;
+    };
+}
+*/
+ 

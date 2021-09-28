@@ -86,10 +86,11 @@ public class NewWSEndpoint {
         gameState.getClients().put(peer.getId(), peer);
         player = new PlayerData(peer.getId());
         
-        //Send user settings data
+        //Send user settings data- unneeded
+        /*
         commandInterface setting = new settingsCommand();
         setting.execute(gameState, peer.getId());
-        
+        */
         
         gameState.getMapState().addPlayer(peer.getId(), player);//place the Id in a hashMap and the players information alongside it
         

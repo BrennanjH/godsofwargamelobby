@@ -5,10 +5,13 @@
  */
 package com.godsofwargame.commands;
 
+import Faction.Member;
 import Faction.Team;
 import Location.Territory;
 import com.godsofwargame.backend.GodsofWargame;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * A class that is used to handle the removal of players both before and after gameState start
  * @author brenn
@@ -41,7 +44,7 @@ public class GameEndHandler implements internalCommands{
                 //Delete empty teams if present and remove their land
                 cleanUpEmptyTeams();
                 //Check if any other players remain
-                if(isLastPlayer()){
+                if(isLastTeam()){
                     System.out.println("IsLastPlayer: true");
                     //create custom ending message
                     
@@ -88,6 +91,19 @@ public class GameEndHandler implements internalCommands{
         System.out.println("last player keyset size: " + gameState.getCommanders().keySet().size());
         return gameState.getCommanders().keySet().size() <=1;
     }
+    private boolean isLastTeam(){
+        /*
+        for(Team t : gameState.getFactions()){
+            System.out.println("GameEndHandler: isLastTeam: factionName for team: " + t.getName());
+            for(Member m : t.getTeam()){
+                System.out.println("GameEndHandler: isLastTeam: factionName for member: " + m.getFactionName());
+            }
+        }
+        cleanUpEmptyTeams();
+        System.out.println("GameEndHandler: isLastTeam: team list size: " + gameState.getFactions().size());
+        */
+        return (gameState.getFactions().size() <= 1);
+    }
     //Closes all sessions in gameState and resets godsofWargame
     private void endGame() throws IOException{
         System.out.println("gameEndHandler: endGame: entered");
@@ -116,9 +132,10 @@ public class GameEndHandler implements internalCommands{
     //A method to remove all teams that are empty and territories associated with them
     private void cleanUpEmptyTeams(){
         System.out.println("GameEndHandler: cleanUpEmptyTeams: Entered");
+        List<Team> removeTeams = new ArrayList<>();
         for (Team t : gameState.getFactions()){
             if (t.getTeam().isEmpty()){
-                
+                removeTeams.add(t);
                 //remove territory owned by team
                 for (int i =0; i< gameState.getMapState().getLandOwnership().length;i++){
                     for(int j = 0; j < gameState.getMapState().getLandOwnership()[i].length;j++){ //TODO update this method to try and give teams resources to the new team created by process
@@ -133,6 +150,9 @@ public class GameEndHandler implements internalCommands{
                     }
                 }
             }
+        }
+        for(Team t : removeTeams){
+            gameState.getFactions().remove(t);
         }
     }
 }

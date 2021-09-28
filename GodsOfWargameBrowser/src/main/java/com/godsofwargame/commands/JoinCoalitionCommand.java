@@ -35,6 +35,7 @@ public class JoinCoalitionCommand implements commandInterface {
                 
                 if ( t.getName().equals(factionName)) {
                     //Add member to the team list
+                    talkingMember.getPlayerMember().setFactionName(factionName);
                     
                     t.addTeamMember(talkingMember.getPlayerMember());
                     teamExists = true;
@@ -50,6 +51,7 @@ public class JoinCoalitionCommand implements commandInterface {
             //Create a new team if team didn't exist
             if (!teamExists) {
                 Coalition newCoalition = new Coalition(factionName);
+                talkingMember.getPlayerMember().setFactionName(factionName);
                 newCoalition.addTeamMember(talkingMember.getPlayerMember());
                 gameState.getFactions().add(newCoalition);
             }

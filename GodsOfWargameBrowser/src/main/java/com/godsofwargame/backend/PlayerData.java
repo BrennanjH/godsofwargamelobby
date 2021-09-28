@@ -14,13 +14,16 @@ import Faction.Team;
  */
 public class PlayerData {//holds information related to the player and only the player
     private int money = 20000;//default starting value
-    private final String playerID;
+    //private final String playerID;
     transient boolean readyState;
-    public transient Member playerMember;
+    public Member playerMember;
+    
     
     public PlayerData(String ID){
-        playerID = ID;
+        //playerID = ID;
         playerMember = new Member(ID);
+        //Faction name at player joing is their ID
+        playerMember.setFactionName(ID);
     }
 
     public Member getPlayerMember() {
@@ -39,7 +42,7 @@ public class PlayerData {//holds information related to the player and only the 
         this.money += change;
     }
     public String getPlayerID() {
-        return playerID;
+        return playerMember.getId();
     }
 
     public boolean isReadyState() {
