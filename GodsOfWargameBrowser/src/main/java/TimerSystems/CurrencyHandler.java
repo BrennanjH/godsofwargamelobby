@@ -49,7 +49,7 @@ class PlayerIncome {
         return commandUnitIncome + territorySizeIncome;
     }
     private int calculateCommandUnitIncome(){
-        return gameState.getCommanders().get(user.getPlayerID()).size() * 5;
+        return gameState.getCommanders().get(user.getPlayerID()).size() * 10;
     }
     
 }
