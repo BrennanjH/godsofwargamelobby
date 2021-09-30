@@ -26,9 +26,19 @@ function playerDataHandling(data){
         if(Object.entries(data).length !== 0){
             playerID = data.playerMember.Id;
             money = data.money;
+            readyState = data.readyState;
             teamName = data.playerMember.factionName;
             console.log(data.playerMember.Id);
             document.getElementById("money").textContent = money;
+            console.log("ReadyState: ");
+            console.log(readyState);
+            if(readyState === true){
+                console.log("Ready state is equal to true");
+                document.getElementById("readyState").textContent = "Ready";
+            } else {
+                document.getElementById("readyState").textContent = "Not ready";
+            }
+            
         }
     }
 }

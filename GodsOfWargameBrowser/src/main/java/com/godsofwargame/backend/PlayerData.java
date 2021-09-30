@@ -15,7 +15,7 @@ import Faction.Team;
 public class PlayerData {//holds information related to the player and only the player
     private int money = 10000;//default starting value
     //private final String playerID;
-    transient boolean readyState;
+    boolean readyState;
     public Member playerMember;
     
     

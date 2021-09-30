@@ -48,10 +48,10 @@
                 <td>
                     <div class="slidecontainer">
                         <p>Health Val: <span id="healthVal"></span></p>
-                       <input type="range" min="1" max="100" value="50" class="slider" id="HealthSlider">
+                       <input type="range" min="1" max="40" value="5" class="slider" id="HealthSlider">
                        
                        <p>Damage Val: <span id="damageVal"></span></p>
-                       <input type="range" min="1" max="100" value="50" class="slider" id="DamageSlider">
+                       <input type="range" min="1" max="30" value="5" class="slider" id="DamageSlider">
                        
                        <p>Speed Val: <span id="speedVal"></span></p>
                        <input type="range" min="0" max="5" value="1" class="slider" id="SpeedSlider">
@@ -66,7 +66,7 @@
                 </td>
                 <td>
                     <div class="pre-loadInteractions">
-                        <button type="button" onClick="return readyUp()"> Ready</button><br><br>
+                        <button type="button" onClick="return readyUp()"> Ready</button><P>currently: <span id="readyState">Not Ready</span></P><br><br>
                         <input type="text" id="tName"><button type="button" onClick="return joinTeam()" >Join Team</button>
                     </div>
                     <!--

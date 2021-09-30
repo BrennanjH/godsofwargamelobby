@@ -135,7 +135,7 @@ function removeAllListeners(){
     canvas.removeEventListener("click", placeUnit,false);
 }
 function readyUp(){
-    desiredReadyState = !desiredReadyState;
+    desiredReadyState = !(readyState === true);
     console.log("readyState: " + desiredReadyState);
     let command  = new readyCommand(desiredReadyState);
     readyStatePossible(command);

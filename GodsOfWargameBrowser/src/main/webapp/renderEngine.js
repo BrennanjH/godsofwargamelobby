@@ -127,9 +127,12 @@ function drawTerritory(territory){
     if(territory !== null){
         //Identify if player is on team of land
         let isOnTeam = (teamName === territory.Owner.teamName);
+        /*
         console.log("teamname of territ: " + territory.Owner.teamName);
         console.log("teamname on client: "  + teamName);
         console.log(isOnTeam);
+         * 
+         */
         //get tint location
         let x = territory.pos.xPos;
         let y = territory.pos.yPos;
