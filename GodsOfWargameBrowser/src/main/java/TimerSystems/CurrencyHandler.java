@@ -25,10 +25,12 @@ public class CurrencyHandler implements Handling{
             PlayerData focusedPlayer = gameState.getMapState().getPlayer(key);
             //get Player income Handler
             PlayerIncome generateIncome = new PlayerIncome(focusedPlayer , gameState);
-            //Get player income
-            int income = generateIncome.calculatePlayerIncome();
-            //Alter Player income
-            focusedPlayer.changeMoney(income);
+            if(focusedPlayer.playerRole.getRoleType().equals("PlayerRole")){
+                //Get player income
+                int income = generateIncome.calculatePlayerIncome();
+                //Alter Player income
+                focusedPlayer.changeMoney(income);
+            }
         }
        
     }

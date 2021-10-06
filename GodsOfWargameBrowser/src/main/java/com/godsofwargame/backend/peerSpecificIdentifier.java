@@ -24,7 +24,7 @@ public class peerSpecificIdentifier { //TODO rename this class to something more
     public static HashMap<String, jsonsendHolder> sortData(GodsofWargame gameState){//Public class that any class can use to sort data between clients
             HashMap<String, jsonsendHolder> dataForSending = new HashMap<>();//the sorted data's goes here
             
-            jsonsendHolder empty = new jsonsendHolder(gameState.getProperties());
+            jsonsendHolder empty = new jsonsendHolder(gameState);
             
             dataForSending = setClients(dataForSending, gameState,empty);
             dataForSending = seperateUnitsByUser( getUnitsAsList(gameState), dataForSending);

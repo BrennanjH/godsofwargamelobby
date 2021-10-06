@@ -80,8 +80,9 @@ public class AlterReadyStateCommand implements commandInterface {
     }
     //checks to see if any players have readystate set to false
     private boolean allPlayersReady(){
+        //Spectators are automatically ready upon joining so they are not searched for
         for (String key : gameState.getMapState().getPlayers().keySet() ) {
-            if ( !gameState.getMapState().getPlayer(key).isReadyState()) {
+            if ( !(gameState.getMapState().getPlayer(key).isReadyState())) {
                 return false;
             }
         }

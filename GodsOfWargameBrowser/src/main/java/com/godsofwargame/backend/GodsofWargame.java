@@ -120,7 +120,6 @@ public class GodsofWargame {
     public void removeSession(Session leaver) throws IOException{
         String ID = leaver.getId();
         commanders.remove(ID);
-        clients.get(ID).close();
         clients.remove(ID);
         removeMemberFromTeam(ID);
         mapState.removeSession(leaver);//Not sure if I want unit's to call their death rules but If yes then commanders.remove can be removed since the map will remove the command units internally

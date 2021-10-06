@@ -7,7 +7,7 @@
 function JSONgameStateUpdater(json){//Properly updates gamestate (lists of units and terrain) for client
     var message = JSON.parse(json);
     console.log("entered into JSONLOGICFINDER");
-    turnOff(message.firstResponseData);
+    //turnOff(message.firstResponseData);
     terrainHandling(message.terrainList);// Unlike UnitHandling which runs regardless of Unit presence TerrainHandling doesn't run if empty
     unitHandling(message.unitList);
     playerDataHandling(message.playerInfo);
@@ -79,6 +79,7 @@ function propertiesHandling(properties){
         }
     }
 }
+/*
 //TODO see if there is a way to cut these methods out after first use
 function turnOff(message){//this function quickly becomes 
     if (typeof message !== "undefined"){
@@ -99,3 +100,5 @@ function turnOff(message){//this function quickly becomes
         }
     }
 }
+ * 
+ */

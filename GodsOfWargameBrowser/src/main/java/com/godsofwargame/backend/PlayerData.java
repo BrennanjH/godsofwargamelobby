@@ -17,13 +17,14 @@ public class PlayerData {//holds information related to the player and only the 
     //private final String playerID;
     boolean readyState;
     public Member playerMember;
+    public Role playerRole;
     
-    
-    public PlayerData(String ID){
+    public PlayerData(String ID, Role playerRole){
         //playerID = ID;
         playerMember = new Member(ID);
         //Faction name at player joing is their ID
         playerMember.setFactionName(ID);
+        this.playerRole = playerRole;
     }
 
     public Member getPlayerMember() {

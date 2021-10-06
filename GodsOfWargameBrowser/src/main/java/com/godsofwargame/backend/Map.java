@@ -141,7 +141,7 @@ public class Map  {//acts as the gamestate object
         
         
     }
-    private void removeOwnerFromDeployedForces(String ID){
+    public void removeOwnerFromDeployedForces(String ID){
         for (int i=0; i < getRow();i++){
             for (int j =0;j<getCol();j++){
                 
@@ -150,7 +150,7 @@ public class Map  {//acts as the gamestate object
                 //System.out.println("Map: removeOwnerFromDeployedForces: deployedForces size: " + getDeployedForces()[i][j].size());
                 for(int k =0; k < getDeployedForces()[i][j].size(); k++){
                     
-                    if(ID.equals(getUnitTypeinDeployedForces(i,j,k).OWNER ) ){
+                    if(ID.equals(getUnitTypeinDeployedForces(i,j,k).getOWNER()) ){
                         removeUnitTypeinDeployedForces(i,j,getUnitTypeinDeployedForces(i,j,k));
                         k--;
                         

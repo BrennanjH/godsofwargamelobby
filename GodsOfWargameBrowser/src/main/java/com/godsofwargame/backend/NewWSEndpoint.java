@@ -51,14 +51,20 @@ public class NewWSEndpoint {
         //Since we can use multicore processing for commands and execution seperatly we should have the buffer store
         //Commands that have been deserialized since no thread contamination can occur at that stage
         
+        
         //Get Command from incoming
         commandInterface temp = passer.deserialize(incoming);
-        
-        //Use command object to perform buisness logic
-        temp.execute(gameState,session.getId());
-        
-        //Update user on gamestate changes caused by command
-        DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
+
+        //Validate PlayerRole on server
+        if(gameState.getMapState().getPlayer(session.getId()).playerRole.validateIngress(temp)){
+            //Use command object to perform buisness logic
+            temp.execute(gameState,session.getId());
+
+            //Update user on gamestate changes caused by command
+            DataDistributer.distributeToPeers(gameState.getClients(), passer.serialize());
+        } else{
+            System.out.println("NewWSEndpoint: messageRecieved: playerRole validation Failed: session Id: " + session.getId());
+        }
     }
     @OnOpen 
     public void onOpen (Session peer) {
@@ -72,26 +78,17 @@ public class NewWSEndpoint {
             System.out.println("Gamestate pre-load Complete");
         } else if( (gameState.getReadyStates().isFullyLoaded()) ) {
             
-            try {
-                System.out.println("NewWSEndpoint: onOpen: game has started peer is being closed");
-                peer.close(); 
-                //TODO change .close to use a close reason
-            } catch (IOException ex) {
-                Logger.getLogger(NewWSEndpoint.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //Add player to gameState as a spectator
+            gameState.getClients().put(peer.getId(), peer);
+            player = new PlayerData(peer.getId(), new SpectatorRole(gameState));
+            player.readyState = true;
+            gameState.getMapState().addPlayer(peer.getId(), player);
             return;
         }
         
         //add reference to new user into GodsofWargame Object
         gameState.getClients().put(peer.getId(), peer);
-        player = new PlayerData(peer.getId());
-        
-        //Send user settings data- unneeded
-        /*
-        commandInterface setting = new settingsCommand();
-        setting.execute(gameState, peer.getId());
-        */
-        
+        player = new PlayerData(peer.getId(), new PlayerRole(gameState));
         gameState.getMapState().addPlayer(peer.getId(), player);//place the Id in a hashMap and the players information alongside it
         
         //Add player to new Team named after their Id
@@ -112,6 +109,7 @@ public class NewWSEndpoint {
         System.out.println("NewWSEndpoint: onClose: peer is closed?: " + peer.isOpen());
         gameEnder.playerLost();
         
+        //Set the server back to starting point if all the players have left
         if(gameState.getClients().isEmpty()){
             ctx.close();
             //ShutDown timers if any are started

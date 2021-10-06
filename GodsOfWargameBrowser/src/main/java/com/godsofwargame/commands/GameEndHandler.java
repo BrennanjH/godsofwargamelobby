@@ -5,13 +5,14 @@
  */
 package com.godsofwargame.commands;
 
-import Faction.Member;
 import Faction.Team;
 import Location.Territory;
 import com.godsofwargame.backend.GodsofWargame;
+import com.godsofwargame.backend.SpectatorRole;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.websocket.Session;
 /**
  * A class that is used to handle the removal of players both before and after gameState start
  * @author brenn
@@ -34,15 +35,16 @@ public class GameEndHandler implements internalCommands{
             //Check if player has remaining command Units
             
             if(isPlayersLastCommander(gameState)){
+                //Send message to clients about the defeat of a player
                 sendCloseStatement closer = new sendCloseStatement(gameState);
                 System.out.println("IsPlayerLast Commander: true");
-                //Send Player to Spectator Role/remove them
                 closer.sendCustomCloseMessage("Player: " + removed + " Has been defeated");
-               
                 
-                gameState.removeSession(gameState.getClients().get(removed));
-                //Delete empty teams if present and remove their land
-                cleanUpEmptyTeams();
+                //Send Player to Spectator Role/remove them
+                
+                sendToSpecator(removed);
+                
+                
                 //Check if any other players remain
                 if(isLastTeam()){
                     System.out.println("IsLastPlayer: true");
@@ -60,14 +62,19 @@ public class GameEndHandler implements internalCommands{
             System.err.println("execute in PreEndGame has thrown IOException");
         }
     }
+    //Called when a player has been removed from the server for whatever reason, It is not called on a players usuall defeat
     public void playerLost(){
         try {
             sendCloseStatement closer = new sendCloseStatement(gameState);
             //closer.sendCustomCloseMessage("Player: " + removed + " Has left the game");
+            
+            //Safely remove the player from the server
+            if(gameState.getClients().get(removed).isOpen()){
+                gameState.getClients().get(removed).close();
+            }
             gameState.removeSession(gameState.getClients().get(removed));
             
-            //Remove empty teams and delete their land
-            cleanUpEmptyTeams();
+            
             //Check if any other players remain
             if(gameState.getReadyStates().isFullyLoaded()){
                 
@@ -118,7 +125,12 @@ public class GameEndHandler implements internalCommands{
         //Using safe string[] close each sessionObject
         for(String s : ids){
             System.out.println("GameEndHandler: endGame: removeID: " + s);
-            gameState.removeSession(gameState.getClients().get(s));
+            
+            Session temp = gameState.getClients().get(s);
+            if(temp.isOpen()){
+                temp.close();
+            }
+            
         }
         for (Territory[] landOwnership : gameState.getMapState().getLandOwnership()) {
             for (int j = 0; j < landOwnership.length; j++) {
@@ -129,6 +141,7 @@ public class GameEndHandler implements internalCommands{
         }
         
     }
+    
     //A method to remove all teams that are empty and territories associated with them
     private void cleanUpEmptyTeams(){
         System.out.println("GameEndHandler: cleanUpEmptyTeams: Entered");
@@ -154,5 +167,19 @@ public class GameEndHandler implements internalCommands{
         for(Team t : removeTeams){
             gameState.getFactions().remove(t);
         }
+    }
+    //Safely removes a player from their current role and sends them to specator with proper updates to the server
+    private void sendToSpecator(String switchPlayer){
+        
+        //Change role to spectator
+        gameState.getMapState().getPlayer(switchPlayer).playerRole = new SpectatorRole(gameState);
+        
+        //alter the server so that it no longer has information of user as a player
+        gameState.getCommanders().remove(switchPlayer);
+        gameState.removeMemberFromTeam(switchPlayer);
+        gameState.getMapState().removeOwnerFromDeployedForces(switchPlayer);
+        
+        //Remove empty teams and delete their land
+        cleanUpEmptyTeams();
     }
 }

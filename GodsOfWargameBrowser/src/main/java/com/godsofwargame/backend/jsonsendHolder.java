@@ -21,18 +21,20 @@ public class jsonsendHolder {
     private List<UnitTypes> unitList;
     private PlayerData playerInfo;
     private List<Territory> territories;
-    
     private MatchProperties properties;
     private String serverMes; 
-    private firstResponseSetup firstResponseData;
+    //private firstResponseSetup firstResponseData;
     
-    public jsonsendHolder(MatchProperties propertyData) {
+    private BtFMetaData metaData;
+    
+    public jsonsendHolder(GodsofWargame gameState) {
         terrainList = new ArrayList<>();
         unitList = new ArrayList<>();
         //deleteUnitList = new ArrayList<>();
-        firstResponseData = new firstResponseSetup();
-        properties = propertyData;
+        //firstResponseData = new firstResponseSetup();
+        properties = gameState.getProperties();
         serverMes = "Alls good";
+        metaData = new BtFMetaData(gameState);
     }
     
     //public jsonsendHolder(){
@@ -44,12 +46,21 @@ public class jsonsendHolder {
         this.unitList = new ArrayList(holder.getUnitList());
         //this.deleteUnitList = new ArrayList(holder.getDeleteUnitList());
         this.serverMes = holder.getServerMes();
-        this.firstResponseData = holder.getFirstResponseData();
+        //this.firstResponseData = holder.getFirstResponseData();
         this.properties = holder.getProperties();
+        this.metaData = holder.getMetaData();
     }
 
     public MatchProperties getProperties() {
         return properties;
+    }
+
+    public BtFMetaData getMetaData() {
+        return metaData;
+    }
+
+    public void setMetaData(BtFMetaData metaData) {
+        this.metaData = metaData;
     }
     
     
@@ -94,10 +105,11 @@ public class jsonsendHolder {
         this.deleteUnitList = deleteUnitList;
     }
     */
+    /*
     public void setFirstResponseData(firstResponseSetup firstResponseData) {
         this.firstResponseData = firstResponseData;
     }
-
+    */
     public  List<Terrain> getTerrainList() {
         return terrainList;
     }
@@ -114,10 +126,11 @@ public class jsonsendHolder {
     public  String getServerMes() {
         return serverMes;
     }
-
+    /*
     public  firstResponseSetup getFirstResponseData() {
         return firstResponseData;
     }
+    */
 
     
     
