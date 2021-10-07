@@ -44,6 +44,8 @@ public class NewWSEndpoint {
     
     @OnMessage
     public void messageRecieved(String incoming, Session session) throws IOException, EncodeException {
+        System.out.println("*************************************************************************-->\n"
+                + "MessageRecieved");
         System.out.println("incomingJSON: " + incoming);
         System.out.println("incomingID: " + session.getId());
         
@@ -65,6 +67,8 @@ public class NewWSEndpoint {
         } else{
             System.out.println("NewWSEndpoint: messageRecieved: playerRole validation Failed: session Id: " + session.getId());
         }
+        System.out.println( "onMessage exiting \n"
+                + "*************************************************************************<--");
     }
     @OnOpen 
     public void onOpen (Session peer) {

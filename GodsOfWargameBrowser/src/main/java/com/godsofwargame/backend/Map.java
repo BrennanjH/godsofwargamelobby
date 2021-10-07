@@ -62,6 +62,19 @@ public class Map  {//acts as the gamestate object
         
     }
     
+    public void resetMapStateRetainPlayers(){
+        terrainGrid = new Terrain[row][col];
+        deployedForces = new List[row][col];
+        landOwnership = new Territory[row][col];
+        for(int i =0;i<deployedForces.length;i++){
+            
+            for(int j =0;j<deployedForces[i].length;j++){
+                deployedForces[i][j] = new ArrayList<>();
+            }
+        }
+        System.out.println("Map RE_instantiated");
+        
+    }
     /*
     public List<UnitTypes> getListInDeployedForces(int x ,int y){
         return deployedForces[x][y];

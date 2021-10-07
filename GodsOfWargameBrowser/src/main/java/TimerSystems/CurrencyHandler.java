@@ -24,6 +24,7 @@ public class CurrencyHandler implements Handling{
             //For convience get player of key
             PlayerData focusedPlayer = gameState.getMapState().getPlayer(key);
             //get Player income Handler
+            System.out.println("CurrencyHandler: Handle: playerData owned by: " + focusedPlayer.getPlayerID());
             PlayerIncome generateIncome = new PlayerIncome(focusedPlayer , gameState);
             if(focusedPlayer.playerRole.getRoleType().equals("PlayerRole")){
                 //Get player income

@@ -12,7 +12,7 @@ import java.util.List;
  *
  * @author brenn
  */
-class BtFMetaData {
+public class BtFMetaData {
     List<Team> teamList;
     public BtFMetaData(GodsofWargame gameState){
         teamList = gameState.getFactions();

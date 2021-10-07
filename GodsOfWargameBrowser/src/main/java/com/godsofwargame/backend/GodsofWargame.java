@@ -72,7 +72,7 @@ public class GodsofWargame {
         mapState.GenerateTerrain();//gets terrain placed into 2d array stored in map object
         //Set up fields
         factions = new ArrayList<>();
-        
+        commanders = new HashMap<>();
         //Change preload flag to true
         readyStates.setPreLoad(true);
     }
@@ -108,7 +108,7 @@ public class GodsofWargame {
                 System.out.println("removeCommander: in if remove unit");
                 temp.remove(i);
                 break;
-                        //.remove(temp);
+                
             }
         }
         if (commanders.get(command.getOWNER()).isEmpty()){
@@ -136,7 +136,7 @@ public class GodsofWargame {
                 }
             }
             for(int i =0; i < removeList.size(); i++){
-            t.getTeam().remove(removeList.get(i));
+                t.getTeam().remove(removeList.get(i));
             }
             
         }
@@ -160,5 +160,11 @@ public class GodsofWargame {
             }
         }
         throw new NoTeamAssociationException();
+    }
+    public void  resetGameStateRetainPlayers(){
+        cancelTimer();
+        mapState.resetMapStateRetainPlayers();
+        resetReadyState();
+        preload();
     }
 }
