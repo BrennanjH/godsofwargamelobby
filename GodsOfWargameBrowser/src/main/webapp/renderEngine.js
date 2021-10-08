@@ -16,7 +16,6 @@ var TerrainMap = new Array();
 var territoryMap = new Array();
 
 
-
 function drawUnit(Unit){
     //console.log("drawUnitcalled");
     //console.log(Unit.uzPos);

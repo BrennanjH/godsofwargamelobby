@@ -31,6 +31,7 @@ function handleMUpTank(){
     resetImages();
     hold = true;
     type = "UnitTank";
+    updateUnitPrice();
     //property = "GROUND"; //really doesn't matter as it is overwritten by java
     //let rules = ["MOUNTAIN"];
     //TerrainRules = new terrainRules(rules);
@@ -65,7 +66,7 @@ function handleMUpPlane()
     hold = true;
     type = "UnitPlane";
     //property = "air";
-    
+    updateUnitPrice();
     document.images["planeButton"].src= "placeholder.png";
     return true;
 }
@@ -97,7 +98,7 @@ function handleMUpAA()
     hold = true;
     type = "UnitAntiAir";
     property = "ground";
-    
+    updateUnitPrice();
     //let rules = ["MOUNTAIN"];
     //TerrainRules = new terrainRules(rules);
     document.images["AAButton"].src= "placeholder.png";
@@ -127,7 +128,7 @@ function handleMUpUCS(){
     resetImages();
     hold = true;
     type = "UnitCommandStructure";
-    
+    updateUnitPrice();
     //let rules = ["MOUNTAIN"];
     //TerrainRules = new terrainRules(rules);
     document.images["commandUnitButton"].src = "placeholder.png";
