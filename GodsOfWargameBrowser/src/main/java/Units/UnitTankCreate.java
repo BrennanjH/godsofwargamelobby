@@ -32,10 +32,8 @@ public class UnitTankCreate extends AbstractUnitCreate{
                 if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
                     gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
                     mover.setOwnerMember(gameState.getMapState().getPlayer(Id).getPlayerMember());
-                    mover.setUzPos(bottomStacker(gameState.getMapState()));
-                    //listHolder.addUnit(mover);
-
-                    mapUpdater.newUnitState(gameState.getMapState(),mover);
+                    bottomStacker(gameState.getMapState());
+                    
                     System.out.println("create Unit Command successful");
                 }
 
@@ -44,10 +42,11 @@ public class UnitTankCreate extends AbstractUnitCreate{
         //return listHolder;
     }
     
-    //TODO fix bottom stacker so that it properly creates z cords
-    private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
+    private void bottomStacker(Map mapState){//places the unit at the bottom of the stack
         //System.out.println(gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size());
-        return gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size();
+        mapState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].add(mover);
+        mover.setUzPos(mapState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].indexOf(mover));
+        //return mapState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size() -1;
     }
     private boolean isTerrainValid(Map gameState){
         return mover.getTerrainRules().isValid(gameState.getTerrain(mover.getUxPos(),mover.getUyPos()));

@@ -31,10 +31,9 @@ public class UnitPlaneCreate extends AbstractUnitCreate{
                 if(cost < gameState.getMapState().getPlayer(Id).getMoney() ) {
                     gameState.getMapState().getPlayer(Id).changeMoney(cost * -1);
                     mover.setOwnerMember(gameState.getMapState().getPlayer(Id).getPlayerMember());
-                    mover.setUzPos(bottomStacker(gameState.getMapState()));
-                    //listHolder.addUnit(mover);
+                    bottomStacker(gameState.getMapState());
                     
-                    mapUpdater.newUnitState(gameState.getMapState(),mover);
+                    //mapUpdater.newUnitState(gameState.getMapState(),mover);
                     System.out.println("create Unit Command successful");
                 }
 
@@ -45,9 +44,11 @@ public class UnitPlaneCreate extends AbstractUnitCreate{
     private boolean isTerrainValid(Map gameState){
         return mover.getTerrainRules().isValid(gameState.getTerrain(mover.getUxPos(),mover.getUyPos()));
     }
-    private int bottomStacker(Map gameState){//returns size of ArrayList at the given x,y
+    private void bottomStacker(Map mapState){//places the unit at the bottom of the stack
         //System.out.println(gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size());
-        return gameState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size() -1;
+        mapState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].add(mover);
+        mover.setUzPos(mapState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].indexOf(mover));
+        //return mapState.getDeployedForces()[mover.getUxPos()][mover.getUyPos()].size() -1;
     }
     private int getCost(){
         return (mover.getUdamage()*damagePrice)

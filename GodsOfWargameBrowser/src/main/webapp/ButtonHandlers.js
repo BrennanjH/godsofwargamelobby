@@ -73,7 +73,7 @@ function handleMUpPlane()
 function changeImagePlane()
 {
     if(!hold){
-        document.images["planeButton"].src= "WolfTemplate.PNG";
+        document.images["planeButton"].src= "plane_when_mOver.png";
     }
     return true;
 }
