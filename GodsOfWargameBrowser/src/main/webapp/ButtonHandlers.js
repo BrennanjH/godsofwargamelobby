@@ -6,7 +6,11 @@
 
 //TODO Find or make actual images for both units and buttons to press down and become
 //////////////The Following code is for Tanks/////////////////////////////////////////////////////////////////////////////////////
-var hold = false;
+
+var tankButtonHold = false;
+var planeButtonHold = false;
+var UCSButtonHold = false;
+var AAButtonHold = false;
 function setNextUnit(){
 
      //setClass("tank");//Currently unused as since input is impossible
@@ -29,7 +33,7 @@ function handleMDownTank() { //button press for unit
 
 function handleMUpTank(){
     resetImages();
-    hold = true;
+    tankButtonHold = true;
     type = "UnitTank";
     updateUnitPrice();
     //property = "GROUND"; //really doesn't matter as it is overwritten by java
@@ -40,13 +44,13 @@ function handleMUpTank(){
     return true;
 }
 function changeImageTank(){
-    if(!hold){
+    if(!tankButtonHold){
         document.images["tankButton"].src= "WolfTemplate.PNG";
     }
     return true;
 }
 function changeImageBackTank(){
-    if(!hold){
+    if(!tankButtonHold){
         document.images["tankButton"].src = "UnitTank.png";
     }
     return true;
@@ -63,7 +67,7 @@ function handleMDownPlane() //button press for unit
 function handleMUpPlane() 
 {
     resetImages();
-    hold = true;
+    planeButtonHold = true;
     type = "UnitPlane";
     //property = "air";
     updateUnitPrice();
@@ -72,14 +76,15 @@ function handleMUpPlane()
 }
 function changeImagePlane()
 {
-    if(!hold){
+    
+    if(!planeButtonHold){
         document.images["planeButton"].src= "plane_when_mOver.png";
     }
     return true;
 }
 function changeImageBackPlane()
 {
-    if(!hold){
+    if(!planeButtonHold){
         document.images["planeButton"].src = "UnitPlane.png";
     }
     return true;
@@ -95,7 +100,7 @@ function handleMDownAA() //button press for unit
 function handleMUpAA() 
 {
     resetImages();
-    hold = true;
+    AAButtonHold = true;
     type = "UnitAntiAir";
     property = "ground";
     updateUnitPrice();
@@ -106,14 +111,14 @@ function handleMUpAA()
 }
 function changeImageAA()
 {
-    if(!hold){
+    if(!AAButtonHold){
         document.images["AAButton"].src= "WolfTemplate.PNG";
     }
     return true;
 }
 function changeImageBackAA()
 {
-    if(!hold){
+    if(!AAButtonHold){
         document.images["AAButton"].src = "UnitAntiAir.png";
     }
     return true;
@@ -126,7 +131,7 @@ function handleMDownUCS(){
 }
 function handleMUpUCS(){
     resetImages();
-    hold = true;
+    UCSButtonHold = true;
     type = "UnitCommandStructure";
     updateUnitPrice();
     //let rules = ["MOUNTAIN"];
@@ -136,22 +141,28 @@ function handleMUpUCS(){
     return true;
 }
 function changeImageUCS(){
-    if(!hold){
+    if(!UCSButtonHold){
         document.images["commandUnitButton"].src= "WolfTemplate.PNG";
     }
     return true;
 }
 function changeImageBackUCS(){
-    if(!hold){
+    if(!UCSButtonHold){
         document.images["commandUnitButton"].src = "UnitCommandStructure.png";
     }
     return true;
 }
 //Images need to go back to their original when a new one is pressed.
 function resetImages(){
-    hold = false;
+    resetButtonHolders();
     changeImageBackTank();
     changeImageBackAA();
     changeImageBackPlane();
     changeImageBackUCS();
+}
+function resetButtonHolders(){
+    tankButtonHold = false;
+    planeButtonHold = false;
+    UCSButtonHold = false;
+    AAButtonHold = false;
 }

@@ -37,13 +37,24 @@ public class UnitTankMovement extends AbstractUnitMovement{
         int newX = path.getPathingRoute().get(1)[0];
         int newY = path.getPathingRoute().get(1)[1];
         if ( validate(newX, newY ) ) {
+            
+            int oldX = mover.getUxPos();
+            int oldY = mover.getUyPos();
             //move unit to next square
-            //TODO create method in map that handles moving units around that way when a unit moves it can automatically downshift the z cords of units in the remaining location
+            
             gameState.getMapState().removeUnitTypeinDeployedForces(mover.getUxPos(), mover.getUyPos(), mover);
             mover.setUxPos(newX);
             mover.setUyPos(newY);
             gameState.getMapState().addDeployedForces(mover.getUxPos(), mover.getUyPos(), mover);
+            mover.setUzPos(gameState.getMapState().getDeployedForces()[mover.getUxPos()][mover.getUyPos()].indexOf(mover)  );
             path.pathingRoute.remove(0);
+            
+            //In the units old position update all units zPos
+            for(UnitTypes ut : gameState.getMapState().getDeployedForces()[oldX][oldY]) { 
+                ut.setUzPos(gameState.getMapState().getDeployedForces()[ut.getUxPos()][ut.getUyPos()].indexOf(ut));
+            }
+            
+            
         } else {
             //If validation fails sets the route to an empty route
             path = new Routing();   

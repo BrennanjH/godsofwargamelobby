@@ -13,7 +13,7 @@ import Faction.Team;
  * @author brenn
  */
 public class PlayerData {//holds information related to the player and only the player
-    private int money = 10000;//default starting value
+    private int money = 3000;//default starting value
     //private final String playerID;
     boolean readyState;
     public Member playerMember;
