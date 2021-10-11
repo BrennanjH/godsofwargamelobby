@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-//TODO Find or make actual images for both units and buttons to press down and become
-//////////////The Following code is for Tanks/////////////////////////////////////////////////////////////////////////////////////
-
 var tankButtonHold = false;
 var planeButtonHold = false;
 var UCSButtonHold = false;
 var AAButtonHold = false;
+//TODO Find or make actual images for both units and buttons to press down and become
+//////////////The Following code is for Tanks/////////////////////////////////////////////////////////////////////////////////////
+
+
 function setNextUnit(){
 
      //setClass("tank");//Currently unused as since input is impossible

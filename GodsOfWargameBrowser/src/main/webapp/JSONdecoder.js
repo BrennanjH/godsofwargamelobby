@@ -8,11 +8,13 @@ function JSONgameStateUpdater(json){//Properly updates gamestate (lists of units
     var message = JSON.parse(json);
     console.log("entered into JSONLOGICFINDER");
     //turnOff(message.firstResponseData);
-    terrainHandling(message.terrainList);// Unlike UnitHandling which runs regardless of Unit presence TerrainHandling doesn't run if empty
+    
     unitHandling(message.unitList);
     playerDataHandling(message.playerInfo);
     propertiesHandling(message.properties);
     territoryHandling(message.territories);
+    metaHandling(message.metaData);
+    terrainHandling(message.terrainList);// Unlike UnitHandling which runs regardless of Unit presence TerrainHandling doesn't run if empty
 }
 function territoryHandling(data){
     if (typeof data !== "undefined"){
@@ -30,10 +32,9 @@ function playerDataHandling(data){
             teamName = data.playerMember.factionName;
             console.log(data.playerMember.Id);
             document.getElementById("money").textContent = money;
-            console.log("ReadyState: ");
-            console.log(readyState);
+            
             if(readyState === true){
-                console.log("Ready state is equal to true");
+                
                 document.getElementById("readyState").textContent = "Ready";
             } else {
                 document.getElementById("readyState").textContent = "Not ready";
@@ -76,6 +77,28 @@ function propertiesHandling(properties){
     if (typeof properties !== "undefined"){
         if(Object.entries(properties).length !== 0){
             gameSettings = properties;
+        }
+    }
+}
+function metaHandling(data) {
+    if (typeof data !== "undefined"){
+        if(Object.entries(data).length !== 0){
+            //reset the html tags so that old data is lost
+            let teamData = document.getElementById("teams");
+            teamData.innerHTML = "Team Names: ";
+            let playerNames = document.getElementById("players");
+            playerNames.innerHTML = "Players: ";
+            
+            //Get the new team information and place it into the tag
+            for(let i = 0; i < data.teamList.length; i++){
+                teamData.innerHTML = teamData.innerHTML + data.teamList[i].teamName + " || ";
+                //get the player information on that team and display it
+                for(let j=0; j < data.teamList[i].coalitionMembers.length;j++){
+                    playerNames.innerHTML = playerNames.innerHTML + "Name: " + data.teamList[i].coalitionMembers[j].Id
+                    + " On Team: " + data.teamList[i].coalitionMembers[j].factionName + " || ";
+                }
+                
+            }
         }
     }
 }

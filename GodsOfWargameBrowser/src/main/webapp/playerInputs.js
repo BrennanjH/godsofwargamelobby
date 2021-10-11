@@ -154,3 +154,6 @@ function joinTeam(){
     console.log(teamName);
     commandPossibleServer(joinTeam);
 }
+function showPlayers(){
+    
+}
