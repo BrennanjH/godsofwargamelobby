@@ -29,18 +29,23 @@ public class moveUnitCommand implements commandInterface{//a small class that ha
     public void execute(GodsofWargame gameState, String ID){
         
         this.gameState = gameState;
-        UnitTypes serverSide = gameState.getMapState()
-                                        .getUnitTypeinDeployedForces(movingUnit.getUxPos(), movingUnit.getUyPos(), movingUnit.getUzPos());
-        if (validate(serverSide, ID)) {
-            System.out.println("moveUnitCommand: Validation Passed");
-            //Add pathingRoute to serverSideUnits moveHandler
-            serverSide.getMoveHandler().setPath(pathingRoute);
-            
-        } else {
-            System.out.println("moveUnitCommand: Validation Failed");
+        
+        //Check if the unit's x and y coords can be safely Searched
+        if(gameState.getMapState().getRow() > movingUnit.getUxPos() && gameState.getMapState().getCol() > movingUnit.getUyPos()){
+            //Check if the unit's z coords can be safely searched
+            if(gameState.getMapState().getDeployedForces()[movingUnit.getUxPos()][movingUnit.getUyPos()].size() > movingUnit.getUzPos()){
+                UnitTypes serverSide = gameState.getMapState()
+                                                .getUnitTypeinDeployedForces(movingUnit.getUxPos(), movingUnit.getUyPos(), movingUnit.getUzPos());
+                if (validate(serverSide, ID)) {
+                    System.out.println("moveUnitCommand: Validation Passed");
+                    //Add pathingRoute to serverSideUnits moveHandler
+                    serverSide.getMoveHandler().setPath(pathingRoute);
+
+                } else {
+                    System.out.println("moveUnitCommand: Validation Failed");
+                }
+            }
         }
-        
-        
         
     }
     
